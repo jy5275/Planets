@@ -37,7 +37,9 @@ public class Mouse implements MouseMotionListener, MouseListener {
         double vx_ = (finx - begx) / 20000;
         double vy_ = (finy - begy) / 20000;
         Planet newp = new Planet(Mainfile.DEFAULT_M, begx, begy, vx_, vy_, "images/moon.png");
-        frame.planets.push(newp);
+        synchronized (frame.planets) {
+            frame.planets.add(newp);
+        }
     }
 
     @Override

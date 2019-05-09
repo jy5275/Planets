@@ -21,7 +21,7 @@ class Force {
 }
 
 public class Planet {
-    final double G = 6.67e-11, dx = 1700;
+    final double G = 6.67e-11, dx = 1000;
     double m, x, y, vx, vy;
     Force F;
     LinkedList<Point> log;
@@ -69,10 +69,14 @@ public class Planet {
 
     boolean MergeOK(Planet p) {
         if (GetDistance(p) < dx) {
-            // x y 动量守恒
+            // x y 动針守杒
             vx = (m * vx + p.m * p.vx) / (m + p.m);
             vy = (m * vy + p.m * p.vy) / (m + p.m);
             m += p.m;
+            if (m < p.m) {
+                x = p.x;
+                y = p.y;
+            }
             p.visible = false;
             return true;
         }

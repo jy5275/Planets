@@ -10,14 +10,15 @@ public class Mouse implements MouseMotionListener, MouseListener {
     Planet cache;
     double begx, begy;
 
-    public Mouse() {
+    public Mouse(Mainfile f) {
+        frame = f;
+        frame.add(tField, "South");
+        frame.addMouseListener(this);
+        frame.addMouseMotionListener(this);
     }
 
     public void Add2Frame(Mainfile f_) {
         frame = f_;
-        frame.add(tField, "South");
-        frame.addMouseListener(this);
-        frame.addMouseMotionListener(this);
     }
 
     @Override
@@ -37,9 +38,7 @@ public class Mouse implements MouseMotionListener, MouseListener {
         double vx_ = (finx - begx) / 20000;
         double vy_ = (finy - begy) / 20000;
         Planet newp = new Planet(Mainfile.DEFAULT_M, begx, begy, vx_, vy_, "images/moon.png");
-        synchronized (frame.planets) {
-            frame.planets.add(newp);
-        }
+        frame.planets.add(newp);
     }
 
     @Override

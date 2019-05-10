@@ -6,24 +6,37 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
 
+/*
+ *	能改的地方:
+ *	1. 创建 Planet 时显示发射轨迹线
+ *	2. 不同质量 Planet 用不同颜色图片来表示
+ *	3. 添加功能: [Trace/Untrace] 按钮
+ *	4. 添加功能: 单击 Planet 显示属性
+ *	5. 添加多种原始星系模型
+ *	6. 添加功能: 强行改变引力公式
+ *	7.* 近距离乱飞问题
+ * 
+ */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
 	ArrayList<Planet> planets;
 	Mouse m;
 	JPanel p;
-	JButton cltrbt, clbt, Huge, Mid, Tiny;
+	JButton cltrbt, clbt, Huge, Mid, Tiny, Show;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
+	boolean showT = false;
 
-	Mainfile(String title, Mouse m_) {
+	Mainfile(String title) {
 		super(title);
-		m = m_;
+		m = new Mouse(this);
 
 		ClearTrace ct = new ClearTrace(this);
 		ClearAll ca = new ClearAll(this);
 		CreateHuge chuge = new CreateHuge(this);
 		CreateMid cmid = new CreateMid(this);
 		CreateTiny ctiny = new CreateTiny(this);
+		ShowTrace show = new ShowTrace(this);
 
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
@@ -50,6 +63,11 @@ public class Mainfile extends Frame {
 		Tiny.setBounds(1670, 420, 100, 40);
 		Tiny.setVisible(true);
 
+		Show = new JButton("Show Trace");
+		Show.addActionListener(show);
+		Show.setBounds(1650, 480, 120, 80);
+		Show.setVisible(true);
+
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(5e13, 0, 0, 0, 0, "images/moon.png"));
 		planets.add(new Planet(3e13, 42097, 0, 0, 0.1, "images/moon.png"));
@@ -62,8 +80,8 @@ public class Mainfile extends Frame {
 		p.add(Huge);
 		p.add(Mid);
 		p.add(Tiny);
+		p.add(Show);
 
-		setBackground(Color.white);
 		setSize(1846, 1500);
 		setLocation(50, 50);
 
@@ -123,7 +141,8 @@ public class Mainfile extends Frame {
 			if (!p.visible)
 				continue;
 			p.Move(dt);
-			p.AddTrace();
+			if (showT)
+				p.AddTrace();
 		}
 	}
 
@@ -134,9 +153,9 @@ public class Mainfile extends Frame {
 				System.exit(0);
 			}
 		});
-		while (true) { // 重画窗口, 25次/s
+		while (true) { // 重画窗口
 			repaint();
-			Thread.sleep(2); // 40ms
+			Thread.sleep(2);
 		}
 	}
 
@@ -152,9 +171,7 @@ public class Mainfile extends Frame {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Planets test version! ");
-		Mouse m = new Mouse();
-		Mainfile galaxy = new Mainfile("Planets in galaxy", m);
-		m.Add2Frame(galaxy);
+		Mainfile galaxy = new Mainfile("Planets in galaxy");
 		galaxy.launchFrame();
 	}
 }

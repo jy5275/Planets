@@ -25,3 +25,19 @@ class ClearAll implements ActionListener {
         frame.ClearAll();
     }
 }
+
+class ShowTrace implements ActionListener {
+    Mainfile frame;
+
+    public ShowTrace(Mainfile f) {
+        frame = f;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (frame.showT) {
+            frame.showT = false;
+            frame.ClearTrace();
+        } else
+            frame.showT = true;
+    }
+}

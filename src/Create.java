@@ -11,7 +11,7 @@ class CreateHuge implements ActionListener {
     }
 
     @Override
-    /* 界面上按下[Huge]时调用此方法,修改Mainfile中参数 */
+    /* 界面上按下[Huge]时调用此方法,修改Mainfile中参数,以便创建下一个天体 */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = hugem;
         frame.impath = "images/sun.png";
@@ -28,7 +28,7 @@ class CreateMid implements ActionListener {
     }
 
     @Override
-    /* 界面上按下[Meddium]时调用此方法,修改Mainfile中参数 */
+    /* 界面上按下[Meddium]时调用此方法,修改Mainfile中参数,以便创建下一个天体 */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = midm;
         frame.impath = "images/earth.png";
@@ -45,7 +45,7 @@ class CreateTiny implements ActionListener {
     }
 
     @Override
-    /* 界面上按下[Tiny]时调用此方法,修改Mainfile中参数 */
+    /* 界面上按下[Tiny]时调用此方法,修改Mainfile中参数,以便创建下一个天体 */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = tinym;
         frame.impath = "images/moon.png";

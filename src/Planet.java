@@ -30,7 +30,6 @@ public class Planet {
     LinkedList<Point> log;
     Image self, tail;
     boolean visible;
-    Shape shape = null;// ?????????,???????????
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, String path) {
         m = m_;
@@ -45,21 +44,25 @@ public class Planet {
         visible = true;
     }
 
+    /* ?????? */
     void Forced(double dt) {
         vx += F.Fx * dt / m;
         vy += F.Fy * dt / m;
         F.clear();
     }
 
+    /* ?????? */
     void Move(double dt) {
         x += vx * dt;
         y += vy * dt;
     }
 
+    /* Mainfile.showT == true ????AddTrace */
     void AddTrace() {
         log.push(new Point(x, y));
     }
 
+    /* ???Planet??, ?????(log), ??!Mainfile.showT, ?log?? */
     void DrawPlanet(Graphics g) {
         if (visible)
             g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
@@ -71,6 +74,7 @@ public class Planet {
         return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
     }
 
+    /* this????p??merge, Merge???true, ????false */
     boolean MergeOK(Planet p) {
         if (GetDistance(p) < dx) { // Two planets collides!
             // Dong liang shou heng
@@ -88,6 +92,7 @@ public class Planet {
         return false;
     }
 
+    /* p?????this?????? */
     void AddForce(Planet p) {
         double dist = GetDistance(p);
         double dFx = G * m * p.m * (p.x - x) / Math.pow(dist, 3);

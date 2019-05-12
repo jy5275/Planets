@@ -18,10 +18,10 @@ import java.awt.event.*;
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
 	ArrayList<Planet> planets;
-	Planet vplanet; // 创建中的Planet,最多一个
+	Planet vplanet; // 正在创建中的Planet,鼠标还没release
 	Mouse m;
 	JPanel p;
-	static String impath;
+	static String impath = "images/earth.png";
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
@@ -120,58 +120,63 @@ public class Mainfile extends Frame {
 		return (double) (n - 400) * 100;
 	}
 
+	/* 显示创建中的Planet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null)
 			g.drawImage(vplanet.self, cvt(vplanet.x), cvt(vplanet.y), null);
 	}
 
-	// 画窗口的方法
+	/* 画窗口的方法, 每次重画窗口调用一次paint */  
 	public void paint(Graphics g) {
-		g.drawImage(bg, 0, 0, null);
-		double dt = 60; // 1 min
+		g.drawImage(bg, 0, 0, null); // 画背景
+		double dt = 60; // 时间步进, 单位:s
 
-		for (Planet p : planets)
+		for (Planet p : planets) // 画每个天体, !visible的在方法里边特殊处理
 			p.DrawPlanet(g);
-		DrawVplanet(g);
-		if (m.Clicking) {
+		DrawVplanet(g); // 画创建中的天体, 只画出来, 不参与引力计算
+		if (m.Clicking) { // 如果鼠标click还没release, 就画弹射线
 			g.setColor(Color.YELLOW);
 			g.drawLine(m.gotx + 15, m.goty + 15, curx, cury);
 		}
+		/* 遍历每个天体, 计算其所受合力(Fx, Fy) */
 		for (Planet p : planets) {
 			if (!p.visible)
 				continue;
 			for (Planet q : planets) {
-				if (!q.visible)
+				if (!q.visible) // 跳过已经被merge的天体
 					continue;
-				if (p == q)
+				if (p == q) // 自己不对自己施力
 					continue;
-				if (!p.MergeOK(q))
+				if (!p.MergeOK(q)) // 如果Merge了就不算引力增量, 因为动量已守恒了
 					p.AddForce(q);
 			}
-			p.Forced(dt);
+			p.Forced(dt); // p天体所受合力(Fx, Fy)改变p天体速度(vx, vy)
 		}
+
+		/* 遍历每个天体, 由速度计算其位移改变 */
 		for (Planet p : planets) {
-			if (!p.visible)
+			if (!p.visible) // 死掉的天体就跳过
 				continue;
-			p.Move(dt);
-			if (showT)
+			p.Move(dt); // 位移改变！
+			if (showT) // 若显示轨迹, 则添加当前位置到轨迹(log)中
 				p.AddTrace();
 		}
 	}
 
-	// 窗口加载
+	/* 窗口加载方法, 运行时一直陷在这个方法里死循环 */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter() { // 除非点击关闭按钮使进程终止
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
-		while (true) { // 重画窗口
+		while (true) { // 反复重画窗口, 死循环
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
+	/* 重写 update 方法可以改善画质, 原理我也不懂, copy from CSDN */
 	private Image offScreenImage = null;
 
 	public void update(Graphics g) {

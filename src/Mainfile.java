@@ -8,12 +8,12 @@ import java.awt.event.*;
 
 /*
  *	能改的地方:
- *	1. 创建 Planet 时显示发射轨迹线
  *	2. 不同质量 Planet 用不同颜色图片来表示
  *	4. 添加功能: 单击 Planet 显示属性
  *	5. 添加多种原始星系模型
  *	6. 添加功能: 强行改变引力公式
  *	7.* 近距离乱飞问题
+ *  8. 暂停功能
  */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");

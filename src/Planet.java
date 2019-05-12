@@ -64,10 +64,10 @@ public class Planet {
 
     /* ???Planet??, ?????(log), ??!Mainfile.showT, ?log?? */
     void DrawPlanet(Graphics g) {
-        if (visible)
-            g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
         for (Point p : log)
             g.drawImage(tail, Mainfile.cvt(p.x), Mainfile.cvt(p.y), null);
+        if (visible)
+            g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
     }
 
     double GetDistance(Planet p) {

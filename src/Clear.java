@@ -33,6 +33,7 @@ class ShowTrace implements ActionListener {
         frame = f;
     }
 
+    /* 点ShowTrace ==> 是/否showTrace状态改变,调用Mainfile::ClearTrace方法. */
     public void actionPerformed(ActionEvent e) {
         if (frame.showT) {
             frame.showT = false;

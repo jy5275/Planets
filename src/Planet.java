@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+
 import javax.swing.*;
 import java.util.*;
 
@@ -27,6 +30,7 @@ public class Planet {
     LinkedList<Point> log;
     Image self, tail;
     boolean visible;
+    Shape shape = null;// ?????????,???????????
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, String path) {
         m = m_;
@@ -68,15 +72,16 @@ public class Planet {
     }
 
     boolean MergeOK(Planet p) {
-        if (GetDistance(p) < dx) {
-            // x y 动針守杒
+        if (GetDistance(p) < dx) { // Two planets collides!
+            // Dong liang shou heng
             vx = (m * vx + p.m * p.vx) / (m + p.m);
             vy = (m * vy + p.m * p.vy) / (m + p.m);
-            m += p.m;
-            if (m < p.m) {
+            if (m < p.m) { // the other is heavier!
+                self = p.self;
                 x = p.x;
                 y = p.y;
             }
+            m += p.m;
             p.visible = false;
             return true;
         }
@@ -90,4 +95,5 @@ public class Planet {
         F.Fx += dFx;
         F.Fy += dFy;
     }
+
 }

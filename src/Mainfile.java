@@ -10,22 +10,23 @@ import java.awt.event.*;
  *	能改的地方:
  *	1. 创建 Planet 时显示发射轨迹线
  *	2. 不同质量 Planet 用不同颜色图片来表示
- *	3. 添加功能: [Trace/Untrace] 按钮
  *	4. 添加功能: 单击 Planet 显示属性
  *	5. 添加多种原始星系模型
  *	6. 添加功能: 强行改变引力公式
  *	7.* 近距离乱飞问题
- * 
  */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
 	ArrayList<Planet> planets;
+	Planet vplanet; // 创建中的Planet,最多一个
 	Mouse m;
 	JPanel p;
+	static String impath;
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
 	boolean showT = false;
+	int curx, cury;
 
 	Mainfile(String title) {
 		super(title);
@@ -69,9 +70,9 @@ public class Mainfile extends Frame {
 		Show.setVisible(true);
 
 		planets = new ArrayList<Planet>();
-		planets.add(new Planet(5e13, 0, 0, 0, 0, "images/moon.png"));
-		planets.add(new Planet(3e13, 42097, 0, 0, 0.1, "images/moon.png"));
-		planets.add(new Planet(2e13, 6097, 52097, 0.05, 0.03, "images/moon.png"));
+		planets.add(new Planet(DEFAULT_M, 0, 0, 0, 0.3, "images/earth.png"));
+		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2, "images/earth.png"));
+		planets.add(new Planet(DEFAULT_M, 6097, 52097, 0.05, -0.3, "images/earth.png"));
 
 		p = new JPanel(null);
 		p.setBackground(Color.DARK_GRAY);
@@ -103,27 +104,39 @@ public class Mainfile extends Frame {
 		}
 	}
 
-	public void ClearAll() {
+	public void ClearAll() { // 清屏
 		planets.clear();
+		vplanet = null;
 	}
 
+	/* 真实宇宙坐标 cvt2 屏幕显示坐标 */
 	public static int cvt(double x) {
 		double red = x / (100);
 		return (int) red + 400;
 	}
 
+	/* 屏幕显示坐标 cvt2 真实宇宙坐标 */
 	public static double recvt(int n) {
 		return (double) (n - 400) * 100;
+	}
+
+	public void DrawVplanet(Graphics g) {
+		if (vplanet != null)
+			g.drawImage(vplanet.self, cvt(vplanet.x), cvt(vplanet.y), null);
 	}
 
 	// 画窗口的方法
 	public void paint(Graphics g) {
 		g.drawImage(bg, 0, 0, null);
-		double dt = 150; // 10 min
+		double dt = 60; // 1 min
 
 		for (Planet p : planets)
 			p.DrawPlanet(g);
-
+		DrawVplanet(g);
+		if (m.Clicking) {
+			g.setColor(Color.YELLOW);
+			g.drawLine(m.gotx + 15, m.goty + 15, curx, cury);
+		}
 		for (Planet p : planets) {
 			if (!p.visible)
 				continue;
@@ -155,7 +168,7 @@ public class Mainfile extends Frame {
 		});
 		while (true) { // 重画窗口
 			repaint();
-			Thread.sleep(2);
+			Thread.sleep(1);
 		}
 	}
 
@@ -173,5 +186,6 @@ public class Mainfile extends Frame {
 		System.out.println("Planets test version! ");
 		Mainfile galaxy = new Mainfile("Planets in galaxy");
 		galaxy.launchFrame();
+
 	}
 }

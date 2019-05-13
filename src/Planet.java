@@ -25,13 +25,12 @@ class Force {
 
 public class Planet {
     double G = 6.67e-11, dx = 2500;
-    /* 解决靠近飞出问题：如果两天体距离<mergezone,则在Move时强行让它们放慢移动速度 */
+    /* 瑙ｅ喅闈犺繎椋炲嚭闂锛氬鏋滀袱澶╀綋璺濈<mergezone,鍒欏湪Move鏃跺己琛岃瀹冧滑鏀炬參绉诲姩閫熷害 */
     double maymergezone = 8000;
     double m, x, y, vx, vy;
     Force F;
-    LinkedList<Point> log;
     Image self, tail;
-    boolean visible, maymerge = false; // this是否与某个天体距离近于Mergezone
+    boolean visible, maymerge = false; // this鏄惁涓庢煇涓ぉ浣撹窛绂昏繎浜嶮ergezone
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, String path) {
         m = m_;
@@ -40,7 +39,6 @@ public class Planet {
         vx = vx_;
         vy = vy_;
         F = new Force();
-        log = new LinkedList<Point>();
         tail = Toolkit.getDefaultToolkit().getImage("images/tail.png");
         self = Toolkit.getDefaultToolkit().getImage(path);
         visible = true;
@@ -56,7 +54,7 @@ public class Planet {
     /* ?????? */
     void Move(double dt) {
         double factor = 1;
-        /* 如果两Planet靠太近,就强行让他们位移少一点(乘一个小于1的factor) */
+        /* 濡傛灉涓lanet闈犲お杩�,灏卞己琛岃浠栦滑浣嶇Щ灏戜竴鐐�(涔樹竴涓皬浜�1鐨刦actor) */
         if (maymerge) {
             if (Math.abs(vx) > 10 || Math.abs(vy) > 10)
                 factor = 0.3;
@@ -70,15 +68,8 @@ public class Planet {
         maymerge = false;
     }
 
-    /* Mainfile.showT == true ????AddTrace */
-    void AddTrace() {
-        log.push(new Point(x, y));
-    }
-
     /* ???Planet??, ?????(log), ??!Mainfile.showT, ?log?? */
     void DrawPlanet(Graphics g) {
-        for (Point p : log)
-            g.drawImage(tail, Mainfile.cvt(p.x), Mainfile.cvt(p.y), null);
         if (visible)
             g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
     }

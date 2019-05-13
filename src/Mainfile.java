@@ -5,6 +5,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
 
 /*
  *	能改的地方:
@@ -17,6 +19,8 @@ import java.awt.event.*;
  */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
+	BufferedImage planetBF,traceBF;
+	Graphics2D planetBG,traceBG;
 	ArrayList<Planet> planets;
 	Planet vplanet; // 正在创建中的Planet,鼠标还没release
 	Mouse m;
@@ -82,7 +86,14 @@ public class Mainfile extends Frame {
 		p.add(Mid);
 		p.add(Tiny);
 		p.add(Show);
-
+		
+		traceBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
+		planetBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
+		traceBG = traceBF.createGraphics();
+		planetBG = planetBF.createGraphics();
+		traceBG.setBackground(new Color(0,0,0,0));
+		planetBG.setBackground(new Color(0,0,0,0));
+        
 		setSize(1846, 1500);
 		setLocation(50, 50);
 
@@ -94,18 +105,12 @@ public class Mainfile extends Frame {
 	}
 
 	public void ClearTrace() {
-		for (int i = 0; i < planets.size(); i++) {
-			Planet p = planets.get(i);
-			p.log.clear();
-			if (!p.visible) {
-				planets.remove(p);
-				i--;
-			}
-		}
+		traceBG.clearRect(0, 0, 1646, 1263);
 	}
 
 	public void ClearAll() { // 清屏
 		planets.clear();
+		traceBG.clearRect(0, 0, 1646, 1263);
 		vplanet = null;
 	}
 
@@ -125,18 +130,17 @@ public class Mainfile extends Frame {
 		if (vplanet != null)
 			g.drawImage(vplanet.self, cvt(vplanet.x), cvt(vplanet.y), null);
 	}
-
-	/* 画窗口的方法, 每次重画窗口调用一次paint */  
-	public void paint(Graphics g) {
-		g.drawImage(bg, 0, 0, null); // 画背景
+	
+	/* 在缓存上绘制 */
+	void paintFG() {
+		planetBG.clearRect(0, 0, 1646, 1263);
 		double dt = 120; // 时间步进, 单位:s
-
 		for (Planet p : planets) // 画每个天体, !visible的在方法里边特殊处理
-			p.DrawPlanet(g);
-		DrawVplanet(g); // 画创建中的天体, 只画出来, 不参与引力计算
+			p.DrawPlanet(planetBG);
+		DrawVplanet(planetBG); // 画创建中的天体, 只画出来, 不参与引力计算
 		if (m.Clicking) { // 如果鼠标click还没release, 就画弹射线
-			g.setColor(Color.YELLOW);
-			g.drawLine(m.gotx + 15, m.goty + 15, curx, cury);
+			planetBG.setColor(Color.YELLOW);
+			planetBG.drawLine(m.gotx + 15, m.goty + 15, curx, cury);
 		}
 		/* 遍历每个天体, 计算其所受合力(Fx, Fy) */
 		for (Planet p : planets) {
@@ -159,10 +163,18 @@ public class Mainfile extends Frame {
 				continue;
 			p.Move(dt); // 位移改变！
 			if (showT) // 若显示轨迹, 则添加当前位置到轨迹(log)中
-				p.AddTrace();
+				traceBG.drawImage(p.tail, cvt(p.x), cvt(p.y), null);
 		}
 	}
 
+	/* 画窗口的方法, 每次重画窗口调用一次paint */  
+	public void paint(Graphics g) {
+		paintFG();
+		g.drawImage(bg, 0, 0, null); // 画背景
+		g.drawImage(traceBF, 0, 0, null); //画轨迹
+		g.drawImage(planetBF, 0, 0, null); //画行星
+	}
+	
 	/* 窗口加载方法, 运行时一直陷在这个方法里死循环 */
 	void launchFrame() throws Exception {
 		addWindowListener(new WindowAdapter() { // 除非点击关闭按钮使进程终止

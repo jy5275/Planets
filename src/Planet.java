@@ -24,12 +24,14 @@ class Force {
 }
 
 public class Planet {
-    final double G = 6.67e-11, dx = 1000;
+    double G = 6.67e-11, dx = 2500;
+    /* 解决靠近飞出问题：如果两天体距离<mergezone,则在Move时强行让它们放慢移动速度 */
+    double maymergezone = 8000;
     double m, x, y, vx, vy;
     Force F;
     LinkedList<Point> log;
     Image self, tail;
-    boolean visible;
+    boolean visible, maymerge = false; // this是否与某个天体距离近于Mergezone
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, String path) {
         m = m_;
@@ -53,8 +55,19 @@ public class Planet {
 
     /* ?????? */
     void Move(double dt) {
-        x += vx * dt;
-        y += vy * dt;
+        double factor = 1;
+        /* 如果两Planet靠太近,就强行让他们位移少一点(乘一个小于1的factor) */
+        if (maymerge) {
+            if (Math.abs(vx) > 10 || Math.abs(vy) > 10)
+                factor = 0.3;
+            else if (Math.abs(vx) > 7 || Math.abs(vy) > 7)
+                factor = 0.6;
+            else if (Math.abs(vx) > 4 || Math.abs(vy) > 4)
+                factor = 0.85;
+        }
+        x += vx * dt * factor;
+        y += vy * dt * factor;
+        maymerge = false;
     }
 
     /* Mainfile.showT == true ????AddTrace */
@@ -76,7 +89,8 @@ public class Planet {
 
     /* this????p??merge, Merge???true, ????false */
     boolean MergeOK(Planet p) {
-        if (GetDistance(p) < dx) { // Two planets collides!
+        double dist = GetDistance(p);
+        if (dist < dx) { // Two planets collides!
             // Dong liang shou heng
             vx = (m * vx + p.m * p.vx) / (m + p.m);
             vy = (m * vy + p.m * p.vy) / (m + p.m);
@@ -88,6 +102,9 @@ public class Planet {
             m += p.m;
             p.visible = false;
             return true;
+        }
+        if (dist < maymergezone) {
+            maymerge = true;
         }
         return false;
     }

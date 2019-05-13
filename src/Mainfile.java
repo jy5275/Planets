@@ -31,7 +31,7 @@ public class Mainfile extends Frame {
 	Mainfile(String title) {
 		super(title);
 		m = new Mouse(this);
-
+		showT = true;
 		ClearTrace ct = new ClearTrace(this);
 		ClearAll ca = new ClearAll(this);
 		CreateHuge chuge = new CreateHuge(this);
@@ -70,9 +70,9 @@ public class Mainfile extends Frame {
 		Show.setVisible(true);
 
 		planets = new ArrayList<Planet>();
-		planets.add(new Planet(DEFAULT_M, 0, 0, 0, 0.3, "images/earth.png"));
+		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4, "images/earth.png"));
 		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2, "images/earth.png"));
-		planets.add(new Planet(DEFAULT_M, 6097, 52097, 0.05, -0.3, "images/earth.png"));
+		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3, "images/earth.png"));
 
 		p = new JPanel(null);
 		p.setBackground(Color.DARK_GRAY);
@@ -129,7 +129,7 @@ public class Mainfile extends Frame {
 	/* 画窗口的方法, 每次重画窗口调用一次paint */  
 	public void paint(Graphics g) {
 		g.drawImage(bg, 0, 0, null); // 画背景
-		double dt = 60; // 时间步进, 单位:s
+		double dt = 120; // 时间步进, 单位:s
 
 		for (Planet p : planets) // 画每个天体, !visible的在方法里边特殊处理
 			p.DrawPlanet(g);

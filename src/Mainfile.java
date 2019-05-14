@@ -162,8 +162,17 @@ public class Mainfile extends Frame {
 			if (!p.visible) // 死掉的天体就跳过
 				continue;
 			p.Move(dt); // 位移改变！
-			if (showT) // 若显示轨迹, 则添加当前位置到轨迹(log)中
-				traceBG.drawImage(p.tail, cvt(p.x), cvt(p.y), null);
+			if (showT) { // 若显示轨迹, 则添加当前位置到轨迹(log)中
+				if(p.hasTrace) {
+					traceBG.setColor(new Color(255,255,0));
+					traceBG.drawLine(p.lastX+15, p.lastY+15, cvt(p.x)+15, cvt(p.y)+15);
+				}
+				else {
+					p.hasTrace=true;
+				}
+				//traceBG.drawImage(p.tail, cvt(p.x), cvt(p.y), null);
+				p.AddTrace();
+			}
 		}
 	}
 

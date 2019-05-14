@@ -28,7 +28,10 @@ public class Planet {
     /* 瑙ｅ喅闈犺繎椋炲嚭闂锛氬鏋滀袱澶╀綋璺濈<mergezone,鍒欏湪Move鏃跺己琛岃瀹冧滑鏀炬參绉诲姩閫熷害 */
     double maymergezone = 8000;
     double m, x, y, vx, vy;
+    boolean hasTrace=false;
+    int lastX,lastY;
     Force F;
+    LinkedList<Point> log;
     Image self, tail;
     boolean visible, maymerge = false; // this鏄惁涓庢煇涓ぉ浣撹窛绂昏繎浜嶮ergezone
 
@@ -39,6 +42,7 @@ public class Planet {
         vx = vx_;
         vy = vy_;
         F = new Force();
+        log = new LinkedList<Point>();
         tail = Toolkit.getDefaultToolkit().getImage("images/tail.png");
         self = Toolkit.getDefaultToolkit().getImage(path);
         visible = true;
@@ -66,6 +70,12 @@ public class Planet {
         x += vx * dt * factor;
         y += vy * dt * factor;
         maymerge = false;
+    }
+    
+    void AddTrace() {
+    	lastX=Mainfile.cvt(x);
+    	lastY=Mainfile.cvt(y);
+        log.push(new Point(x, y));
     }
 
     /* ???Planet??, ?????(log), ??!Mainfile.showT, ?log?? */

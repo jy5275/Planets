@@ -9,20 +9,19 @@ import java.awt.image.BufferedImage;
 
 
 /*
- *	�ܸĵĵط�:
- *	2. ��ͬ���� Planet �ò�ͬ��ɫͼƬ����ʾ
- *	4. ��ӹ���: ���� Planet ��ʾ����
- *	5. ��Ӷ���ԭʼ��ϵģ��
- *	6. ��ӹ���: ǿ�иı�������ʽ
- *	7.* �������ҷ�����
- *  8. ��ͣ����
+ *	锟杰改的地凤拷:
+ *	2. 锟斤拷同锟斤拷锟斤拷 Planet 锟矫诧拷同锟斤拷色图片锟斤拷锟斤拷示
+ *	4. 锟斤拷庸锟斤拷锟�: 锟斤拷锟斤拷 Planet 锟斤拷示锟斤拷锟斤拷
+ *	5. 锟斤拷佣锟斤拷锟皆硷拷锟较的ｏ拷锟�
+ *	6. 锟斤拷庸锟斤拷锟�: 强锟叫改憋拷锟斤拷锟斤拷锟斤拷式
+ *	7.* 锟斤拷锟斤拷锟斤拷锟揭凤拷锟斤拷锟斤拷
+ *  8. 锟斤拷停锟斤拷锟斤拷
  */
 public class Mainfile extends Frame {
-	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
-	BufferedImage planetBF,traceBF;
-	Graphics2D planetBG,traceBG;
+	BufferedImage bgBF,planetBF,traceBF;
+	Graphics2D bgBG,planetBG,traceBG;
 	ArrayList<Planet> planets;
-	Planet vplanet; // ���ڴ����е�Planet,��껹ûrelease
+	Planet vplanet; // 锟斤拷锟节达拷锟斤拷锟叫碉拷Planet,锟斤拷昊姑籸elease
 	Mouse m;
 	JPanel p;
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move;
@@ -101,8 +100,10 @@ public class Mainfile extends Frame {
 		p.add(Show);
 		p.add(Move);
 		
+		bgBF = new BufferedImage(bgwidth,bgheight,BufferedImage.TYPE_INT_RGB);
 		traceBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		planetBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
+		bgBG = bgBF.createGraphics();
 		traceBG = traceBF.createGraphics();
 		planetBG = planetBF.createGraphics();
 		traceBG.setBackground(new Color(0,0,0,0));
@@ -114,24 +115,29 @@ public class Mainfile extends Frame {
 		addMouseListener(m);
 		add(p);
 
-		setVisible(true); // setVisibleд�����һ��
+		setVisible(true); // setVisible写锟斤拷锟斤拷锟揭伙拷锟�
 		p.setVisible(true);
 	}
 
 	public void ClearTrace() {
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
-		for(Planet p:planets) {
+		for (int i = 0; i < planets.size(); i++) {
+			Planet p = planets.get(i);
 			p.log.clear();
+			if (!p.visible) {
+				planets.remove(p);
+				i--;
+			}
 		}
 	}
 
-	public void ClearAll() { // ����
+	public void ClearAll() { // 锟斤拷锟斤拷
 		planets.clear();
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		vplanet = null;
 	}
 
-	/* ��ʵ�������� cvt2 ��Ļ��ʾ���� */
+	/* 锟斤拷实锟斤拷锟斤拷锟斤拷锟斤拷 cvt2 锟斤拷幕锟斤拷示锟斤拷锟斤拷 */
 	public static int cvt(double x,boolean ifX) {
 		double red = x / (100);
 		if(ifX){
@@ -140,7 +146,7 @@ public class Mainfile extends Frame {
 		return (int) red + 400 + movY +clickY;
 	}
 
-	/* ��Ļ��ʾ���� cvt2 ��ʵ�������� */
+	/* 锟斤拷幕锟斤拷示锟斤拷锟斤拷 cvt2 锟斤拷实锟斤拷锟斤拷锟斤拷锟斤拷 */
 	public static double recvt(int n,boolean ifX) {
 		if(ifX){
 			return (double) (n - 400 - movX - clickX) * 100;
@@ -148,7 +154,7 @@ public class Mainfile extends Frame {
 		return (double) (n - 400 - movY - clickY) * 100;
 	}
 
-	/* ��ʾ�����е�Planet */
+	/* 锟斤拷示锟斤拷锟斤拷锟叫碉拷Planet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
@@ -162,11 +168,50 @@ public class Mainfile extends Frame {
 		for(Planet p: planets)
 			p.DrawTrace(traceBG);
 	}
+
+	boolean MergeOK(Planet a,Planet b) {
+        double dist = a.GetDistance(b);
+        if (dist < Planet.dx) { // Two planets collides!
+            // Dong liang shou heng
+            double tmpvx = (a.m * a.vx + b.m * b.vx) / (a.m + b.m);
+            double tmpvy = (a.m * a.vy + b.m * b.vy) / (a.m + b.m);
+            if (a.m < b.m) { // the other is heavier!
+                b.vx=tmpvx;
+                b.vy=tmpvy;
+                traceBG.setColor(a.drawColor);
+                traceBG.drawLine(cvt(a.x,true),cvt(a.y,false),cvt(b.x,true),cvt(b.y,false));
+                a.x = b.x;
+                a.y = b.y;
+                a.AddTrace();
+                b.m+=a.m;
+                b.setColorAndDiam(false);
+                a.visible=false;
+                return true;
+            }
+            else{
+            	a.vx=tmpvx;
+            	a.vy=tmpvy;
+                traceBG.setColor(b.drawColor);
+                traceBG.drawLine(cvt(b.x,true),cvt(b.y,false),cvt(a.x,true),cvt(a.y,false));
+            	b.x=a.x;
+            	b.y=a.y;
+            	b.AddTrace();
+            	a.m += b.m;
+            	a.setColorAndDiam(false);
+            	b.visible=false;
+            	return true;
+            }
+        }
+        if (dist < Planet.maymergezone) {
+            a.maymerge = true;
+        }
+        return false;
+    }
 	
-	/* �ڻ����ϻ��� */
+	/* 锟节伙拷锟斤拷锟较伙拷锟斤拷 */
 	void paintFG() {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
-		double dt = 120; // ʱ�䲽��, ��λ:s
+		double dt = 120; // 时锟戒步锟斤拷, 锟斤拷位:s
 		if (saveMov) {
 			movX+=clickX;
 			movY+=clickY;
@@ -174,7 +219,7 @@ public class Mainfile extends Frame {
 			clickY=0;
 			saveMov=false;
 		}
-		if (m.Clicking) { // ������click��ûrelease, �ͻ�������
+		if (m.Clicking) { // 锟斤拷锟斤拷锟斤拷click锟斤拷没release, 锟酵伙拷锟斤拷锟斤拷锟斤拷
 			if(moveS){
 				traceBG.clearRect(0, 0, bgwidth, bgheight);
 				clickX=curx-m.gotx;
@@ -186,10 +231,10 @@ public class Mainfile extends Frame {
 				planetBG.drawLine(m.gotx, m.goty, curx, cury);
 			}
 		}
-		DrawVplanet(planetBG); // �������е�����, ֻ������, ��������������
-		for (Planet p : planets) // ��ÿ������, !visible���ڷ���������⴦��
+		DrawVplanet(planetBG); // 锟斤拷锟斤拷锟斤拷锟叫碉拷锟斤拷锟斤拷, 只锟斤拷锟斤拷锟斤拷, 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+		for (Planet p : planets) // 锟斤拷每锟斤拷锟斤拷锟斤拷, !visible锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷獯︼拷锟�
 			p.DrawPlanet(planetBG);
-		/* ����ÿ������, ���������ܺ���(Fx, Fy) */
+		/* 锟斤拷锟斤拷每锟斤拷锟斤拷锟斤拷, 锟斤拷锟斤拷锟斤拷锟斤拷锟杰猴拷锟斤拷(Fx, Fy) */
 		int planetsnum=planets.size();
 		for (int i=0;i<planetsnum;i++) {
 			Planet p=planets.get(i);
@@ -197,21 +242,20 @@ public class Mainfile extends Frame {
 				continue;
 			for (int j=i+1;j<planetsnum;j++) {
 				Planet q=planets.get(j);
-				if (!(q.visible)) // �����Ѿ���merge������
+				if (!(q.visible)) // 锟斤拷锟斤拷锟窖撅拷锟斤拷merge锟斤拷锟斤拷锟斤拷
 					continue;
-				int result=p.MergeOK(q);
-				if (result==0) // ���Merge�˾Ͳ�����������, ��Ϊ�������غ���
+				if (!MergeOK(p,q)) // 锟斤拷锟組erge锟剿就诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷, 锟斤拷为锟斤拷锟斤拷锟斤拷锟截猴拷锟斤拷
 					p.AddForce(q);
 			}
-			p.Forced(dt); // p�������ܺ���(Fx, Fy)�ı�p�����ٶ�(vx, vy)
+			p.Forced(dt); // p锟斤拷锟斤拷锟斤拷锟杰猴拷锟斤拷(Fx, Fy)锟侥憋拷p锟斤拷锟斤拷锟劫讹拷(vx, vy)
 		}
 
-		/* ����ÿ������, ���ٶȼ�����λ�Ƹı� */
+		/* 锟斤拷锟斤拷每锟斤拷锟斤拷锟斤拷, 锟斤拷锟劫度硷拷锟斤拷锟斤拷位锟狡改憋拷 */
 		for (Planet p : planets) {
-			if (!p.visible) // ���������������
+			if (!p.visible) // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
 				continue;
-			p.Move(dt); // λ�Ƹı䣡
-			if (showT) { // ����ʾ�켣, ����ӵ�ǰλ�õ��켣(log)��
+			p.Move(dt); // 位锟狡改变！
+			if (showT) { // 锟斤拷锟斤拷示锟届迹, 锟斤拷锟斤拷拥锟角拔伙拷玫锟斤拷旒�(log)锟斤拷
 				if(p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x,true), cvt(p.y,false));
@@ -229,28 +273,28 @@ public class Mainfile extends Frame {
 		return null;
 	}
 
-	/* �����ڵķ���, ÿ���ػ����ڵ���һ��paint */  
+	/* 锟斤拷锟斤拷锟节的凤拷锟斤拷, 每锟斤拷锟截伙拷锟斤拷锟节碉拷锟斤拷一锟斤拷paint */  
 	public void paint(Graphics g) {
 		paintFG();
-		g.drawImage(bg, 0, 0, null); // ������
-		g.drawImage(traceBF, 0, 0, null); //���켣
-		g.drawImage(planetBF, 0, 0, null); //������
+		g.drawImage(bgBF, 0, 0, null); // 锟斤拷锟斤拷锟斤拷
+		g.drawImage(traceBF, 0, 0, null); //锟斤拷锟届迹
+		g.drawImage(planetBF, 0, 0, null); //锟斤拷锟斤拷锟斤拷
 	}
 	
-	/* ���ڼ��ط���, ����ʱһֱ���������������ѭ�� */
+	/* 锟斤拷锟节硷拷锟截凤拷锟斤拷, 锟斤拷锟斤拷时一直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟窖拷锟� */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() { // ���ǵ���رհ�ťʹ������ֹ
+		addWindowListener(new WindowAdapter() { // 锟斤拷锟角碉拷锟斤拷乇瞻锟脚ナ癸拷锟斤拷锟斤拷锟街�
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
-		while (true) { // �����ػ�����, ��ѭ��
+		while (true) { // 锟斤拷锟斤拷锟截伙拷锟斤拷锟斤拷, 锟斤拷循锟斤拷
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
-	/* ��д update �������Ը��ƻ���, ԭ����Ҳ����, copy from CSDN */
+	/* 锟斤拷写 update 锟斤拷锟斤拷锟斤拷锟皆革拷锟狡伙拷锟斤拷, 原锟斤拷锟斤拷也锟斤拷锟斤拷, copy from CSDN */
 	private Image offScreenImage = null;
 
 	public void update(Graphics g) {

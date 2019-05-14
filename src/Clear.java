@@ -38,8 +38,12 @@ class ShowTrace implements ActionListener {
         if (frame.showT) {
             frame.showT = false;
             frame.ClearTrace();
-        } else
+        } else{
             frame.showT = true;
+            for(Planet p:frame.planets){
+                p.AddTrace();
+            }
+        }
     }
 }
 

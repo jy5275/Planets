@@ -24,9 +24,9 @@ class Force {
 }
 
 public class Planet {
-    double G = 6.67e-11, dx = 2500;
+    static double G = 6.67e-11, dx = 2000;
     /* 瑙ｅ喅闈犺繎椋炲嚭闂锛氬鏋滀袱澶╀綋璺濈<mergezone,鍒欏湪Move鏃跺己琛岃瀹冧滑鏀炬參绉诲姩閫熷害 */
-    double maymergezone = 8000;
+    static double maymergezone = 4000;
     double m, x, y, vx, vy;
     boolean hasTrace=false;
     int lastX,lastY;
@@ -124,35 +124,6 @@ public class Planet {
     /* implement mergeok func
      * if merge into p return 1, p merges into itself, return 2, else return 0;
      */
-    int MergeOK(Planet p) {
-        double dist = GetDistance(p);
-        if (dist < dx) { // Two planets collides!
-            // Dong liang shou heng
-            vx = (m * vx + p.m * p.vx) / (m + p.m);
-            vy = (m * vy + p.m * p.vy) / (m + p.m);
-            if (m < p.m) { // the other is heavier!
-                x = p.x;
-                y = p.y;
-                p.m+=m;
-                p.setColorAndDiam(false);
-                visible=false;
-                return 1;
-            }
-            else{
-            	p.x=x;
-            	p.y=y;
-            	m += p.m;
-            	setColorAndDiam(false);
-            	p.visible=false;
-            	return 2;
-            }
-        }
-        if (dist < maymergezone) {
-            maymerge = true;
-        }
-        return 0;
-    }
-
     /* p?????this?????? */
     void AddForce(Planet p) {
         double dist = GetDistance(p);

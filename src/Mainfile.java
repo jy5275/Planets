@@ -30,16 +30,18 @@ public class Mainfile extends Frame {
 	static int time = 0;
 	boolean showT = false, moveS = true, saveMov=false;
 	int curx, cury;
-	int bgwidth=1646,bgheight=1263;
+	int bgwidth=1920,bgheight=1080;
 
 	Mainfile(String title) {
 		super(title);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension scrnsize = toolkit.getScreenSize();
-        while(scrnsize.width<bgwidth+200)
-        	bgwidth-=256;
-        while(scrnsize.height<bgheight-200)
-        	bgheight-=256;
+        bgwidth=scrnsize.width;
+        bgwidth=scrnsize.height;
+        while(scrnsize.width<bgwidth)
+        	bgwidth-=128;
+        while(scrnsize.height<bgheight+50)
+        	bgheight-=128;
 		m = new Mouse(this);
 		showT = true;
 		ClearTrace ct = new ClearTrace(this);
@@ -171,6 +173,7 @@ public class Mainfile extends Frame {
 
 	boolean MergeOK(Planet a,Planet b) {
         double dist = a.GetDistance(b);
+        int tmpax=cvt(a.x,true),tmpay=cvt(a.y,false),tmpbx=cvt(b.x,true),tmpby=cvt(b.y,false);
         if (dist < Planet.dx) { // Two planets collides!
             // Dong liang shou heng
             double tmpvx = (a.m * a.vx + b.m * b.vx) / (a.m + b.m);
@@ -178,11 +181,16 @@ public class Mainfile extends Frame {
             if (a.m < b.m) { // the other is heavier!
                 b.vx=tmpvx;
                 b.vy=tmpvy;
-                traceBG.setColor(a.drawColor);
-                traceBG.drawLine(cvt(a.x,true),cvt(a.y,false),cvt(b.x,true),cvt(b.y,false));
+                if(showT) {
+                	
+                }
                 a.x = b.x;
                 a.y = b.y;
-                a.AddTrace();
+                if(showT) {
+                	traceBG.setColor(a.drawColor);
+                	traceBG.drawLine(tmpax,tmpay,tmpbx,tmpby);
+                	a.AddTrace();
+                }
                 b.m+=a.m;
                 b.setColorAndDiam(false);
                 a.visible=false;
@@ -191,11 +199,13 @@ public class Mainfile extends Frame {
             else{
             	a.vx=tmpvx;
             	a.vy=tmpvy;
-                traceBG.setColor(b.drawColor);
-                traceBG.drawLine(cvt(b.x,true),cvt(b.y,false),cvt(a.x,true),cvt(a.y,false));
             	b.x=a.x;
             	b.y=a.y;
-            	b.AddTrace();
+                if(showT) {
+                	traceBG.setColor(b.drawColor);
+                	traceBG.drawLine(tmpax,tmpay,tmpbx,tmpby);
+                	b.AddTrace();
+                }
             	a.m += b.m;
             	a.setColorAndDiam(false);
             	b.visible=false;

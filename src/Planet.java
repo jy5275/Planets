@@ -26,10 +26,10 @@ class Force {
 public class Planet {
     double G = 6.67e-11, dx = 2500;
     /* 瑙ｅ喅闈犺繎椋炲嚭闂锛氬鏋滀袱澶╀綋璺濈<mergezone,鍒欏湪Move鏃跺己琛岃瀹冧滑鏀炬參绉诲姩閫熷害 */
-    double maymergezone = 8000;
+    double maymergezone = 4000;
     double m, x, y, vx, vy;
-    boolean hasTrace=false;
-    int lastX,lastY;
+    boolean hasTrace = false;
+    int lastX, lastY;
     Force F;
     LinkedList<Point> log;
     Image self, tail;
@@ -71,10 +71,10 @@ public class Planet {
         y += vy * dt * factor;
         maymerge = false;
     }
-    
+
     void AddTrace() {
-    	lastX=Mainfile.cvt(x);
-    	lastY=Mainfile.cvt(y);
+        lastX = Mainfile.cvt(x);
+        lastY = Mainfile.cvt(y);
         log.push(new Point(x, y));
     }
 

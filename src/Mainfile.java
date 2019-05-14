@@ -34,7 +34,7 @@ public class Mainfile extends Frame {
 	static int time = 0;
 	public boolean showT = false, moveS = true, saveMov=false,STILL=false;
 	int curx, cury;
-	int bgwidth=1920,bgheight=1080;
+	int bgwidth=1920,bgheight=1080,partheight=50;
 	void setStill() {
 		STILL=!STILL;
 	}
@@ -46,8 +46,10 @@ public class Mainfile extends Frame {
         bgwidth=scrnsize.height;
         while(scrnsize.width<bgwidth)
         	bgwidth-=128;
-        while(scrnsize.height<bgheight+200)
-        	bgheight-=128;
+        while(scrnsize.height<bgheight+100)
+        	bgheight-=50;
+        while(bgheight<35*partheight)
+        	partheight-=1;
 		m = new Mouse(this);
 		showT = true;
 		ClearTrace ct = new ClearTrace(this);
@@ -60,12 +62,12 @@ public class Mainfile extends Frame {
 
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
-		cltrbt.setBounds(bgwidth, 100, 120, 80);
+		cltrbt.setBounds(bgwidth+30, 2*partheight, 120, 3*partheight);
 		cltrbt.setVisible(true);
 
 		clbt = new JButton("Clear all");
 		clbt.addActionListener(ca);
-		clbt.setBounds(bgwidth, 220, 120, 80);
+		clbt.setBounds(bgwidth+30, 6*partheight, 120, 3*partheight);
 		clbt.setVisible(true);
 
 		Still = new JCheckBox("Still");
@@ -81,32 +83,32 @@ public class Mainfile extends Frame {
 			}
 			
 		});
-		Still.setBounds(bgwidth, 320, 100, 40);
+		Still.setBounds(bgwidth+30, 10*partheight, 120, 2*partheight);
 		Still.setVisible(true);
 		
 		Huge = new JButton("Huge");
 		Huge.addActionListener(chuge);
-		Huge.setBounds(bgwidth, 370, 100, 40);
+		Huge.setBounds(bgwidth+30, 14*partheight, 120, 3*partheight);
 		Huge.setVisible(true);
 
 		Mid = new JButton("Medium");
 		Mid.addActionListener(cmid);
-		Mid.setBounds(bgwidth, 420, 100, 40);
+		Mid.setBounds(bgwidth+30, 18*partheight, 120, 3*partheight);
 		Mid.setVisible(true);
 
 		Tiny = new JButton("Tiny");
 		Tiny.addActionListener(ctiny);
-		Tiny.setBounds(bgwidth, 470, 100, 40);
+		Tiny.setBounds(bgwidth+30, 22*partheight, 120, 3*partheight);
 		Tiny.setVisible(true);
 
 		Show = new JButton("Show Trace");
 		Show.addActionListener(show);
-		Show.setBounds(bgwidth,530, 120, 80);
+		Show.setBounds(bgwidth+30,26*partheight, 120, 3*partheight);
 		Show.setVisible(true);
 
 		Move = new JButton("Move");
 		Move.addActionListener(movsc);
-		Move.setBounds(bgwidth, 650, 120, 80);
+		Move.setBounds(bgwidth+30, 30*partheight, 120, 3*partheight);
 		Move.setVisible(true);
 
 		planets = new ArrayList<Planet>();

@@ -7,6 +7,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
+
 /*
  *	能改的地方:
  *	2. 不同质量 Planet 用不同颜色图片来表示
@@ -18,16 +19,17 @@ import java.awt.image.BufferedImage;
  */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
-	BufferedImage planetBF, traceBF;
-	Graphics2D planetBG, traceBG;
+	BufferedImage planetBF,traceBF;
+	Graphics2D planetBG,traceBG;
 	ArrayList<Planet> planets;
 	Planet vplanet; // 正在创建中的Planet,鼠标还没release
 	Mouse m;
 	JPanel p;
-	JButton cltrbt, clbt, Huge, Mid, Tiny, Show;
+	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move;
+	static public int movX=0,movY=0,clickX=0,clickY=0;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
-	boolean showT = false;
+	boolean showT = false, moveS = true, saveMov=false;
 	int curx, cury;
 
 	Mainfile(String title) {
@@ -40,6 +42,7 @@ public class Mainfile extends Frame {
 		CreateMid cmid = new CreateMid(this);
 		CreateTiny ctiny = new CreateTiny(this);
 		ShowTrace show = new ShowTrace(this);
+		MoveScreen movsc = new MoveScreen(this);
 
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
@@ -71,11 +74,16 @@ public class Mainfile extends Frame {
 		Show.setBounds(1650, 480, 120, 80);
 		Show.setVisible(true);
 
-		planets = new ArrayList<Planet>();
-		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4, false));
-		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2, false));
-		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3, false));
+		Move = new JButton("Move");
+		Move.addActionListener(movsc);
+		Move.setBounds(1650, 600, 120, 80);
+		Move.setVisible(true);
 
+		planets = new ArrayList<Planet>();
+		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false));
+		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2,false));
+		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false));
+		
 		p = new JPanel(null);
 		p.setBackground(Color.DARK_GRAY);
 		p.add(cltrbt);
@@ -84,14 +92,15 @@ public class Mainfile extends Frame {
 		p.add(Mid);
 		p.add(Tiny);
 		p.add(Show);
-
-		traceBF = new BufferedImage(1646, 1263, BufferedImage.TYPE_INT_ARGB);
-		planetBF = new BufferedImage(1646, 1263, BufferedImage.TYPE_INT_ARGB);
+		p.add(Move);
+		
+		traceBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
+		planetBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
 		traceBG = traceBF.createGraphics();
 		planetBG = planetBF.createGraphics();
-		traceBG.setBackground(new Color(0, 0, 0, 0));
-		planetBG.setBackground(new Color(0, 0, 0, 0));
-
+		traceBG.setBackground(new Color(0,0,0,0));
+		planetBG.setBackground(new Color(0,0,0,0));
+        
 		setSize(1846, 1500);
 		setLocation(50, 50);
 
@@ -104,6 +113,9 @@ public class Mainfile extends Frame {
 
 	public void ClearTrace() {
 		traceBG.clearRect(0, 0, 1646, 1263);
+		for(Planet p:planets) {
+			p.log.clear();
+		}
 	}
 
 	public void ClearAll() { // 清屏
@@ -113,36 +125,63 @@ public class Mainfile extends Frame {
 	}
 
 	/* 真实宇宙坐标 cvt2 屏幕显示坐标 */
-	public static int cvt(double x) {
+	public static int cvt(double x,boolean ifX) {
 		double red = x / (100);
-		return (int) red + 400;
+		if(ifX){
+			return (int) red + 400 + movX + clickX;
+		}
+		return (int) red + 400 + movY +clickY;
 	}
 
 	/* 屏幕显示坐标 cvt2 真实宇宙坐标 */
-	public static double recvt(int n) {
-		return (double) (n - 400) * 100;
+	public static double recvt(int n,boolean ifX) {
+		if(ifX){
+			return (double) (n - 400 - movX - clickX) * 100;
+		}
+		return (double) (n - 400 - movY - clickY) * 100;
 	}
 
 	/* 显示创建中的Planet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
-			int tmpdiam = vplanet.diam;
-			g.fillOval(cvt(vplanet.x) - tmpdiam / 2, cvt(vplanet.y) - tmpdiam / 2, tmpdiam, tmpdiam);
+			int tmpdiam=vplanet.diam;
+			g.fillOval(cvt(vplanet.x,true)-tmpdiam/2, cvt(vplanet.y,false)-tmpdiam/2, tmpdiam, tmpdiam);
 		}
+			//g.drawImage(vplanet.self, cvt(vplanet.x), cvt(vplanet.y), null);
 	}
 
+	public void redrawTrace(){
+		for(Planet p: planets)
+			p.DrawTrace(traceBG);
+	}
+	
 	/* 在缓存上绘制 */
 	void paintFG() {
 		planetBG.clearRect(0, 0, 1646, 1263);
 		double dt = 120; // 时间步进, 单位:s
-		for (Planet p : planets) // 画每个天体, !visible的在方法里边特殊处理
-			p.DrawPlanet(planetBG);
+		if (saveMov) {
+			movX+=clickX;
+			movY+=clickY;
+			clickX=0;
+			clickY=0;
+			saveMov=false;
+		}
 		if (m.Clicking) { // 如果鼠标click还没release, 就画弹射线
-			planetBG.setColor(vplanet.drawColor);
-			planetBG.drawLine(m.gotx, m.goty, curx, cury);
+			if(moveS){
+				traceBG.clearRect(0, 0, 1646, 1263);
+				clickX=curx-m.gotx;
+				clickY=cury-m.goty;
+				redrawTrace();
+			}
+			else{
+				planetBG.setColor(vplanet.drawColor);
+				planetBG.drawLine(m.gotx, m.goty, curx, cury);
+			}
 		}
 		DrawVplanet(planetBG); // 画创建中的天体, 只画出来, 不参与引力计算
+		for (Planet p : planets) // 画每个天体, !visible的在方法里边特殊处理
+			p.DrawPlanet(planetBG);
 		/* 遍历每个天体, 计算其所受合力(Fx, Fy) */
 		for (Planet p : planets) {
 			if (!p.visible)
@@ -164,25 +203,26 @@ public class Mainfile extends Frame {
 				continue;
 			p.Move(dt); // 位移改变！
 			if (showT) { // 若显示轨迹, 则添加当前位置到轨迹(log)中
-				if (p.hasTrace) {
+				if(p.hasTrace) {
 					traceBG.setColor(p.drawColor);
-					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x), cvt(p.y));
-				} else {
-					p.hasTrace = true;
+					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x,true), cvt(p.y,false));
+				}
+				else {
+					p.hasTrace=true;
 				}
 				p.AddTrace();
 			}
 		}
 	}
 
-	/* 画窗口的方法, 每次重画窗口调用一次paint */
+	/* 画窗口的方法, 每次重画窗口调用一次paint */  
 	public void paint(Graphics g) {
 		paintFG();
 		g.drawImage(bg, 0, 0, null); // 画背景
-		g.drawImage(traceBF, 0, 0, null); // 画轨迹
-		g.drawImage(planetBF, 0, 0, null); // 画行星
+		g.drawImage(traceBF, 0, 0, null); //画轨迹
+		g.drawImage(planetBF, 0, 0, null); //画行星
 	}
-
+	
 	/* 窗口加载方法, 运行时一直陷在这个方法里死循环 */
 	void launchFrame() throws Exception {
 		addWindowListener(new WindowAdapter() { // 除非点击关闭按钮使进程终止

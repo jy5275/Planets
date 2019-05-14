@@ -27,23 +27,31 @@ public class Mouse implements MouseMotionListener, MouseListener {
         goty = e.getY(); // 鍏夋爣灞忓箷鍧愭爣
         frame.curx = gotx; // Mouse灏嗗綋鍓嶅厜鏍囦綅缃紶缁橫ainfile, 鏂逛究鍚庤�呯敾寮瑰皠绾�
         frame.cury = goty; // Mouse灏嗗綋鍓嶅厜鏍囦綅缃紶缁橫ainfile, 鏂逛究鍚庤�呯敾寮瑰皠绾�
-        begx = Mainfile.recvt(gotx); // 鍏夋爣瀹囧畽鍧愭爣
-        begy = Mainfile.recvt(goty); // 鍏夋爣瀹囧畽鍧愭爣
         Clicking = true;
         /* 鍒涘缓涓殑vplanet, 瑕佹樉绀哄湪灞忓箷涓�, 浣嗕笉Move, 涓嶅彈鍔�, 涔熶笉鏂藉姏 */
-        frame.vplanet = new Planet(Mainfile.DEFAULT_M, begx, begy, 0, 0,true);
+        if(!frame.moveS){
+            begx = Mainfile.recvt(gotx,true); // 鍏夋爣瀹囧畽鍧愭爣
+            begy = Mainfile.recvt(goty,false); // 鍏夋爣瀹囧畽鍧愭爣
+            frame.vplanet = new Planet(Mainfile.DEFAULT_M, begx, begy, 0, 0,true);
+        }
     }
 
     @Override
     /* 鏉惧紑榧犳爣鏃剁殑琛屼负: 鍒涘缓鏂癙lanet, 鍔犲埌planets瀹瑰櫒閲�, vplanet鐩存帴鎵旀帀 */
     public void mouseReleased(MouseEvent e) {
-        double finx = Mainfile.recvt(e.getX());
-        double finy = Mainfile.recvt(e.getY());
-        double vx_ = (finx - begx) / 20000;
-        double vy_ = (finy - begy) / 20000;
-        Planet newp = new Planet(Mainfile.DEFAULT_M, begx, begy, vx_, vy_,false);
-        frame.planets.add(newp);
-        frame.vplanet = null;
+        int finsX = e.getX();
+        int finsY = e.getY();
+        double finx = Mainfile.recvt(finsX,true);
+        double finy = Mainfile.recvt(finsY,false);
+        if(frame.moveS){
+            frame.saveMov=true;
+        }else{
+            double vx_ = (finx - begx) / 20000;
+            double vy_ = (finy - begy) / 20000;
+            Planet newp = new Planet(Mainfile.DEFAULT_M, begx, begy, vx_, vy_,false);
+            frame.planets.add(newp);
+            frame.vplanet = null;
+        }
         Clicking = false;
     }
 

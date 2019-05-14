@@ -42,3 +42,15 @@ class ShowTrace implements ActionListener {
             frame.showT = true;
     }
 }
+
+class MoveScreen implements ActionListener{
+    Mainfile frame;
+
+    public MoveScreen(Mainfile f){
+        frame = f;
+    }
+
+    public void actionPerformed(ActionEvent e){
+        frame.moveS = true;
+    }
+}

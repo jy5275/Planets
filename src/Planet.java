@@ -116,13 +116,15 @@ public class Planet {
         }
             //g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
     }
-
     double GetDistance(Planet p) {
         return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
     }
 
-    /* this????p??merge, Merge???true, ????false */
-    boolean MergeOK(Planet p) {
+    /* this????p??merge, Merge???true, ????false  */
+    /* implement mergeok func
+     * if merge into p return 1, p merges into itself, return 2, else return 0;
+     */
+    int MergeOK(Planet p) {
         double dist = GetDistance(p);
         if (dist < dx) { // Two planets collides!
             // Dong liang shou heng
@@ -134,6 +136,7 @@ public class Planet {
                 p.m+=m;
                 p.setColorAndDiam(false);
                 visible=false;
+                return 1;
             }
             else{
             	p.x=x;
@@ -141,13 +144,13 @@ public class Planet {
             	m += p.m;
             	setColorAndDiam(false);
             	p.visible=false;
+            	return 2;
             }
-            return true;
         }
         if (dist < maymergezone) {
             maymerge = true;
         }
-        return false;
+        return 0;
     }
 
     /* p?????this?????? */
@@ -157,6 +160,8 @@ public class Planet {
         double dFy = G * m * p.m * (p.y - y) / Math.pow(dist, 3);
         F.Fx += dFx;
         F.Fy += dFy;
+        p.F.Fx-=dFx;
+        p.F.Fy-=dFy;
     }
 
 }

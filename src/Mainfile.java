@@ -9,19 +9,20 @@ import java.awt.image.BufferedImage;
 
 
 /*
- *	ÄÜ¸ÄµÄµØ·½:
- *	2. ²»Í¬ÖÊÁ¿ Planet ÓÃ²»Í¬ÑÕÉ«Í¼Æ¬À´±íÊ¾
- *	4. Ìí¼Ó¹¦ÄÜ: µ¥»÷ Planet ÏÔÊ¾ÊôÐÔ
- *	5. Ìí¼Ó¶àÖÖÔ­Ê¼ÐÇÏµÄ£ÐÍ
- *	6. Ìí¼Ó¹¦ÄÜ: Ç¿ÐÐ¸Ä±äÒýÁ¦¹«Ê½
- *	7.* ½ü¾àÀëÂÒ·ÉÎÊÌâ
- *  8. ÔÝÍ£¹¦ÄÜ
+ *	ï¿½Ü¸ÄµÄµØ·ï¿½:
+ *	2. ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ Planet ï¿½Ã²ï¿½Í¬ï¿½ï¿½É«Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Ê¾
+ *	4. ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ Planet ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+ *	5. ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ÏµÄ£ï¿½ï¿½
+ *	6. ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½: Ç¿ï¿½Ð¸Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+ *	7.* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+ *  8. ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½
  */
 public class Mainfile extends Frame {
-	BufferedImage bg,planetBF,traceBF;
-	Graphics2D bgBG,planetBG,traceBG;
+	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
+	BufferedImage planetBF,traceBF;
+	Graphics2D planetBG,traceBG;
 	ArrayList<Planet> planets;
-	Planet vplanet; // ÕýÔÚ´´½¨ÖÐµÄPlanet,Êó±ê»¹Ã»release
+	Planet vplanet; // ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ðµï¿½Planet,ï¿½ï¿½ê»¹Ã»release
 	Mouse m;
 	JPanel p;
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move;
@@ -30,9 +31,16 @@ public class Mainfile extends Frame {
 	static int time = 0;
 	boolean showT = false, moveS = true, saveMov=false;
 	int curx, cury;
+	int bgwidth=1646,bgheight=1263;
 
 	Mainfile(String title) {
 		super(title);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension scrnsize = toolkit.getScreenSize();
+        while(scrnsize.width<bgwidth+200)
+        	bgwidth-=256;
+        while(scrnsize.height<bgheight-200)
+        	bgheight-=256;
 		m = new Mouse(this);
 		showT = true;
 		ClearTrace ct = new ClearTrace(this);
@@ -45,37 +53,37 @@ public class Mainfile extends Frame {
 
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
-		cltrbt.setBounds(1650, 100, 120, 80);
+		cltrbt.setBounds(bgwidth, 100, 120, 80);
 		cltrbt.setVisible(true);
 
 		clbt = new JButton("Clear all");
 		clbt.addActionListener(ca);
-		clbt.setBounds(1650, 220, 120, 80);
+		clbt.setBounds(bgwidth, 220, 120, 80);
 		clbt.setVisible(true);
 
 		Huge = new JButton("Huge");
 		Huge.addActionListener(chuge);
-		Huge.setBounds(1670, 320, 100, 40);
+		Huge.setBounds(bgwidth, 320, 100, 40);
 		Huge.setVisible(true);
 
 		Mid = new JButton("Medium");
 		Mid.addActionListener(cmid);
-		Mid.setBounds(1670, 370, 100, 40);
+		Mid.setBounds(bgwidth, 370, 100, 40);
 		Mid.setVisible(true);
 
 		Tiny = new JButton("Tiny");
 		Tiny.addActionListener(ctiny);
-		Tiny.setBounds(1670, 420, 100, 40);
+		Tiny.setBounds(bgwidth, 420, 100, 40);
 		Tiny.setVisible(true);
 
 		Show = new JButton("Show Trace");
 		Show.addActionListener(show);
-		Show.setBounds(1650, 480, 120, 80);
+		Show.setBounds(bgwidth, 480, 120, 80);
 		Show.setVisible(true);
 
 		Move = new JButton("Move");
 		Move.addActionListener(movsc);
-		Move.setBounds(1650, 600, 120, 80);
+		Move.setBounds(bgwidth, 600, 120, 80);
 		Move.setVisible(true);
 
 		planets = new ArrayList<Planet>();
@@ -92,40 +100,38 @@ public class Mainfile extends Frame {
 		p.add(Tiny);
 		p.add(Show);
 		p.add(Move);
-
-		bg=new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_RGB);
-		traceBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
-		planetBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
+		
+		traceBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
+		planetBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		traceBG = traceBF.createGraphics();
 		planetBG = planetBF.createGraphics();
-		bgBG = bg.createGraphics();
 		traceBG.setBackground(new Color(0,0,0,0));
 		planetBG.setBackground(new Color(0,0,0,0));
         
-		setSize(1846, 1500);
+		setSize(bgwidth+200, bgheight);
 		setLocation(50, 50);
 
 		addMouseListener(m);
 		add(p);
 
-		setVisible(true); // setVisibleÐ´ÔÚ×îºóÒ»¾ä
+		setVisible(true); // setVisibleÐ´ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		p.setVisible(true);
 	}
 
 	public void ClearTrace() {
-		traceBG.clearRect(0, 0, 1646, 1263);
+		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		for(Planet p:planets) {
 			p.log.clear();
 		}
 	}
 
-	public void ClearAll() { // ÇåÆÁ
+	public void ClearAll() { // ï¿½ï¿½ï¿½ï¿½
 		planets.clear();
-		traceBG.clearRect(0, 0, 1646, 1263);
+		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		vplanet = null;
 	}
 
-	/* ÕæÊµÓîÖæ×ø±ê cvt2 ÆÁÄ»ÏÔÊ¾×ø±ê */
+	/* ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cvt2 ï¿½ï¿½Ä»ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ */
 	public static int cvt(double x,boolean ifX) {
 		double red = x / (100);
 		if(ifX){
@@ -134,7 +140,7 @@ public class Mainfile extends Frame {
 		return (int) red + 400 + movY +clickY;
 	}
 
-	/* ÆÁÄ»ÏÔÊ¾×ø±ê cvt2 ÕæÊµÓîÖæ×ø±ê */
+	/* ï¿½ï¿½Ä»ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ cvt2 ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	public static double recvt(int n,boolean ifX) {
 		if(ifX){
 			return (double) (n - 400 - movX - clickX) * 100;
@@ -142,7 +148,7 @@ public class Mainfile extends Frame {
 		return (double) (n - 400 - movY - clickY) * 100;
 	}
 
-	/* ÏÔÊ¾´´½¨ÖÐµÄPlanet */
+	/* ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Planet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
@@ -157,10 +163,10 @@ public class Mainfile extends Frame {
 			p.DrawTrace(traceBG);
 	}
 	
-	/* ÔÚ»º´æÉÏ»æÖÆ */
+	/* ï¿½Ú»ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ */
 	void paintFG() {
-		planetBG.clearRect(0, 0, 1646, 1263);
-		double dt = 120; // Ê±¼ä²½½ø, µ¥Î»:s
+		planetBG.clearRect(0, 0, bgwidth, bgheight);
+		double dt = 120; // Ê±ï¿½ä²½ï¿½ï¿½, ï¿½ï¿½Î»:s
 		if (saveMov) {
 			movX+=clickX;
 			movY+=clickY;
@@ -168,9 +174,9 @@ public class Mainfile extends Frame {
 			clickY=0;
 			saveMov=false;
 		}
-		if (m.Clicking) { // Èç¹ûÊó±êclick»¹Ã»release, ¾Í»­µ¯ÉäÏß
+		if (m.Clicking) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½clickï¿½ï¿½Ã»release, ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(moveS){
-				traceBG.clearRect(0, 0, 1646, 1263);
+				traceBG.clearRect(0, 0, bgwidth, bgheight);
 				clickX=curx-m.gotx;
 				clickY=cury-m.goty;
 				redrawTrace();
@@ -180,30 +186,32 @@ public class Mainfile extends Frame {
 				planetBG.drawLine(m.gotx, m.goty, curx, cury);
 			}
 		}
-		DrawVplanet(planetBG); // »­´´½¨ÖÐµÄÌìÌå, Ö»»­³öÀ´, ²»²ÎÓëÒýÁ¦¼ÆËã
-		for (Planet p : planets) // »­Ã¿¸öÌìÌå, !visibleµÄÔÚ·½·¨Àï±ßÌØÊâ´¦Àí
+		DrawVplanet(planetBG); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½, Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		for (Planet p : planets) // ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, !visibleï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â´¦ï¿½ï¿½
 			p.DrawPlanet(planetBG);
-		/* ±éÀúÃ¿¸öÌìÌå, ¼ÆËãÆäËùÊÜºÏÁ¦(Fx, Fy) */
-		for (Planet p : planets) {
-			if (!p.visible)
+		/* ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½(Fx, Fy) */
+		int planetsnum=planets.size();
+		for (int i=0;i<planetsnum;i++) {
+			Planet p=planets.get(i);
+			if (!(p).visible)
 				continue;
-			for (Planet q : planets) {
-				if (!q.visible) // Ìø¹ýÒÑ¾­±»mergeµÄÌìÌå
+			for (int j=i+1;j<planetsnum;j++) {
+				Planet q=planets.get(j);
+				if (!(q.visible)) // ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½mergeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					continue;
-				if (p == q) // ×Ô¼º²»¶Ô×Ô¼ºÊ©Á¦
-					continue;
-				if (!p.MergeOK(q)) // Èç¹ûMergeÁË¾Í²»ËãÒýÁ¦ÔöÁ¿, ÒòÎª¶¯Á¿ÒÑÊØºãÁË
+				int result=p.MergeOK(q);
+				if (result==0) // ï¿½ï¿½ï¿½Mergeï¿½Ë¾Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½
 					p.AddForce(q);
 			}
-			p.Forced(dt); // pÌìÌåËùÊÜºÏÁ¦(Fx, Fy)¸Ä±äpÌìÌåËÙ¶È(vx, vy)
+			p.Forced(dt); // pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½(Fx, Fy)ï¿½Ä±ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½(vx, vy)
 		}
 
-		/* ±éÀúÃ¿¸öÌìÌå, ÓÉËÙ¶È¼ÆËãÆäÎ»ÒÆ¸Ä±ä */
+		/* ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ù¶È¼ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Æ¸Ä±ï¿½ */
 		for (Planet p : planets) {
-			if (!p.visible) // ËÀµôµÄÌìÌå¾ÍÌø¹ý
+			if (!p.visible) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				continue;
-			p.Move(dt); // Î»ÒÆ¸Ä±ä£¡
-			if (showT) { // ÈôÏÔÊ¾¹ì¼£, ÔòÌí¼Óµ±Ç°Î»ÖÃµ½¹ì¼£(log)ÖÐ
+			p.Move(dt); // Î»ï¿½Æ¸Ä±ä£¡
+			if (showT) { // ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ì¼£, ï¿½ï¿½ï¿½ï¿½Óµï¿½Ç°Î»ï¿½Ãµï¿½ï¿½ì¼£(log)ï¿½ï¿½
 				if(p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x,true), cvt(p.y,false));
@@ -216,33 +224,38 @@ public class Mainfile extends Frame {
 		}
 	}
 
-	/* »­´°¿ÚµÄ·½·¨, Ã¿´ÎÖØ»­´°¿Úµ÷ÓÃÒ»´Îpaint */  
+	private ListIterator<Planet> itp(ArrayList<Planet> planets2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ·ï¿½ï¿½ï¿½, Ã¿ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ò»ï¿½ï¿½paint */  
 	public void paint(Graphics g) {
 		paintFG();
-		g.drawImage(bg, 0, 0, null); // »­±³¾°
-		g.drawImage(traceBF, 0, 0, null); //»­¹ì¼£
-		g.drawImage(planetBF, 0, 0, null); //»­ÐÐÐÇ
+		g.drawImage(bg, 0, 0, null); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		g.drawImage(traceBF, 0, 0, null); //ï¿½ï¿½ï¿½ì¼£
+		g.drawImage(planetBF, 0, 0, null); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 	
-	/* ´°¿Ú¼ÓÔØ·½·¨, ÔËÐÐÊ±Ò»Ö±ÏÝÔÚÕâ¸ö·½·¨ÀïËÀÑ­»· */
+	/* ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½Ø·ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ê±Ò»Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() { // ³ý·Çµã»÷¹Ø±Õ°´Å¥Ê¹½ø³ÌÖÕÖ¹
+		addWindowListener(new WindowAdapter() { // ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½Ø±Õ°ï¿½Å¥Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
-		while (true) { // ·´¸´ÖØ»­´°¿Ú, ËÀÑ­»·
+		while (true) { // ï¿½ï¿½ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ñ­ï¿½ï¿½
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
-	/* ÖØÐ´ update ·½·¨¿ÉÒÔ¸ÄÉÆ»­ÖÊ, Ô­ÀíÎÒÒ²²»¶®, copy from CSDN */
+	/* ï¿½ï¿½Ð´ update ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Æ»ï¿½ï¿½ï¿½, Ô­ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½, copy from CSDN */
 	private Image offScreenImage = null;
 
 	public void update(Graphics g) {
 		if (offScreenImage == null)
-			offScreenImage = this.createImage(1646, 1263);
+			offScreenImage = this.createImage(bgwidth, bgheight);
 		Graphics gOff = offScreenImage.getGraphics();
 		paint(gOff);
 		g.drawImage(offScreenImage, 0, 0, null);

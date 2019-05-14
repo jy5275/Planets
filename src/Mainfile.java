@@ -7,22 +7,21 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-
 /*
- *	ÄÜ¸ÄµÄµØ·½:
- *	2. ²»Í¬ÖÊÁ¿ Planet ÓÃ²»Í¬ÑÕÉ«Í¼Æ¬À´±íÊ¾
- *	4. Ìí¼Ó¹¦ÄÜ: µ¥»÷ Planet ÏÔÊ¾ÊôĞÔ
- *	5. Ìí¼Ó¶àÖÖÔ­Ê¼ĞÇÏµÄ£ĞÍ
- *	6. Ìí¼Ó¹¦ÄÜ: Ç¿ĞĞ¸Ä±äÒıÁ¦¹«Ê½
- *	7.* ½ü¾àÀëÂÒ·ÉÎÊÌâ
- *  8. ÔİÍ£¹¦ÄÜ
+ *	èƒ½æ”¹çš„åœ°æ–¹:
+ *	2. ä¸åŒè´¨é‡ Planet ç”¨ä¸åŒé¢œè‰²å›¾ç‰‡æ¥è¡¨ç¤º
+ *	4. æ·»åŠ åŠŸèƒ½: å•å‡» Planet æ˜¾ç¤ºå±æ€§
+ *	5. æ·»åŠ å¤šç§åŸå§‹æ˜Ÿç³»æ¨¡å‹
+ *	6. æ·»åŠ åŠŸèƒ½: å¼ºè¡Œæ”¹å˜å¼•åŠ›å…¬å¼
+ *	7.* è¿‘è·ç¦»ä¹±é£é—®é¢˜
+ *  8. æš‚åœåŠŸèƒ½
  */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
-	BufferedImage planetBF,traceBF;
-	Graphics2D planetBG,traceBG;
+	BufferedImage planetBF, traceBF;
+	Graphics2D planetBG, traceBG;
 	ArrayList<Planet> planets;
-	Planet vplanet; // ÕıÔÚ´´½¨ÖĞµÄPlanet,Êó±ê»¹Ã»release
+	Planet vplanet; // æ­£åœ¨åˆ›å»ºä¸­çš„Planet,é¼ æ ‡è¿˜æ²¡release
 	Mouse m;
 	JPanel p;
 	static String impath = "images/earth.png";
@@ -86,21 +85,21 @@ public class Mainfile extends Frame {
 		p.add(Mid);
 		p.add(Tiny);
 		p.add(Show);
-		
-		traceBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
-		planetBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
+
+		traceBF = new BufferedImage(1646, 1263, BufferedImage.TYPE_INT_ARGB);
+		planetBF = new BufferedImage(1646, 1263, BufferedImage.TYPE_INT_ARGB);
 		traceBG = traceBF.createGraphics();
 		planetBG = planetBF.createGraphics();
-		traceBG.setBackground(new Color(0,0,0,0));
-		planetBG.setBackground(new Color(0,0,0,0));
-        
+		traceBG.setBackground(new Color(0, 0, 0, 0));
+		planetBG.setBackground(new Color(0, 0, 0, 0));
+
 		setSize(1846, 1500);
 		setLocation(50, 50);
 
 		addMouseListener(m);
 		add(p);
 
-		setVisible(true); // setVisibleĞ´ÔÚ×îºóÒ»¾ä
+		setVisible(true);
 		p.setVisible(true);
 	}
 
@@ -108,96 +107,95 @@ public class Mainfile extends Frame {
 		traceBG.clearRect(0, 0, 1646, 1263);
 	}
 
-	public void ClearAll() { // ÇåÆÁ
+	public void ClearAll() { // æ¸…å±
 		planets.clear();
 		traceBG.clearRect(0, 0, 1646, 1263);
 		vplanet = null;
 	}
 
-	/* ÕæÊµÓîÖæ×ø±ê cvt2 ÆÁÄ»ÏÔÊ¾×ø±ê */
+	/* /* çœŸå®å®‡å®™åæ ‡ cvt2 å±å¹•æ˜¾ç¤ºåæ ‡ */
 	public static int cvt(double x) {
 		double red = x / (100);
 		return (int) red + 400;
 	}
 
-	/* ÆÁÄ»ÏÔÊ¾×ø±ê cvt2 ÕæÊµÓîÖæ×ø±ê */
+	/* å±å¹•æ˜¾ç¤ºåæ ‡ cvt2 çœŸå®å®‡å®™åæ ‡ */
 	public static double recvt(int n) {
 		return (double) (n - 400) * 100;
 	}
 
-	/* ÏÔÊ¾´´½¨ÖĞµÄPlanet */
+	/* æ˜¾ç¤ºåˆ›å»ºä¸­çš„Planet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null)
 			g.drawImage(vplanet.self, cvt(vplanet.x), cvt(vplanet.y), null);
 	}
-	
-	/* ÔÚ»º´æÉÏ»æÖÆ */
+
+	/* åœ¨ç¼“å­˜ä¸Šç»˜åˆ¶ */
 	void paintFG() {
 		planetBG.clearRect(0, 0, 1646, 1263);
-		double dt = 120; // Ê±¼ä²½½ø, µ¥Î»:s
-		for (Planet p : planets) // »­Ã¿¸öÌìÌå, !visibleµÄÔÚ·½·¨Àï±ßÌØÊâ´¦Àí
+		double dt = 120; // æ—¶é—´æ­¥è¿›, å•ä½:s
+		for (Planet p : planets) // ç”»æ¯ä¸ªå¤©ä½“, !visibleçš„åœ¨æ–¹æ³•é‡Œè¾¹ç‰¹æ®Šå¤„ç†
 			p.DrawPlanet(planetBG);
-		DrawVplanet(planetBG); // »­´´½¨ÖĞµÄÌìÌå, Ö»»­³öÀ´, ²»²ÎÓëÒıÁ¦¼ÆËã
-		if (m.Clicking) { // Èç¹ûÊó±êclick»¹Ã»release, ¾Í»­µ¯ÉäÏß
+		DrawVplanet(planetBG); // ç”»åˆ›å»ºä¸­çš„å¤©ä½“, åªç”»å‡ºæ¥, ä¸å‚ä¸å¼•åŠ›è®¡ç®—
+		if (m.Clicking) { // å¦‚æœé¼ æ ‡clickè¿˜æ²¡release, å°±ç”»å¼¹å°„çº¿
 			planetBG.setColor(Color.YELLOW);
 			planetBG.drawLine(m.gotx + 15, m.goty + 15, curx, cury);
 		}
-		/* ±éÀúÃ¿¸öÌìÌå, ¼ÆËãÆäËùÊÜºÏÁ¦(Fx, Fy) */
+		/* éå†æ¯ä¸ªå¤©ä½“, è®¡ç®—å…¶æ‰€å—åˆåŠ›(Fx, Fy) */
 		for (Planet p : planets) {
 			if (!p.visible)
 				continue;
 			for (Planet q : planets) {
-				if (!q.visible) // Ìø¹ıÒÑ¾­±»mergeµÄÌìÌå
+				if (!q.visible) // è·³è¿‡å·²ç»è¢«mergeçš„å¤©ä½“
 					continue;
-				if (p == q) // ×Ô¼º²»¶Ô×Ô¼ºÊ©Á¦
+				if (p == q) // è‡ªå·±ä¸å¯¹è‡ªå·±æ–½åŠ›
 					continue;
-				if (!p.MergeOK(q)) // Èç¹ûMergeÁË¾Í²»ËãÒıÁ¦ÔöÁ¿, ÒòÎª¶¯Á¿ÒÑÊØºãÁË
+				if (!p.MergeOK(q)) // å¦‚æœMergeäº†å°±ä¸ç®—å¼•åŠ›å¢é‡, å› ä¸ºåŠ¨é‡å·²å®ˆæ’äº†
 					p.AddForce(q);
 			}
-			p.Forced(dt); // pÌìÌåËùÊÜºÏÁ¦(Fx, Fy)¸Ä±äpÌìÌåËÙ¶È(vx, vy)
+			p.Forced(dt); // på¤©ä½“æ‰€å—åˆåŠ›(Fx, Fy)æ”¹å˜på¤©ä½“é€Ÿåº¦(vx, vy)
 		}
 
-		/* ±éÀúÃ¿¸öÌìÌå, ÓÉËÙ¶È¼ÆËãÆäÎ»ÒÆ¸Ä±ä */
+		/* éå†æ¯ä¸ªå¤©ä½“, ç”±é€Ÿåº¦è®¡ç®—å…¶ä½ç§»æ”¹å˜ */
 		for (Planet p : planets) {
-			if (!p.visible) // ËÀµôµÄÌìÌå¾ÍÌø¹ı
+			if (!p.visible) // æ­»æ‰çš„å¤©ä½“å°±è·³è¿‡
 				continue;
-			p.Move(dt); // Î»ÒÆ¸Ä±ä£¡
-			if (showT) { // ÈôÏÔÊ¾¹ì¼£, ÔòÌí¼Óµ±Ç°Î»ÖÃµ½¹ì¼£(log)ÖĞ
-				if(p.hasTrace) {
-					traceBG.setColor(new Color(255,255,0));
-					traceBG.drawLine(p.lastX+15, p.lastY+15, cvt(p.x)+15, cvt(p.y)+15);
+			p.Move(dt); // ä½ç§»æ”¹å˜
+			if (showT) { // è‹¥æ˜¾ç¤ºè½¨è¿¹, åˆ™æ·»åŠ å½“å‰ä½ç½®åˆ°è½¨è¿¹(log)ä¸­
+				if (p.hasTrace) {
+					traceBG.setColor(new Color(255, 255, 0));
+					traceBG.drawLine(p.lastX + 15, p.lastY + 15, cvt(p.x) + 15, cvt(p.y) + 15);
+				} else {
+					p.hasTrace = true;
 				}
-				else {
-					p.hasTrace=true;
-				}
-				//traceBG.drawImage(p.tail, cvt(p.x), cvt(p.y), null);
+				// traceBG.drawImage(p.tail, cvt(p.x), cvt(p.y), null);
 				p.AddTrace();
 			}
 		}
 	}
 
-	/* »­´°¿ÚµÄ·½·¨, Ã¿´ÎÖØ»­´°¿Úµ÷ÓÃÒ»´Îpaint */  
+	/* ç”»çª—å£çš„æ–¹æ³•, æ¯æ¬¡é‡ç”»çª—å£è°ƒç”¨ä¸€æ¬¡ */
 	public void paint(Graphics g) {
 		paintFG();
-		g.drawImage(bg, 0, 0, null); // »­±³¾°
-		g.drawImage(traceBF, 0, 0, null); //»­¹ì¼£
-		g.drawImage(planetBF, 0, 0, null); //»­ĞĞĞÇ
+		g.drawImage(bg, 0, 0, null); // ç”»èƒŒæ™¯
+		g.drawImage(traceBF, 0, 0, null); // ç”»è½¨è¿¹
+		g.drawImage(planetBF, 0, 0, null); // ç”»è¡Œæ˜Ÿ
 	}
-	
-	/* ´°¿Ú¼ÓÔØ·½·¨, ÔËĞĞÊ±Ò»Ö±ÏİÔÚÕâ¸ö·½·¨ÀïËÀÑ­»· */
+
+	/* çª—å£åŠ è½½æ–¹æ³•, è¿è¡Œæ—¶ä¸€ç›´é™·åœ¨è¿™ä¸ªæ–¹æ³•é‡Œæ­»å¾ªç¯ */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() { // ³ı·Çµã»÷¹Ø±Õ°´Å¥Ê¹½ø³ÌÖÕÖ¹
+		addWindowListener(new WindowAdapter() { // é™¤éç‚¹å‡»å…³é—­æŒ‰é’®ä½¿è¿›ç¨‹ç»ˆæ­¢
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
-		while (true) { // ·´¸´ÖØ»­´°¿Ú, ËÀÑ­»·
+		while (true) { // åå¤é‡ç”»çª—å£, æ­»å¾ªç¯
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
-	/* ÖØĞ´ update ·½·¨¿ÉÒÔ¸ÄÉÆ»­ÖÊ, Ô­ÀíÎÒÒ²²»¶®, copy from CSDN */
+	/* é‡å†™ update æ–¹æ³•å¯ä»¥æ”¹å–„ç”»è´¨, åŸç†æˆ‘ä¹Ÿä¸æ‡‚, copy from CSDN */
 	private Image offScreenImage = null;
 
 	public void update(Graphics g) {

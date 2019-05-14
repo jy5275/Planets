@@ -4,50 +4,44 @@ import java.awt.event.*;
 class CreateHuge implements ActionListener {
     Mainfile frame;
     static final double hugem = 6e14;
-    // String impath = "images/sun.png";
 
     public CreateHuge(Mainfile f) {
         frame = f;
     }
 
     @Override
-    /* 界面上按下[Huge]时调用此方法,修改Mainfile中参数,以便创建下一个天体 */
+    /* 鐣岄潰涓婃寜涓媅Huge]鏃惰皟鐢ㄦ鏂规硶,淇敼Mainfile涓弬鏁�,浠ヤ究鍒涘缓涓嬩竴涓ぉ浣� */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = hugem;
-        frame.impath = "images/sun.png";
     }
 }
 
 class CreateMid implements ActionListener {
     Mainfile frame;
     static final double midm = 3e13;
-    // String impath = "images/earth.png";
 
     public CreateMid(Mainfile f) {
         frame = f;
     }
 
     @Override
-    /* 界面上按下[Meddium]时调用此方法,修改Mainfile中参数,以便创建下一个天体 */
+    /* 鐣岄潰涓婃寜涓媅Meddium]鏃惰皟鐢ㄦ鏂规硶,淇敼Mainfile涓弬鏁�,浠ヤ究鍒涘缓涓嬩竴涓ぉ浣� */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = midm;
-        frame.impath = "images/earth.png";
     }
 }
 
 class CreateTiny implements ActionListener {
     Mainfile frame;
     static final double tinym = 1e12;
-    // String impath = "images/moon.png";
 
     public CreateTiny(Mainfile f) {
         frame = f;
     }
 
     @Override
-    /* 界面上按下[Tiny]时调用此方法,修改Mainfile中参数,以便创建下一个天体 */
+    /* 鐣岄潰涓婃寜涓媅Tiny]鏃惰皟鐢ㄦ鏂规硶,淇敼Mainfile涓弬鏁�,浠ヤ究鍒涘缓涓嬩竴涓ぉ浣� */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = tinym;
-        frame.impath = "images/moon.png";
     }
 }

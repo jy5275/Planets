@@ -26,28 +26,44 @@ class Force {
 public class Planet {
     double G = 6.67e-11, dx = 2500;
     /* 瑙ｅ喅闈犺繎椋炲嚭闂锛氬鏋滀袱澶╀綋璺濈<mergezone,鍒欏湪Move鏃跺己琛岃瀹冧滑鏀炬參绉诲姩閫熷害 */
-    double maymergezone = 4000;
+    double maymergezone = 8000;
     double m, x, y, vx, vy;
-    boolean hasTrace = false;
-    int lastX, lastY;
+    boolean hasTrace=false;
+    int lastX,lastY;
     Force F;
     LinkedList<Point> log;
-    Image self, tail;
+    Color drawColor;
+    int diam;
     boolean visible, maymerge = false; // this鏄惁涓庢煇涓ぉ浣撹窛绂昏繎浜嶮ergezone
-
-    Planet(double m_, double x_, double y_, double vx_, double vy_, String path) {
+    
+    Planet(double m_, double x_, double y_, double vx_, double vy_, boolean ifVirtual) {
         m = m_;
         x = x_;
         y = y_;
         vx = vx_;
         vy = vy_;
+        setColorAndDiam(ifVirtual);
         F = new Force();
         log = new LinkedList<Point>();
-        tail = Toolkit.getDefaultToolkit().getImage("images/tail.png");
-        self = Toolkit.getDefaultToolkit().getImage(path);
         visible = true;
     }
-
+    
+    void setColorAndDiam(boolean ifVirtual) {
+    	int tmpAlpha=255;
+    	if(ifVirtual) {
+    		tmpAlpha=128;
+    	}
+        if(m>=6e14) {
+        	drawColor = new Color(156,38,50,tmpAlpha);
+        	diam=25;
+        }else if(m>=3e13) {
+        	drawColor = new Color(0,90,171,tmpAlpha);
+        	diam=20;
+        }else {
+        	drawColor = new Color(203,203,203,tmpAlpha);
+        	diam=15;
+        }
+    }
     /* ?????? */
     void Forced(double dt) {
         vx += F.Fx * dt / m;
@@ -71,17 +87,20 @@ public class Planet {
         y += vy * dt * factor;
         maymerge = false;
     }
-
+    
     void AddTrace() {
-        lastX = Mainfile.cvt(x);
-        lastY = Mainfile.cvt(y);
+    	lastX=Mainfile.cvt(x);
+    	lastY=Mainfile.cvt(y);
         log.push(new Point(x, y));
     }
 
     /* ???Planet??, ?????(log), ??!Mainfile.showT, ?log?? */
     void DrawPlanet(Graphics g) {
-        if (visible)
-            g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
+        if (visible) {
+        	g.setColor(drawColor);
+        	g.fillOval(Mainfile.cvt(x)-diam/2, Mainfile.cvt(y)-diam/2, diam, diam);
+        }
+            //g.drawImage(self, Mainfile.cvt(x), Mainfile.cvt(y), null);
     }
 
     double GetDistance(Planet p) {
@@ -96,12 +115,19 @@ public class Planet {
             vx = (m * vx + p.m * p.vx) / (m + p.m);
             vy = (m * vy + p.m * p.vy) / (m + p.m);
             if (m < p.m) { // the other is heavier!
-                self = p.self;
                 x = p.x;
                 y = p.y;
+                p.m+=m;
+                p.setColorAndDiam(false);
+                visible=false;
             }
-            m += p.m;
-            p.visible = false;
+            else{
+            	p.x=x;
+            	p.y=y;
+            	m += p.m;
+            	setColorAndDiam(false);
+            	p.visible=false;
+            }
             return true;
         }
         if (dist < maymergezone) {

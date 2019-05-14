@@ -18,9 +18,8 @@ import java.awt.image.BufferedImage;
  *  8. 暂停功能
  */
 public class Mainfile extends Frame {
-	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
-	BufferedImage planetBF,traceBF;
-	Graphics2D planetBG,traceBG;
+	BufferedImage bg,planetBF,traceBF;
+	Graphics2D bgBG,planetBG,traceBG;
 	ArrayList<Planet> planets;
 	Planet vplanet; // 正在创建中的Planet,鼠标还没release
 	Mouse m;
@@ -93,11 +92,13 @@ public class Mainfile extends Frame {
 		p.add(Tiny);
 		p.add(Show);
 		p.add(Move);
-		
+
+		bg=new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_RGB);
 		traceBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
 		planetBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
 		traceBG = traceBF.createGraphics();
 		planetBG = planetBF.createGraphics();
+		bgBG = bg.createGraphics();
 		traceBG.setBackground(new Color(0,0,0,0));
 		planetBG.setBackground(new Color(0,0,0,0));
         

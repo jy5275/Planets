@@ -7,7 +7,6 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-
 /*
  *	能改的地方:
  *	2. 不同质量 Planet 用不同颜色图片来表示
@@ -19,8 +18,8 @@ import java.awt.image.BufferedImage;
  */
 public class Mainfile extends Frame {
 	Image bg = Toolkit.getDefaultToolkit().getImage("images/backg.png");
-	BufferedImage planetBF,traceBF;
-	Graphics2D planetBG,traceBG;
+	BufferedImage planetBF, traceBF;
+	Graphics2D planetBG, traceBG;
 	ArrayList<Planet> planets;
 	Planet vplanet; // 正在创建中的Planet,鼠标还没release
 	Mouse m;
@@ -73,10 +72,10 @@ public class Mainfile extends Frame {
 		Show.setVisible(true);
 
 		planets = new ArrayList<Planet>();
-		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false));
-		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2,false));
-		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false));
-		
+		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4, false));
+		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2, false));
+		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3, false));
+
 		p = new JPanel(null);
 		p.setBackground(Color.DARK_GRAY);
 		p.add(cltrbt);
@@ -85,14 +84,14 @@ public class Mainfile extends Frame {
 		p.add(Mid);
 		p.add(Tiny);
 		p.add(Show);
-		
-		traceBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
-		planetBF = new BufferedImage(1646, 1263,BufferedImage.TYPE_INT_ARGB);
+
+		traceBF = new BufferedImage(1646, 1263, BufferedImage.TYPE_INT_ARGB);
+		planetBF = new BufferedImage(1646, 1263, BufferedImage.TYPE_INT_ARGB);
 		traceBG = traceBF.createGraphics();
 		planetBG = planetBF.createGraphics();
-		traceBG.setBackground(new Color(0,0,0,0));
-		planetBG.setBackground(new Color(0,0,0,0));
-        
+		traceBG.setBackground(new Color(0, 0, 0, 0));
+		planetBG.setBackground(new Color(0, 0, 0, 0));
+
 		setSize(1846, 1500);
 		setLocation(50, 50);
 
@@ -128,12 +127,11 @@ public class Mainfile extends Frame {
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
-			int tmpdiam=vplanet.diam;
-			g.fillOval(cvt(vplanet.x)-tmpdiam/2, cvt(vplanet.y)-tmpdiam/2, tmpdiam, tmpdiam);
+			int tmpdiam = vplanet.diam;
+			g.fillOval(cvt(vplanet.x) - tmpdiam / 2, cvt(vplanet.y) - tmpdiam / 2, tmpdiam, tmpdiam);
 		}
-			//g.drawImage(vplanet.self, cvt(vplanet.x), cvt(vplanet.y), null);
 	}
-	
+
 	/* 在缓存上绘制 */
 	void paintFG() {
 		planetBG.clearRect(0, 0, 1646, 1263);
@@ -166,26 +164,25 @@ public class Mainfile extends Frame {
 				continue;
 			p.Move(dt); // 位移改变！
 			if (showT) { // 若显示轨迹, 则添加当前位置到轨迹(log)中
-				if(p.hasTrace) {
+				if (p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x), cvt(p.y));
-				}
-				else {
-					p.hasTrace=true;
+				} else {
+					p.hasTrace = true;
 				}
 				p.AddTrace();
 			}
 		}
 	}
 
-	/* 画窗口的方法, 每次重画窗口调用一次paint */  
+	/* 画窗口的方法, 每次重画窗口调用一次paint */
 	public void paint(Graphics g) {
 		paintFG();
 		g.drawImage(bg, 0, 0, null); // 画背景
-		g.drawImage(traceBF, 0, 0, null); //画轨迹
-		g.drawImage(planetBF, 0, 0, null); //画行星
+		g.drawImage(traceBF, 0, 0, null); // 画轨迹
+		g.drawImage(planetBF, 0, 0, null); // 画行星
 	}
-	
+
 	/* 窗口加载方法, 运行时一直陷在这个方法里死循环 */
 	void launchFrame() throws Exception {
 		addWindowListener(new WindowAdapter() { // 除非点击关闭按钮使进程终止

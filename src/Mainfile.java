@@ -3,6 +3,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -25,13 +28,16 @@ public class Mainfile extends Frame {
 	Mouse m;
 	JPanel p;
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move;
+	JCheckBox Still;
 	static public int movX=0,movY=0,clickX=0,clickY=0;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
-	boolean showT = false, moveS = true, saveMov=false;
+	public boolean showT = false, moveS = true, saveMov=false,STILL=false;
 	int curx, cury;
 	int bgwidth=1920,bgheight=1080;
-
+	void setStill() {
+		STILL=!STILL;
+	}
 	Mainfile(String title) {
 		super(title);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -40,7 +46,7 @@ public class Mainfile extends Frame {
         bgwidth=scrnsize.height;
         while(scrnsize.width<bgwidth)
         	bgwidth-=128;
-        while(scrnsize.height<bgheight+50)
+        while(scrnsize.height<bgheight+200)
         	bgheight-=128;
 		m = new Mouse(this);
 		showT = true;
@@ -62,40 +68,57 @@ public class Mainfile extends Frame {
 		clbt.setBounds(bgwidth, 220, 120, 80);
 		clbt.setVisible(true);
 
+		Still = new JCheckBox("Still");
+		Still.addChangeListener(new ChangeListener(){
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JCheckBox checkBox=(JCheckBox) e.getSource();
+				Object object=new Object();
+				object = ((checkBox.getParent().getParent()));
+				Mainfile m=(Mainfile)object;
+				m.setStill();
+				
+			}
+			
+		});
+		Still.setBounds(bgwidth, 320, 100, 40);
+		Still.setVisible(true);
+		
 		Huge = new JButton("Huge");
 		Huge.addActionListener(chuge);
-		Huge.setBounds(bgwidth, 320, 100, 40);
+		Huge.setBounds(bgwidth, 370, 100, 40);
 		Huge.setVisible(true);
 
 		Mid = new JButton("Medium");
 		Mid.addActionListener(cmid);
-		Mid.setBounds(bgwidth, 370, 100, 40);
+		Mid.setBounds(bgwidth, 420, 100, 40);
 		Mid.setVisible(true);
 
 		Tiny = new JButton("Tiny");
 		Tiny.addActionListener(ctiny);
-		Tiny.setBounds(bgwidth, 420, 100, 40);
+		Tiny.setBounds(bgwidth, 470, 100, 40);
 		Tiny.setVisible(true);
 
 		Show = new JButton("Show Trace");
 		Show.addActionListener(show);
-		Show.setBounds(bgwidth, 480, 120, 80);
+		Show.setBounds(bgwidth,530, 120, 80);
 		Show.setVisible(true);
 
 		Move = new JButton("Move");
 		Move.addActionListener(movsc);
-		Move.setBounds(bgwidth, 600, 120, 80);
+		Move.setBounds(bgwidth, 650, 120, 80);
 		Move.setVisible(true);
 
 		planets = new ArrayList<Planet>();
-		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false));
-		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2,false));
-		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false));
+		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));
+		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2,false,false));
+		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false,false));
 		
 		p = new JPanel(null);
 		p.setBackground(Color.DARK_GRAY);
 		p.add(cltrbt);
 		p.add(clbt);
+		p.add(Still);
 		p.add(Huge);
 		p.add(Mid);
 		p.add(Tiny);
@@ -181,9 +204,6 @@ public class Mainfile extends Frame {
             if (a.m < b.m) { // the other is heavier!
                 b.vx=tmpvx;
                 b.vy=tmpvy;
-                if(showT) {
-                	
-                }
                 a.x = b.x;
                 a.y = b.y;
                 if(showT) {

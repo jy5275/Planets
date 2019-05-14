@@ -16,7 +16,6 @@ class Point {
 
 class Force {
     double Fx, Fy;
-
     void clear() {
         Fx = 0;
         Fy = 0;
@@ -29,6 +28,7 @@ public class Planet {
     static double maymergezone = 4000;
     double m, x, y, vx, vy;
     boolean hasTrace=false;
+    boolean keepstill=false;
     int lastX,lastY;
     Force F;
     LinkedList<Point> log;
@@ -36,8 +36,9 @@ public class Planet {
     int diam;
     boolean visible, maymerge = false; // this鏄惁涓庢煇涓ぉ浣撹窛绂昏繎浜嶮ergezone
     
-    Planet(double m_, double x_, double y_, double vx_, double vy_, boolean ifVirtual) {
-        m = m_;
+    Planet(double m_, double x_, double y_, double vx_, double vy_, boolean ifVirtual,boolean keepstill_) {
+        keepstill = keepstill_;
+    	m = m_;
         x = x_;
         y = y_;
         vx = vx_;
@@ -74,6 +75,8 @@ public class Planet {
     /* ?????? */
     void Move(double dt) {
         double factor = 1;
+        if(keepstill==true)
+        	return;
         /* 濡傛灉涓lanet闈犲お杩�,灏卞己琛岃浠栦滑浣嶇Щ灏戜竴鐐�(涔樹竴涓皬浜�1鐨刦actor) */
         if (maymerge) {
             if (Math.abs(vx) > 10 || Math.abs(vy) > 10)

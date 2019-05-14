@@ -32,7 +32,7 @@ public class Mouse implements MouseMotionListener, MouseListener {
         if(!frame.moveS){
             begx = Mainfile.recvt(gotx,true); // 鍏夋爣瀹囧畽鍧愭爣
             begy = Mainfile.recvt(goty,false); // 鍏夋爣瀹囧畽鍧愭爣
-            frame.vplanet = new Planet(Mainfile.DEFAULT_M, begx, begy, 0, 0,true);
+            frame.vplanet = new Planet(Mainfile.DEFAULT_M, begx, begy, 0, 0,true,frame.STILL);
         }
     }
 
@@ -48,7 +48,11 @@ public class Mouse implements MouseMotionListener, MouseListener {
         }else{
             double vx_ = (finx - begx) / 20000;
             double vy_ = (finy - begy) / 20000;
-            Planet newp = new Planet(Mainfile.DEFAULT_M, begx, begy, vx_, vy_,false);
+            if(frame.STILL) {
+            	vx_=0;
+            	vy_=0;
+            }
+            Planet newp = new Planet(Mainfile.DEFAULT_M, begx, begy, vx_, vy_,false,frame.STILL);
             frame.planets.add(newp);
             frame.vplanet = null;
         }

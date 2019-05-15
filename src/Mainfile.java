@@ -35,6 +35,7 @@ public class Mainfile extends Frame {
 	public boolean showT = false, moveS = true, saveMov=false,STILL=false;
 	int curx, cury;
 	int bgwidth,bgheight,partheight=50;
+	boolean repaintP=true;
 	void setStill() {
 		STILL=!STILL;
 	}
@@ -55,7 +56,6 @@ public class Mainfile extends Frame {
 		ShowTrace show = new ShowTrace(this);
 		MoveScreen movsc = new MoveScreen(this);
 
-		setVisible(true);
 		
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
@@ -169,7 +169,10 @@ public class Mainfile extends Frame {
 
 		addMouseListener(m);
 		add(p); // setVisible鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鎻紮鎷烽敓锟�
+
+		setVisible(true);
 	}
+	
 
 	public void ClearTrace() {
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
@@ -343,7 +346,10 @@ public class Mainfile extends Frame {
 		g.drawImage(bgBF, 0, 0, null); // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
 		g.drawImage(traceBF, 0, 0, null); //閿熸枻鎷烽敓灞婅抗
 		g.drawImage(planetBF, 0, 0, null); //閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
-		this.setVisible(true);
+		if(repaintP) {
+			p.repaint();
+			repaintP=false;
+		}
 	}
 	
 	/* 閿熸枻鎷烽敓鑺傜》鎷烽敓鎴嚖鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鏂ゆ嫹鏃朵竴鐩撮敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熺獤顓ㄦ嫹閿燂拷 */
@@ -351,6 +357,9 @@ public class Mainfile extends Frame {
 		addWindowListener(new WindowAdapter() { // 閿熸枻鎷烽敓瑙掔鎷烽敓鏂ゆ嫹涔囩灮閿熻剼銉婄櫢鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓琛楋拷
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
+			}
+			public void windowDeiconified(WindowEvent e) {
+				repaintP=true;
 			}
 		});
 		while (true) { // 閿熸枻鎷烽敓鏂ゆ嫹閿熸埅浼欐嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷峰惊閿熸枻鎷�

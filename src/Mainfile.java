@@ -60,6 +60,8 @@ public class Mainfile extends Frame {
 		ShowTrace show = new ShowTrace(this);
 		MoveScreen movsc = new MoveScreen(this);
 
+		setVisible(true);
+		
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
 		cltrbt.setBounds(bgwidth+30, 2*partheight, 120, 3*partheight);
@@ -171,8 +173,7 @@ public class Mainfile extends Frame {
 		setLocation(50, 50);
 
 		addMouseListener(m);
-		add(p);
-		setVisible(true); // setVisible鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鎻紮鎷烽敓锟�
+		add(p); // setVisible鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鎻紮鎷烽敓锟�
 	}
 
 	public void ClearTrace() {

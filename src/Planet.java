@@ -25,7 +25,7 @@ class Force {
 
 public class Planet {
     static double G = 6.67e-11, dx = 2000;
-    /* 瑙ｅ喅闈犺繎椋炲嚭闂锛氬鏋滀袱澶╀綋璺濈<mergezone,鍒欏湪Move鏃跺己琛岃瀹冧滑鏀炬參绉诲姩閫熷害 */
+    /* 鐟欙絽鍠呴棃鐘虹箮妞嬬偛鍤梻顕�顣介敍姘洤閺嬫粈琚辨径鈺�缍嬬捄婵堫瀲<mergezone,閸掓瑥婀狹ove閺冭泛宸辩悰宀冾唨鐎瑰啩婊戦弨鐐弮缁夎濮╅柅鐔峰 */
     static double maymergezone = 4000;
     double m, x, y, vx, vy;
     boolean hasTrace = false;
@@ -35,7 +35,7 @@ public class Planet {
     LinkedList<Point> log;
     Color drawColor;
     int diam;
-    boolean visible, maymerge = false; // this鏄惁涓庢煇涓ぉ浣撹窛绂昏繎浜嶮ergezone
+    boolean visible, maymerge = false; // this閺勵垰鎯佹稉搴㈢厙娑擃亜銇夋担鎾圭獩缁傛槒绻庢禍宥甧rgezone
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, boolean ifVirtual, boolean keepstill_) {
         keepstill = keepstill_;
@@ -76,7 +76,7 @@ public class Planet {
         double factor = 1;
         if (keepstill == true)
             return;
-        /* 濡傛灉涓lanet闈犲お杩�,灏卞己琛岃浠栦滑浣嶇Щ灏戜竴鐐�(涔樹竴涓皬浜�1鐨刦actor) */
+        /* 婵″倹鐏夋稉顥秎anet闂堢姴銇婃潻锟�,鐏忓崬宸辩悰宀冾唨娴犳牔婊戞担宥囆╃亸鎴滅閻愶拷(娑旀ü绔存稉顏勭毈娴滐拷1閻ㄥ垿actor) */
         if (maymerge) {
             if (Math.abs(vx) > 10 || Math.abs(vy) > 10)
                 factor = 0.3;
@@ -89,10 +89,14 @@ public class Planet {
         y += vy * dt * factor;
         maymerge = false;
     }
-
-    void AddTrace() {
+    
+    void setLast() {
         lastX = Mainfile.cvt(x, true);
         lastY = Mainfile.cvt(y, false);
+    }
+
+    void AddTrace() {
+    	setLast();
         log.push(new Point(x, y));
     }
 

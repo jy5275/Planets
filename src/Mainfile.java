@@ -12,19 +12,19 @@ import java.awt.image.BufferedImage;
 
 
 /*
- *	锟杰改的地凤拷:
- *	2. 锟斤拷同锟斤拷锟斤拷 Planet 锟矫诧拷同锟斤拷色图片锟斤拷锟斤拷示
- *	4. 锟斤拷庸锟斤拷锟�: 锟斤拷锟斤拷 Planet 锟斤拷示锟斤拷锟斤拷
- *	5. 锟斤拷佣锟斤拷锟皆硷拷锟较的ｏ拷锟�
- *	6. 锟斤拷庸锟斤拷锟�: 强锟叫改憋拷锟斤拷锟斤拷锟斤拷式
- *	7.* 锟斤拷锟斤拷锟斤拷锟揭凤拷锟斤拷锟斤拷
- *  8. 锟斤拷停锟斤拷锟斤拷
+ *	閿熸澃鏀圭殑鍦板嚖鎷�:
+ *	2. 閿熸枻鎷峰悓閿熸枻鎷烽敓鏂ゆ嫹 Planet 閿熺煫璇ф嫹鍚岄敓鏂ゆ嫹鑹插浘鐗囬敓鏂ゆ嫹閿熸枻鎷风ず
+ *	4. 閿熸枻鎷峰焊閿熸枻鎷烽敓锟�: 閿熸枻鎷烽敓鏂ゆ嫹 Planet 閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹
+ *	5. 閿熸枻鎷蜂剑閿熸枻鎷烽敓鐨嗩厓纭锋嫹閿熻緝鐨勶綇鎷烽敓锟�
+ *	6. 閿熸枻鎷峰焊閿熸枻鎷烽敓锟�: 寮洪敓鍙敼鎲嬫嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷峰紡
+ *	7.* 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鎻嚖鎷烽敓鏂ゆ嫹閿熸枻鎷�
+ *  8. 閿熸枻鎷峰仠閿熸枻鎷烽敓鏂ゆ嫹
  */
 public class Mainfile extends Frame {
 	BufferedImage bgBF,planetBF,traceBF;
 	Graphics2D bgBG,planetBG,traceBG;
 	ArrayList<Planet> planets;
-	Planet vplanet; // 锟斤拷锟节达拷锟斤拷锟叫碉拷Planet,锟斤拷昊姑籸elease
+	Planet vplanet; // 閿熸枻鎷烽敓鑺傝揪鎷烽敓鏂ゆ嫹閿熷彨纰夋嫹Planet,閿熸枻鎷锋槉濮戠备elease
 	Mouse m;
 	JPanel p;
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause, Save, Load;
@@ -69,6 +69,7 @@ public class Mainfile extends Frame {
 		clbt.setBounds(bgwidth+30, 6*partheight, 120, 3*partheight);
 		
 		Still = new JCheckBox("Still");
+		Still.setBackground(Color.BLACK);
 		Still.setForeground(Color.WHITE);
 		Still.addChangeListener(new ChangeListener(){
 			@Override
@@ -86,27 +87,33 @@ public class Mainfile extends Frame {
 		
 		
 		Huge = new JButton("Huge");
+		Huge.setBackground(Color.BLACK);
+		Huge.setBorderPainted(false);
 		Huge.addActionListener(chuge);
 		ImageIcon hugeimage=new ImageIcon("images/huge.png");
 		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Huge.setIcon(hugeimage);
-		Huge.setBounds(bgwidth+30, 14*partheight, 6*partheight-7, 3*partheight);
+		Huge.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
 		
 
 		Mid = new JButton("Medium");
+		Mid.setBackground(Color.BLACK);
+		Mid.setBorderPainted(false);
 		Mid.addActionListener(cmid);
 		ImageIcon mediumimage=new ImageIcon("images/medium.png");
 		mediumimage.setImage(mediumimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Mid.setIcon(mediumimage);
-		Mid.setBounds(bgwidth+30, 18*partheight, 6*partheight-7, 3*partheight);
+		Mid.setBounds(bgwidth+30, 18*partheight, 6*partheight, 3*partheight);
 		
 
 		Tiny = new JButton("Tiny");
+		Tiny.setBackground(Color.BLACK);
+		Tiny.setBorderPainted(false);
 		Tiny.addActionListener(ctiny);
 		ImageIcon tinyimage=new ImageIcon("images/tiny.png");
 		tinyimage.setImage(tinyimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Tiny.setIcon(tinyimage);
-		Tiny.setBounds(bgwidth+30, 22*partheight, 6*partheight-10, 3*partheight);
+		Tiny.setBounds(bgwidth+30, 22*partheight, 6*partheight, 3*partheight);
 		
 
 		Show = new JButton("Show Trace");
@@ -137,7 +144,7 @@ public class Mainfile extends Frame {
 		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false,false));
 		
 		p = new JPanel(null);
-		p.setBackground(new Color(0,0,0,0));
+		p.setBackground(Color.BLACK);
 		p.add(cltrbt);
 		p.add(clbt);
 		p.add(Still);
@@ -151,7 +158,7 @@ public class Mainfile extends Frame {
 		p.add(Save);
 		p.setLocation(bgwidth+20, 200);
 
-		bgBF = new BufferedImage(bgwidth,bgheight,BufferedImage.TYPE_INT_RGB);
+		bgBF = new BufferedImage(bgwidth+200,bgheight,BufferedImage.TYPE_INT_RGB);
 		traceBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		planetBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		bgBG = bgBF.createGraphics();
@@ -165,8 +172,7 @@ public class Mainfile extends Frame {
 
 		addMouseListener(m);
 		add(p);
-		setVisible(true); // setVisible写锟斤拷锟斤拷锟揭伙拷锟�
-		p.repaint();
+		setVisible(true); // setVisible鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鎻紮鎷烽敓锟�
 	}
 
 	public void ClearTrace() {
@@ -181,13 +187,13 @@ public class Mainfile extends Frame {
 		}
 	}
 
-	public void ClearAll() { // 锟斤拷锟斤拷
+	public void ClearAll() { // 閿熸枻鎷烽敓鏂ゆ嫹
 		planets.clear();
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		vplanet = null;
 	}
 
-	/* 锟斤拷实锟斤拷锟斤拷锟斤拷锟斤拷 cvt2 锟斤拷幕锟斤拷示锟斤拷锟斤拷 */
+	/* 閿熸枻鎷峰疄閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹 cvt2 閿熸枻鎷峰箷閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹 */
 	public static int cvt(double x,boolean ifX) {
 		double red = x / (100);
 		if(ifX){
@@ -196,7 +202,7 @@ public class Mainfile extends Frame {
 		return (int) red + 400 + movY +clickY;
 	}
 
-	/* 锟斤拷幕锟斤拷示锟斤拷锟斤拷 cvt2 锟斤拷实锟斤拷锟斤拷锟斤拷锟斤拷 */
+	/* 閿熸枻鎷峰箷閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹 cvt2 閿熸枻鎷峰疄閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹 */
 	public static double recvt(int n,boolean ifX) {
 		if(ifX){
 			return (double) (n - 400 - movX - clickX) * 100;
@@ -204,7 +210,7 @@ public class Mainfile extends Frame {
 		return (double) (n - 400 - movY - clickY) * 100;
 	}
 
-	/* 锟斤拷示锟斤拷锟斤拷锟叫碉拷Planet */
+	/* 閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹閿熷彨纰夋嫹Planet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
@@ -263,22 +269,29 @@ public class Mainfile extends Frame {
         return false;
     }
 	
-	/* 锟节伙拷锟斤拷锟较伙拷锟斤拷 */
+	/* 閿熻妭浼欐嫹閿熸枻鎷烽敓杈冧紮鎷烽敓鏂ゆ嫹 */
 	void paintFG() {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
-		double dt = 120; // 时锟戒步锟斤拷, 锟斤拷位:s
+		double dt = 120; // 鏃堕敓鎴掓閿熸枻鎷�, 閿熸枻鎷蜂綅:s
 		if (saveMov) {
 			movX+=clickX;
 			movY+=clickY;
 			clickX=0;
 			clickY=0;
 			saveMov=false;
+			for(Planet p:planets) {
+				p.setLast();
+			}
+			redrawTrace();
 		}
-		if (m.Clicking) { // 锟斤拷锟斤拷锟斤拷click锟斤拷没release, 锟酵伙拷锟斤拷锟斤拷锟斤拷
+		if (m.Clicking) { // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷穋lick閿熸枻鎷锋病release, 閿熼叺浼欐嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
 			if(moveS){
 				traceBG.clearRect(0, 0, bgwidth, bgheight);
 				clickX=curx-m.gotx;
 				clickY=cury-m.goty;
+				for(Planet p:planets) {
+					p.setLast();
+				}
 				redrawTrace();
 			}
 			else{
@@ -286,10 +299,10 @@ public class Mainfile extends Frame {
 				planetBG.drawLine(m.gotx, m.goty, curx, cury);
 			}
 		}
-		DrawVplanet(planetBG); // 锟斤拷锟斤拷锟斤拷锟叫碉拷锟斤拷锟斤拷, 只锟斤拷锟斤拷锟斤拷, 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
-		for (Planet p : planets) // 锟斤拷每锟斤拷锟斤拷锟斤拷, !visible锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷獯︼拷锟�
+		DrawVplanet(planetBG); // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鍙鎷烽敓鏂ゆ嫹閿熸枻鎷�, 鍙敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
+		for (Planet p : planets) // 閿熸枻鎷锋瘡閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�, !visible閿熸枻鎷烽敓鑺傚嚖鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷风嵂锔兼嫹閿燂拷
 			p.DrawPlanet(planetBG);
-		/* 锟斤拷锟斤拷每锟斤拷锟斤拷锟斤拷, 锟斤拷锟斤拷锟斤拷锟斤拷锟杰猴拷锟斤拷(Fx, Fy) */
+		/* 閿熸枻鎷烽敓鏂ゆ嫹姣忛敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸澃鐚存嫹閿熸枻鎷�(Fx, Fy) */
 		int planetsnum=planets.size();
 		for (int i=0;i<planetsnum;i++) {
 			Planet p=planets.get(i);
@@ -297,20 +310,20 @@ public class Mainfile extends Frame {
 				continue;
 			for (int j=i+1;j<planetsnum;j++) {
 				Planet q=planets.get(j);
-				if (!(q.visible)) // 锟斤拷锟斤拷锟窖撅拷锟斤拷merge锟斤拷锟斤拷锟斤拷
+				if (!(q.visible)) // 閿熸枻鎷烽敓鏂ゆ嫹閿熺獤鎾呮嫹閿熸枻鎷穖erge閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
 					continue;
-				if (!MergeOK(p,q)) // 锟斤拷锟組erge锟剿就诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷, 锟斤拷为锟斤拷锟斤拷锟斤拷锟截猴拷锟斤拷
+				if (!MergeOK(p,q)) // 閿熸枻鎷烽敓绲別rge閿熷壙灏辫鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷蜂负閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鎴尨鎷烽敓鏂ゆ嫹
 					p.AddForce(q);
 			}
-			p.Forced(dt); // p锟斤拷锟斤拷锟斤拷锟杰猴拷锟斤拷(Fx, Fy)锟侥憋拷p锟斤拷锟斤拷锟劫讹拷(vx, vy)
+			p.Forced(dt); // p閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏉扮尨鎷烽敓鏂ゆ嫹(Fx, Fy)閿熶茎鎲嬫嫹p閿熸枻鎷烽敓鏂ゆ嫹閿熷姭璁规嫹(vx, vy)
 		}
 
-		/* 锟斤拷锟斤拷每锟斤拷锟斤拷锟斤拷, 锟斤拷锟劫度硷拷锟斤拷锟斤拷位锟狡改憋拷 */
+		/* 閿熸枻鎷烽敓鏂ゆ嫹姣忛敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鍔害纭锋嫹閿熸枻鎷烽敓鏂ゆ嫹浣嶉敓鐙℃敼鎲嬫嫹 */
 		for (Planet p : planets) {
-			if (!p.visible) // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
+			if (!p.visible) // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓锟�
 				continue;
-			p.Move(dt); // 位锟狡改变！
-			if (showT) { // 锟斤拷锟斤拷示锟届迹, 锟斤拷锟斤拷拥锟角拔伙拷玫锟斤拷旒�(log)锟斤拷
+			p.Move(dt); // 浣嶉敓鐙℃敼鍙橈紒
+			if (showT) { // 閿熸枻鎷烽敓鏂ゆ嫹绀洪敓灞婅抗, 閿熸枻鎷烽敓鏂ゆ嫹鎷ラ敓瑙掓嫈浼欐嫹鐜敓鏂ゆ嫹鏃掞拷(log)閿熸枻鎷�
 				if(p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x,true), cvt(p.y,false));
@@ -328,29 +341,29 @@ public class Mainfile extends Frame {
 		return null;
 	}
 
-	/* 锟斤拷锟斤拷锟节的凤拷锟斤拷, 每锟斤拷锟截伙拷锟斤拷锟节碉拷锟斤拷一锟斤拷paint */  
+	/* 閿熸枻鎷烽敓鏂ゆ嫹閿熻妭鐨勫嚖鎷烽敓鏂ゆ嫹, 姣忛敓鏂ゆ嫹閿熸埅浼欐嫹閿熸枻鎷烽敓鑺傜鎷烽敓鏂ゆ嫹涓�閿熸枻鎷穚aint */  
 	public void paint(Graphics g) {
 		paintFG();
-		g.drawImage(bgBF, 0, 0, null); // 锟斤拷锟斤拷锟斤拷
-		g.drawImage(traceBF, 0, 0, null); //锟斤拷锟届迹
-		g.drawImage(planetBF, 0, 0, null); //锟斤拷锟斤拷锟斤拷
+		g.drawImage(bgBF, 0, 0, null); // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
+		g.drawImage(traceBF, 0, 0, null); //閿熸枻鎷烽敓灞婅抗
+		g.drawImage(planetBF, 0, 0, null); //閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
 		this.setVisible(true);
 	}
 	
-	/* 锟斤拷锟节硷拷锟截凤拷锟斤拷, 锟斤拷锟斤拷时一直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟窖拷锟� */
+	/* 閿熸枻鎷烽敓鑺傜》鎷烽敓鎴嚖鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鏂ゆ嫹鏃朵竴鐩撮敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熺獤顓ㄦ嫹閿燂拷 */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() { // 锟斤拷锟角碉拷锟斤拷乇瞻锟脚ナ癸拷锟斤拷锟斤拷锟街�
+		addWindowListener(new WindowAdapter() { // 閿熸枻鎷烽敓瑙掔鎷烽敓鏂ゆ嫹涔囩灮閿熻剼銉婄櫢鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓琛楋拷
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
-		while (true) { // 锟斤拷锟斤拷锟截伙拷锟斤拷锟斤拷, 锟斤拷循锟斤拷
+		while (true) { // 閿熸枻鎷烽敓鏂ゆ嫹閿熸埅浼欐嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷峰惊閿熸枻鎷�
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
-	/* 锟斤拷写 update 锟斤拷锟斤拷锟斤拷锟皆革拷锟狡伙拷锟斤拷, 原锟斤拷锟斤拷也锟斤拷锟斤拷, copy from CSDN */
+	/* 閿熸枻鎷峰啓 update 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鐨嗛潻鎷烽敓鐙′紮鎷烽敓鏂ゆ嫹, 鍘熼敓鏂ゆ嫹閿熸枻鎷蜂篃閿熸枻鎷烽敓鏂ゆ嫹, copy from CSDN */
 	private Image offScreenImage = null;
 
 	public void update(Graphics g) {

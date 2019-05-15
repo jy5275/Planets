@@ -27,7 +27,7 @@ public class Mainfile extends Frame {
 	Planet vplanet; // 锟斤拷锟节达拷锟斤拷锟叫碉拷Planet,锟斤拷昊姑籸elease
 	Mouse m;
 	JPanel p;
-	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move;
+	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause, Save, Load;
 	JCheckBox Still;
 	static public int movX=0,movY=0,clickX=0,clickY=0;
 	static public double DEFAULT_M = 3e13;
@@ -48,7 +48,7 @@ public class Mainfile extends Frame {
         	bgwidth-=128;
         while(scrnsize.height<bgheight+100)
         	bgheight-=50;
-        while(bgheight<35*partheight)
+        while(bgheight<46*partheight)
         	partheight-=1;
 		m = new Mouse(this);
 		showT = true;
@@ -90,7 +90,7 @@ public class Mainfile extends Frame {
 		ImageIcon hugeimage=new ImageIcon("images/huge.png");
 		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Huge.setIcon(hugeimage);
-		Huge.setBounds(bgwidth+30, 14*partheight, 6*partheight-10, 3*partheight);
+		Huge.setBounds(bgwidth+30, 14*partheight, 6*partheight-7, 3*partheight);
 		
 
 		Mid = new JButton("Medium");
@@ -118,6 +118,18 @@ public class Mainfile extends Frame {
 		Move.addActionListener(movsc);
 		Move.setBounds(bgwidth+30, 30*partheight, 120, 3*partheight);
 		
+		Pause = new JButton("Pause");
+		Pause.addActionListener(movsc);
+		Pause.setBounds(bgwidth+30, 34*partheight, 120, 3*partheight);
+		
+		Save = new JButton("Save");
+		Save.addActionListener(movsc);
+		Save.setBounds(bgwidth+30, 38*partheight, 120, 3*partheight);
+		
+		Load = new JButton("Load");
+		Load.addActionListener(movsc);
+		Load.setBounds(bgwidth+30, 42*partheight, 120, 3*partheight);
+		
 
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));
@@ -134,6 +146,9 @@ public class Mainfile extends Frame {
 		p.add(Tiny);
 		p.add(Show);
 		p.add(Move);
+		p.add(Pause);
+		p.add(Load);
+		p.add(Save);
 		p.setLocation(bgwidth+20, 200);
 
 		bgBF = new BufferedImage(bgwidth,bgheight,BufferedImage.TYPE_INT_RGB);

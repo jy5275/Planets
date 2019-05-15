@@ -63,14 +63,13 @@ public class Mainfile extends Frame {
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
 		cltrbt.setBounds(bgwidth+30, 2*partheight, 120, 3*partheight);
-		cltrbt.setVisible(true);
 
 		clbt = new JButton("Clear all");
 		clbt.addActionListener(ca);
 		clbt.setBounds(bgwidth+30, 6*partheight, 120, 3*partheight);
-		clbt.setVisible(true);
-
+		
 		Still = new JCheckBox("Still");
+		Still.setForeground(Color.WHITE);
 		Still.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -84,32 +83,41 @@ public class Mainfile extends Frame {
 			
 		});
 		Still.setBounds(bgwidth+30, 10*partheight, 120, 2*partheight);
-		Still.setVisible(true);
+		
 		
 		Huge = new JButton("Huge");
 		Huge.addActionListener(chuge);
-		Huge.setBounds(bgwidth+30, 14*partheight, 120, 3*partheight);
-		Huge.setVisible(true);
+		ImageIcon hugeimage=new ImageIcon("images/huge.png");
+		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Huge.setIcon(hugeimage);
+		Huge.setBounds(bgwidth+30, 14*partheight, 6*partheight-10, 3*partheight);
+		
 
 		Mid = new JButton("Medium");
 		Mid.addActionListener(cmid);
-		Mid.setBounds(bgwidth+30, 18*partheight, 120, 3*partheight);
-		Mid.setVisible(true);
+		ImageIcon mediumimage=new ImageIcon("images/medium.png");
+		mediumimage.setImage(mediumimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Mid.setIcon(mediumimage);
+		Mid.setBounds(bgwidth+30, 18*partheight, 6*partheight-7, 3*partheight);
+		
 
 		Tiny = new JButton("Tiny");
 		Tiny.addActionListener(ctiny);
-		Tiny.setBounds(bgwidth+30, 22*partheight, 120, 3*partheight);
-		Tiny.setVisible(true);
+		ImageIcon tinyimage=new ImageIcon("images/tiny.png");
+		tinyimage.setImage(tinyimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Tiny.setIcon(tinyimage);
+		Tiny.setBounds(bgwidth+30, 22*partheight, 6*partheight-10, 3*partheight);
+		
 
 		Show = new JButton("Show Trace");
 		Show.addActionListener(show);
 		Show.setBounds(bgwidth+30,26*partheight, 120, 3*partheight);
-		Show.setVisible(true);
+		
 
 		Move = new JButton("Move");
 		Move.addActionListener(movsc);
 		Move.setBounds(bgwidth+30, 30*partheight, 120, 3*partheight);
-		Move.setVisible(true);
+		
 
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));
@@ -117,7 +125,7 @@ public class Mainfile extends Frame {
 		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false,false));
 		
 		p = new JPanel(null);
-		p.setBackground(Color.DARK_GRAY);
+		p.setBackground(new Color(0,0,0,0));
 		p.add(cltrbt);
 		p.add(clbt);
 		p.add(Still);
@@ -126,7 +134,8 @@ public class Mainfile extends Frame {
 		p.add(Tiny);
 		p.add(Show);
 		p.add(Move);
-		
+		p.setLocation(bgwidth+20, 200);
+
 		bgBF = new BufferedImage(bgwidth,bgheight,BufferedImage.TYPE_INT_RGB);
 		traceBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		planetBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
@@ -141,9 +150,8 @@ public class Mainfile extends Frame {
 
 		addMouseListener(m);
 		add(p);
-
 		setVisible(true); // setVisible写锟斤拷锟斤拷锟揭伙拷锟�
-		p.setVisible(true);
+		p.repaint();
 	}
 
 	public void ClearTrace() {
@@ -311,6 +319,7 @@ public class Mainfile extends Frame {
 		g.drawImage(bgBF, 0, 0, null); // 锟斤拷锟斤拷锟斤拷
 		g.drawImage(traceBF, 0, 0, null); //锟斤拷锟届迹
 		g.drawImage(planetBF, 0, 0, null); //锟斤拷锟斤拷锟斤拷
+		this.setVisible(true);
 	}
 	
 	/* 锟斤拷锟节硷拷锟截凤拷锟斤拷, 锟斤拷锟斤拷时一直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟窖拷锟� */

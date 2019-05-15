@@ -34,7 +34,7 @@ public class Mainfile extends Frame {
 	static int time = 0;
 	public boolean showT = false, moveS = true, saveMov=false,STILL=false;
 	int curx, cury;
-	int bgwidth=1920,bgheight=1080,partheight=50;
+	int bgwidth,bgheight,partheight=50;
 	void setStill() {
 		STILL=!STILL;
 	}
@@ -42,14 +42,9 @@ public class Mainfile extends Frame {
 		super(title);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension scrnsize = toolkit.getScreenSize();
-        bgwidth=scrnsize.width;
-        bgwidth=scrnsize.height;
-        while(scrnsize.width<bgwidth)
-        	bgwidth-=128;
-        while(scrnsize.height<bgheight+100)
-        	bgheight-=50;
-        while(bgheight<46*partheight)
-        	partheight-=1;
+        bgwidth=(int)(scrnsize.width*0.8);
+        bgheight=(int)(scrnsize.height*0.9);
+        partheight=(int)(bgheight/50);
 		m = new Mouse(this);
 		showT = true;
 		ClearTrace ct = new ClearTrace(this);

@@ -59,6 +59,8 @@ public class Mainfile extends Frame {
 		CreateTiny ctiny = new CreateTiny(this);
 		ShowTrace show = new ShowTrace(this);
 		MoveScreen movsc = new MoveScreen(this);
+		SaveGalaxy saveg = new SaveGalaxy(this);
+		LoadGalaxy loadg = new LoadGalaxy(this);
 
 		cltrbt = new JButton("Clear Traces");
 		cltrbt.addActionListener(ct);
@@ -123,11 +125,11 @@ public class Mainfile extends Frame {
 		Pause.setBounds(bgwidth+30, 34*partheight, 120, 3*partheight);
 		
 		Save = new JButton("Save");
-		Save.addActionListener(movsc);
+		Save.addActionListener(saveg);
 		Save.setBounds(bgwidth+30, 38*partheight, 120, 3*partheight);
 		
 		Load = new JButton("Load");
-		Load.addActionListener(movsc);
+		Load.addActionListener(loadg);
 		Load.setBounds(bgwidth+30, 42*partheight, 120, 3*partheight);
 		
 

@@ -30,9 +30,10 @@ public class Mainfile extends Frame {
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause, Save, Load;
 	JCheckBox Still;
 	static public int movX=0,movY=0,clickX=0,clickY=0;
+	static public double zoom=1.0;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
-	public boolean showT = false, moveS = true, saveMov=false,STILL=false;
+	public boolean showT = false, moveS = true, saveMov=false,STILL=false,zoomed=false;
 	int curx, cury;
 	int bgwidth,bgheight,partheight=50;
 	boolean repaintP=true;
@@ -198,17 +199,17 @@ public class Mainfile extends Frame {
 	public static int cvt(double x,boolean ifX) {
 		double red = x / (100);
 		if(ifX){
-			return (int) red + 400 + movX + clickX;
+			return (int) ((red + movX) * zoom) + clickX + 400;
 		}
-		return (int) red + 400 + movY +clickY;
+		return (int) ((red + movY) * zoom) +clickY + 400;
 	}
 
 	/* 閿熸枻鎷峰箷閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹 cvt2 閿熸枻鎷峰疄閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹 */
 	public static double recvt(int n,boolean ifX) {
 		if(ifX){
-			return (double) (n - 400 - movX - clickX) * 100;
+			return (double) ((n - movX) / zoom - clickX - 400) * 100;
 		}
-		return (double) (n - 400 - movY - clickY) * 100;
+		return (double) ((n - movY) / zoom - clickY - 400) * 100;
 	}
 
 	/* 閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹閿熷彨纰夋嫹Planet */
@@ -275,8 +276,8 @@ public class Mainfile extends Frame {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
 		double dt = 120; // 鏃堕敓鎴掓閿熸枻鎷�, 閿熸枻鎷蜂綅:s
 		if (saveMov) {
-			movX+=clickX;
-			movY+=clickY;
+			movX+=clickX / zoom;
+			movY+=clickY / zoom;
 			clickX=0;
 			clickY=0;
 			saveMov=false;
@@ -284,6 +285,13 @@ public class Mainfile extends Frame {
 				p.setLast();
 			}
 			redrawTrace();
+		}
+		if(zoomed) {
+			for(Planet p:planets) {
+				p.setLast();
+			}
+			redrawTrace();
+			zoomed=false;
 		}
 		if (m.Clicking) { // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷穋lick閿熸枻鎷锋病release, 閿熼叺浼欐嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
 			if(moveS){

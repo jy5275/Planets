@@ -3,12 +3,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
 
 public class Mouse implements MouseMotionListener, MouseListener {
     Mainfile frame;
     int gotx, goty; // click閺冭泛鐫嗛獮鏇炴綏閺嶏拷
     double begx, begy; // click閺冭泛鐣ょ�规瑥娼楅弽锟�
     boolean Clicking = false; // 瑜版挸澧犻弰顖氭儊click娴滃棜绻曞▽顡竐lease?
+    double zoomadd=0.05;
 
     public Mouse(Mainfile f) {
         frame = f;
@@ -74,6 +76,19 @@ public class Mouse implements MouseMotionListener, MouseListener {
             frame.curx = e.getX(); // 娴肩姷娈戦弰顖氱潌楠炴洖娼楅弽锟�, 娑撳秵妲哥�瑰洤鐣介崸鎰垼
             frame.cury = e.getY();
         }
+    }
+    
+    public void mouseWheelMoved(MouseWheelEvent e) {
+    	if(e.getWheelRotation()==1) {
+    		frame.zoom+=zoomadd;
+    		frame.zoomed=true;
+    	}
+    	if(e.getWheelRotation()==-1) {
+    		if(frame.zoom>zoomadd) {
+    			frame.zoom-=zoomadd;
+    			frame.zoomed=true;
+    		}
+    	}
     }
 
     @Override

@@ -35,7 +35,8 @@ public class Mainfile extends Frame {
 	static int time = 0;
 	public boolean showT = false, moveS = true, saveMov=false,STILL=false,zoomed=false;
 	int curx, cury;
-	int bgwidth,bgheight,partheight=50;
+	static int bgwidth,bgheight;
+	int partheight=50;
 	boolean repaintP=true;
 	void setStill() {
 		STILL=!STILL;
@@ -199,17 +200,17 @@ public class Mainfile extends Frame {
 	public static int cvt(double x,boolean ifX) {
 		double red = x / (100);
 		if(ifX){
-			return (int) ((red + movX) * zoom) + clickX + 400;
+			return (int) ((red + movX) * zoom) + clickX + bgwidth/2;
 		}
-		return (int) ((red + movY) * zoom) +clickY + 400;
+		return (int) ((red + movY) * zoom) +clickY + bgheight/2;
 	}
 
 	/* 閿熸枻鎷峰箷閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹 cvt2 閿熸枻鎷峰疄閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹 */
 	public static double recvt(int n,boolean ifX) {
 		if(ifX){
-			return (double) ((n - movX) / zoom - clickX - 400) * 100;
+			return (double) ((n - clickX - bgwidth/2) / zoom - movX) * 100;
 		}
-		return (double) ((n - movY) / zoom - clickY - 400) * 100;
+		return (double) ((n - clickY - bgheight/2) / zoom - movY) * 100;
 	}
 
 	/* 閿熸枻鎷风ず閿熸枻鎷烽敓鏂ゆ嫹閿熷彨纰夋嫹Planet */
@@ -276,6 +277,7 @@ public class Mainfile extends Frame {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
 		double dt = 120; // 鏃堕敓鎴掓閿熸枻鎷�, 閿熸枻鎷蜂綅:s
 		if (saveMov) {
+			traceBG.clearRect(0, 0, bgwidth, bgheight);
 			movX+=clickX / zoom;
 			movY+=clickY / zoom;
 			clickX=0;
@@ -287,6 +289,7 @@ public class Mainfile extends Frame {
 			redrawTrace();
 		}
 		if(zoomed) {
+			traceBG.clearRect(0, 0, bgwidth, bgheight);
 			for(Planet p:planets) {
 				p.setLast();
 			}

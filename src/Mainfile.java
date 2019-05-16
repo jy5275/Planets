@@ -60,15 +60,7 @@ public class Mainfile extends Frame {
 		SaveGalaxy saveg = new SaveGalaxy(this);
 		LoadGalaxy loadg = new LoadGalaxy(this);
 
-		
-		cltrbt = new JButton("Clear Traces");
-		cltrbt.addActionListener(ct);
-		cltrbt.setBounds(bgwidth+30, 2*partheight, 120, 3*partheight);
 
-		clbt = new JButton("Clear all");
-		clbt.addActionListener(ca);
-		clbt.setBounds(bgwidth+30, 6*partheight, 120, 3*partheight);
-		
 		Still = new JCheckBox("Still");
 		Still.setBackground(Color.BLACK);
 		Still.setForeground(Color.WHITE);
@@ -84,7 +76,7 @@ public class Mainfile extends Frame {
 			}
 			
 		});
-		Still.setBounds(bgwidth+30, 10*partheight, 120, 2*partheight);
+		Still.setBounds(bgwidth+30, 3*partheight, 120, 2*partheight);
 		
 		
 		Huge = new JButton("Huge");
@@ -94,7 +86,7 @@ public class Mainfile extends Frame {
 		ImageIcon hugeimage=new ImageIcon("images/huge.png");
 		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Huge.setIcon(hugeimage);
-		Huge.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
+		Huge.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
 		
 
 		Mid = new JButton("Medium");
@@ -104,7 +96,7 @@ public class Mainfile extends Frame {
 		ImageIcon mediumimage=new ImageIcon("images/medium.png");
 		mediumimage.setImage(mediumimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Mid.setIcon(mediumimage);
-		Mid.setBounds(bgwidth+30, 18*partheight, 6*partheight, 3*partheight);
+		Mid.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
 		
 
 		Tiny = new JButton("Tiny");
@@ -114,30 +106,67 @@ public class Mainfile extends Frame {
 		ImageIcon tinyimage=new ImageIcon("images/tiny.png");
 		tinyimage.setImage(tinyimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Tiny.setIcon(tinyimage);
-		Tiny.setBounds(bgwidth+30, 22*partheight, 6*partheight, 3*partheight);
+		Tiny.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
 		
+		
+		clbt = new JButton("Clear all");
+		clbt.addActionListener(ca);
+		clbt.setBounds(bgwidth+30, 18*partheight, 6*partheight, 3*partheight);
+		clbt.setBorderPainted(false);
+		ImageIcon clbtimage=new ImageIcon("images/clear.png");
+		clbtimage.setImage(clbtimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		clbt.setIcon(clbtimage);		
+		
+		
+		cltrbt = new JButton("Clear Traces");
+		cltrbt.addActionListener(ct);
+		cltrbt.setBounds(bgwidth+30, 22*partheight, 6*partheight, 3*partheight);
+		cltrbt.setBorderPainted(false);
+		ImageIcon cltrbtimage=new ImageIcon("images/hide.png");
+		cltrbtimage.setImage(cltrbtimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		cltrbt.setIcon(cltrbtimage);
+
 
 		Show = new JButton("Show Trace");
 		Show.addActionListener(show);
-		Show.setBounds(bgwidth+30,26*partheight, 120, 3*partheight);
+		Show.setBounds(bgwidth+30,26*partheight, 6*partheight, 3*partheight);
+		Show.setBorderPainted(false);
+		ImageIcon showimage=new ImageIcon("images/showtrace.png");
+		showimage.setImage(showimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Show.setIcon(showimage);
 		
 
 		Move = new JButton("Move");
 		Move.addActionListener(movsc);
-		Move.setBounds(bgwidth+30, 30*partheight, 120, 3*partheight);
+		Move.setBounds(bgwidth+30, 30*partheight, 6*partheight, 3*partheight);
+		Move.setBorderPainted(false);
+		ImageIcon moveimage=new ImageIcon("images/move.png");
+		moveimage.setImage(moveimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Move.setIcon(moveimage);
 		
 		Pause = new JButton("Pause");
 		Pause.addActionListener(movsc);
-		Pause.setBounds(bgwidth+30, 34*partheight, 120, 3*partheight);
+		Pause.setBounds(bgwidth+30, 34*partheight, 6*partheight, 3*partheight);
+		Pause.setBorderPainted(false);
+		ImageIcon pauseimage=new ImageIcon("images/pause.png");
+		pauseimage.setImage(pauseimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Pause.setIcon(pauseimage);
 		
 		Save = new JButton("Save");
 		Save.addActionListener(saveg);
-		Save.setBounds(bgwidth+30, 38*partheight, 120, 3*partheight);
+		Save.setBounds(bgwidth+30, 38*partheight, 6*partheight, 3*partheight);
+		Save.setBorderPainted(false);
+		ImageIcon saveimage=new ImageIcon("images/save.png");
+		saveimage.setImage(saveimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Save.setIcon(saveimage);
 		
 		Load = new JButton("Load");
 		Load.addActionListener(loadg);
-		Load.setBounds(bgwidth+30, 42*partheight, 120, 3*partheight);
-		
+		Load.setBounds(bgwidth+30, 42*partheight, 6*partheight, 3*partheight);
+		Load.setBorderPainted(false);
+		ImageIcon loadimage=new ImageIcon("images/load.png");
+		loadimage.setImage(loadimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Load.setIcon(loadimage);
 
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));

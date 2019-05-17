@@ -33,7 +33,7 @@ public class Mainfile extends Frame {
 	static public double zoom=1.0;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
-	public boolean showT = false, moveS = true, saveMov=false,STILL=false,zoomed=false;
+	public boolean showT = false, moveS = true, saveMov=false,STILL=false,zoomed=false,pausefornow=false;
 	int curx, cury;
 	static int bgwidth,bgheight;
 	int partheight=50;
@@ -57,8 +57,10 @@ public class Mainfile extends Frame {
 		CreateTiny ctiny = new CreateTiny(this);
 		ShowTrace show = new ShowTrace(this);
 		MoveScreen movsc = new MoveScreen(this);
+		PauseAction pact = new PauseAction(this);
 		SaveGalaxy saveg = new SaveGalaxy(this);
 		LoadGalaxy loadg = new LoadGalaxy(this);
+		
 
 
 		Still = new JCheckBox("Still");
@@ -145,7 +147,7 @@ public class Mainfile extends Frame {
 		Move.setIcon(moveimage);
 		
 		Pause = new JButton("Pause");
-		Pause.addActionListener(movsc);
+		Pause.addActionListener(pact);
 		Pause.setBounds(bgwidth+30, 34*partheight, 6*partheight, 3*partheight);
 		Pause.setBorderPainted(false);
 		ImageIcon pauseimage=new ImageIcon("images/pause.png");
@@ -343,6 +345,9 @@ public class Mainfile extends Frame {
 		DrawVplanet(planetBG); // 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鍙鎷烽敓鏂ゆ嫹閿熸枻鎷�, 鍙敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�
 		for (Planet p : planets) // 閿熸枻鎷锋瘡閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷�, !visible閿熸枻鎷烽敓鑺傚嚖鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷风嵂锔兼嫹閿燂拷
 			p.DrawPlanet(planetBG);
+		if(pausefornow==true)
+			return;
+		
 		/* 閿熸枻鎷烽敓鏂ゆ嫹姣忛敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹, 閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸澃鐚存嫹閿熸枻鎷�(Fx, Fy) */
 		int planetsnum=planets.size();
 		for (int i=0;i<planetsnum;i++) {

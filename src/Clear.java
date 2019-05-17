@@ -58,3 +58,13 @@ class MoveScreen implements ActionListener{
         frame.moveS = true;
     }
 }
+class PauseAction implements ActionListener{
+	Mainfile frame;
+	public PauseAction(Mainfile f) {
+		frame = f;
+	}
+	public void actionPerformed(ActionEvent e) {
+		frame.pausefornow=!frame.pausefornow;
+		frame.p.setVisible(false);
+	}
+}

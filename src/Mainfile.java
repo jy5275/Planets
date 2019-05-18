@@ -12,15 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 
-/*
- *	闁跨喐婢冮弨鍦畱閸︽澘鍤栭幏锟�:
- *	2. 闁跨喐鏋婚幏宄版倱闁跨喐鏋婚幏鐑芥晸閺傘倖瀚� Planet 闁跨喓鐓拠褎瀚归崥宀勬晸閺傘倖瀚归懝鎻掓禈閻楀洭鏁撻弬銈嗗闁跨喐鏋婚幏椋庛仛
- *	4. 闁跨喐鏋婚幏宄扮剨闁跨喐鏋婚幏鐑芥晸閿燂拷: 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚� Planet 闁跨喐鏋婚幏椋庛仛闁跨喐鏋婚幏鐑芥晸閺傘倖瀚�
- *	5. 闁跨喐鏋婚幏铚傚墤闁跨喐鏋婚幏鐑芥晸閻ㄥ棭鍘撶涵閿嬪闁跨喕绶濋惃鍕剁秶閹风兘鏁撻敓锟�
- *	6. 闁跨喐鏋婚幏宄扮剨闁跨喐鏋婚幏鐑芥晸閿燂拷: 瀵椽鏁撻崣顐ｆ暭閹插瀚归柨鐔告灮閹风兘鏁撻弬銈嗗闁跨喐鏋婚幏宄扮础
- *	7.* 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻幓顓炲殩閹风兘鏁撻弬銈嗗闁跨喐鏋婚幏锟�
- *  8. 闁跨喐鏋婚幏宄颁粻闁跨喐鏋婚幏鐑芥晸閺傘倖瀚�
- */
 public class Mainfile extends Frame {
 	BufferedImage bgBF,planetBF,traceBF,informBF;
 	Graphics2D bgBG,planetBG,traceBG,informBG;
@@ -301,6 +292,10 @@ public class Mainfile extends Frame {
 		Model = new JButton("Models");
 		Model.addActionListener(modelg);
 		Model.setBounds(bgwidth, 34*partheight, 6*partheight, 3*partheight);
+		Model.setBorderPainted(false);
+		ImageIcon Modelimage=new ImageIcon("images/model.png");
+		Modelimage.setImage(Modelimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Model.setIcon(Modelimage);
 		
 		Model1 = new JButton("Model1");
 		Model1.addActionListener(model1);

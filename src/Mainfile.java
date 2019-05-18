@@ -39,7 +39,7 @@ public class Mainfile extends Frame {
 	int curx, cury;
 	static int bgwidth,bgheight;
 	int partheight=50;
-	boolean repaintP=true;
+	boolean repaintP=true,needRedrawTrace=false;
 	static boolean started=false;
 	void setStill() {
 		STILL=!STILL;
@@ -301,6 +301,7 @@ public class Mainfile extends Frame {
 	}
 
 	public void redrawTrace(){
+		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		for(Planet p: planets)
 			p.DrawTrace(traceBG);
 	}
@@ -354,7 +355,6 @@ public class Mainfile extends Frame {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
 		double dt = 120; // 閺冨爼鏁撻幋鎺擃劄闁跨喐鏋婚幏锟�, 闁跨喐鏋婚幏铚傜秴:s
 		if (saveMov) {
-			traceBG.clearRect(0, 0, bgwidth, bgheight);
 			movX+=clickX / zoom;
 			movY+=clickY / zoom;
 			clickX=0;
@@ -366,7 +366,6 @@ public class Mainfile extends Frame {
 			redrawTrace();
 		}
 		if(zoomed) {
-			traceBG.clearRect(0, 0, bgwidth, bgheight);
 			for(Planet p:planets) {
 				p.setLast();
 			}
@@ -375,7 +374,6 @@ public class Mainfile extends Frame {
 		}
 		if (m.Clicking) { // 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风lick闁跨喐鏋婚幏閿嬬梾release, 闁跨喖鍙烘导娆愬闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹凤拷
 			if(moveS){
-				traceBG.clearRect(0, 0, bgwidth, bgheight);
 				clickX=curx-m.gotx;
 				clickY=cury-m.goty;
 				for(Planet p:planets) {
@@ -391,6 +389,10 @@ public class Mainfile extends Frame {
 		DrawVplanet(planetBG); // 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻崣顐ゎ暜閹风兘鏁撻弬銈嗗闁跨喐鏋婚幏锟�, 閸欘亪鏁撻弬銈嗗闁跨喐鏋婚幏鐑芥晸閺傘倖瀚�, 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹凤拷
 		for (Planet p : planets) // 闁跨喐鏋婚幏閿嬬槨闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔告灮閹凤拷, !visible闁跨喐鏋婚幏鐑芥晸閼哄倸鍤栭幏鐑芥晸閺傘倖瀚归柨鐔告灮閹风兘鏁撻弬銈嗗闁跨喐鏋婚幏椋庡祩閿斿吋瀚归柨鐕傛嫹
 			p.DrawPlanet(planetBG);
+		if(needRedrawTrace) {
+			redrawTrace();
+			needRedrawTrace=false;
+		}
 		if(menuLevel==1) {
 			informBG.clearRect(0, 0, bgwidth, bgheight);
 			if(selected) {

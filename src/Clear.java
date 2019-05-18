@@ -85,6 +85,7 @@ class deletePlanet implements ActionListener{
 		if(frame.selected) {
 			frame.planets.remove(frame.selectedPlanet);
 			frame.selected=false;
+			frame.needRedrawTrace=true;
 		}
 	}
 }

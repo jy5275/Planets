@@ -230,6 +230,9 @@ public class Mainfile extends Frame {
 		Delete.addActionListener(dele);
 		Delete.setBounds(bgwidth+30,22*partheight,6*partheight,3*partheight);
 		Delete.setBorderPainted(false);
+		ImageIcon deleteimage=new ImageIcon("images/delete.png");
+		deleteimage.setImage(deleteimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Delete.setIcon(deleteimage);
 		
 		Save = new JButton("");
 		Save.setBackground(Color.BLACK);

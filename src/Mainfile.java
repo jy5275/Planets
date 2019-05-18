@@ -226,7 +226,8 @@ public class Mainfile extends Frame {
 		showimage.setImage(showimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Show.setIcon(showimage);
 		
-		Delete =new JButton("delete");
+		Delete =new JButton("");
+		Delete.setBackground(Color.BLACK);
 		Delete.addActionListener(dele);
 		Delete.setBounds(bgwidth+30,22*partheight,6*partheight,3*partheight);
 		Delete.setBorderPainted(false);

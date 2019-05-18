@@ -47,7 +47,6 @@ public class Welcome extends Frame{
 		logo.setLocation(0, 0);
 		// configure dialog
 		d= new Dialog(this,"about this",true);
-		System.out.println(screenSize.height);
 		d.setBounds((screenSize.width-aboutwidth)/2, (screenSize.height-aboutheight)/2,400, 400);
 		d.setLayout(new FlowLayout());
 		d.setUndecorated(true);
@@ -57,12 +56,10 @@ public class Welcome extends Frame{
 		introimage.setImage(introimage.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH));
 		lab.setIcon(introimage);
 		lab.setForeground(Color.white);
-		lab.setBounds((screenSize.width-aboutwidth)/2, (screenSize.height-aboutheight)/2,400, 200);
-		
+		lab.setBounds((screenSize.width-aboutwidth)/2, (screenSize.height-aboutheight)/2,400, 200);		
 		JButton okbut=new JButton();
 		okbut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(d.getLocationOnScreen());
 				d.setVisible(false);
 			}
 		});
@@ -71,9 +68,6 @@ public class Welcome extends Frame{
 		ImageIcon okimage=new ImageIcon("images/ok.png");
 		okimage.setImage(okimage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		okbut.setIcon(okimage);
-		
-		//okbut.setBackground(Color.black);
-		//okbut.setForeground(Color.black);
 		d.add(lab);
 		d.add(okbut);
 		

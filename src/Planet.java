@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 import javax.swing.*;
 import java.util.*;
+import java.math.*;
 
 class Point {
     double x, y;
@@ -56,7 +57,7 @@ public class Planet {
             tmpAlpha = 128;
         double diamindex = Math.log(m) / Math.log(3e13);
         diamindex = Math.pow(diamindex, 3); // power 3 make diam differ more
-        diam = (int) (diamindex * 15);
+        diam = Math.max((int) (diamindex * 15),10);
 
         double colorindex = Math.pow(diamindex, 3); // heavy-red, light-green
         double red = 255 / (1 + Math.exp(-colorindex + 1));

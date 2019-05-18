@@ -5,14 +5,18 @@ class SaveGalaxy implements ActionListener {
 	Mainfile frame;
 	File file;
 	
-	public SaveGalaxy(Mainfile f) {
+	public SaveGalaxy(Mainfile f, int n) {
 		frame = f;
+		switch(n) {
+		case 1:file = new File("save1.txt");break;
+		case 2:file = new File("save2.txt");break;
+		case 3:file = new File("save3.txt");break;
+		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int tmp = 0;
-		file = new File("save.txt");
 		try {
 			FileWriter fw = new FileWriter(file, false);
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -32,7 +36,7 @@ class SaveGalaxy implements ActionListener {
 			bw.close();
 			fw.close();
 		} catch (IOException ioe) {}
-		System.out.println("Save in save.txt");
+		System.out.println("Save in " + file);
     }
 }
 
@@ -40,20 +44,24 @@ class LoadGalaxy implements ActionListener {
 	Mainfile frame;
 	File file;
 	
-	public LoadGalaxy(Mainfile f) {
+	public LoadGalaxy(Mainfile f, int n) {
 		frame = f;
+		switch(n) {
+		case 1:file = new File("save1.txt");break;
+		case 2:file = new File("save2.txt");break;
+		case 3:file = new File("save3.txt");break;
+		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		frame.planets.clear();
+		if (!file.exists()) {
+			System.err.println("File not found");
+			return;
+		}
 		try {
-			file = new File("save.txt");
-			if (!file.exists()) {
-				System.err.println("File not found");
-				return;
-			}
 			String str = null;
 			InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
 			BufferedReader br = new BufferedReader(isr);
@@ -85,6 +93,6 @@ class LoadGalaxy implements ActionListener {
 			}
 		} catch (IOException ioe) {}
 		frame.ClearTrace();
-		System.out.println("Load from save.txt");
+		System.out.println("Load from " + file);
     }
 }

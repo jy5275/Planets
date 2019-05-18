@@ -94,20 +94,21 @@ public class Mainfile extends Frame {
         JPanel loadList=new JPanel();
 		loadList.setLocation(bgwidth,5*partheight);
 		loadList.setBackground(Color.BLACK);
-		loadList.setLayout(new BoxLayout(loadList, BoxLayout.Y_AXIS));
+		loadList.setPreferredSize(new Dimension(6*partheight,filelist.length*partheight));
         for (int i = 0; i < filelist.length; i++) {
         	System.out.println(filelist[i]);
         	LoadGalaxy tmplg=new LoadGalaxy(this,filelist[i]);
         	JButton tmpButton=new JButton(filelist[i]);
-        	tmpButton.setBackground(new Color(255,255,255));
-        	tmpButton.setBorderPainted(false);
-        	tmpButton.setBounds(bgwidth,(5+i)*partheight,6*partheight,partheight);
-        	tmpButton.addActionListener(tmplg);
         	loadList.add(tmpButton);
+        	//tmpButton.setBounds(bgwidth,(5+i)*partheight,6*partheight,partheight);
+        	tmpButton.setLocation(bgwidth,(5+i)*partheight);
+        	tmpButton.setPreferredSize(new Dimension(6*partheight,partheight));
+        	tmpButton.setBackground(Color.WHITE);
+        	tmpButton.setBorderPainted(false);
+        	tmpButton.addActionListener(tmplg);
         }
         JScrollPane rollList=new JScrollPane(loadList,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //rollList.setVisible(true);
         rollList.setBounds(bgwidth, 5*partheight, 6*partheight, 30*partheight);
         rollList.setBorder(null);
         menu.add(rollList);

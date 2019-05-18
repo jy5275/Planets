@@ -36,7 +36,7 @@ public class Welcome extends Frame{
         Dimension screenSize = kit.getScreenSize();
         this.setSize(welcomewidth,welcomeheight);
         this.setBackground(Color.black);
-		this.setLocation((screenSize.height-welcomeheight)/2,(screenSize.width-welcomewidth)/2);
+		this.setLocation((screenSize.width-welcomewidth)/2,(screenSize.height-welcomeheight)/2);
 		this.setUndecorated(true);
 		// configure logo
 		logo=new JLabel();

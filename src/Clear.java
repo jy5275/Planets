@@ -33,7 +33,7 @@ class ShowTrace implements ActionListener {
         frame = f;
     }
 
-    /* 点ShowTrace ==> 是/否showTrace状态改变,调用Mainfile::ClearTrace方法. */
+    /* 鐐筍howTrace ==> 鏄�/鍚howTrace鐘舵�佹敼鍙�,璋冪敤Mainfile::ClearTrace鏂规硶. */
     public void actionPerformed(ActionEvent e) {
         if (frame.showT) {
             frame.showT = false;
@@ -58,12 +58,33 @@ class MoveScreen implements ActionListener{
         frame.moveS = true;
     }
 }
-class PauseAction implements ActionListener{
+
+class changeMenuAction implements ActionListener{
 	Mainfile frame;
-	public PauseAction(Mainfile f) {
+	int level;
+	public changeMenuAction(Mainfile f,int a) {
 		frame = f;
+		level=a;
 	}
 	public void actionPerformed(ActionEvent e) {
-		frame.pausefornow=!frame.pausefornow;
+		frame.menuLevel=level;
+		frame.selected=false;
+		switch(level) {
+		case 0:frame.addMainMenu();break;
+		case 1:frame.addSecMenu();break;
+		}
+	}
+}
+
+class deletePlanet implements ActionListener{
+	Mainfile frame;
+	public deletePlanet(Mainfile f) {
+		frame=f;
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(frame.selected) {
+			frame.planets.remove(frame.selectedPlanet);
+			frame.selected=false;
+		}
 	}
 }

@@ -77,6 +77,7 @@ public class Welcome extends Frame{
 		Start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Welcome.started=true;
+				setVisible(false);
 			}
 		});
 		Start.setBounds(250, 203,  200, 80);

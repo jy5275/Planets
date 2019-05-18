@@ -27,7 +27,8 @@ public class Mainfile extends Frame {
 	Planet vplanet; // 闁跨喐鏋婚幏鐑芥晸閼哄倽鎻幏鐑芥晸閺傘倖瀚归柨鐔峰建绾板瀚筆lanet,闁跨喐鏋婚幏閿嬫婵垹澶噀lease
 	Mouse m;
 	JPanel menu;
-	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause,Start, Save, Load, Delete, Save1, Save2, Save3, Load1, Load2, Load3, Ret;
+	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause,Start, Save, Load, Delete,
+			Save1, Save2, Save3, Load1, Load2, Load3, Ret, Model, Model1, Model2, Model3;
 	JCheckBox Still;
 	static public int movX=0,movY=0,clickX=0,clickY=0;
 	static public double zoom=1.0;
@@ -72,6 +73,7 @@ public class Mainfile extends Frame {
 		menu.add(Load);
 		menu.add(Save);
 		menu.add(Delete);
+		menu.add(Model);
 		menu.revalidate();
 	}
 	
@@ -91,6 +93,16 @@ public class Mainfile extends Frame {
 		menu.add(Load1);
 		menu.add(Load2);
 		menu.add(Load3);
+		menu.add(Ret);
+		menu.revalidate();
+	}
+	
+	void addModelMenu( ) {
+		menu.removeAll();
+		menu.repaint();
+		menu.add(Model1);
+		menu.add(Model2);
+		menu.add(Model3);
 		menu.add(Ret);
 		menu.revalidate();
 	}
@@ -115,6 +127,7 @@ public class Mainfile extends Frame {
 		changeMenuAction strt = new changeMenuAction(this,0);
 		changeMenuAction saveg = new changeMenuAction(this,2);
 		changeMenuAction loadg = new changeMenuAction(this,3);
+		changeMenuAction modelg = new changeMenuAction(this,4);
 		SaveGalaxy saveg1 = new SaveGalaxy(this, 1);
 		SaveGalaxy saveg2 = new SaveGalaxy(this, 2);
 		SaveGalaxy saveg3 = new SaveGalaxy(this, 3);
@@ -122,6 +135,10 @@ public class Mainfile extends Frame {
 		LoadGalaxy loadg2 = new LoadGalaxy(this, 2);
 		LoadGalaxy loadg3 = new LoadGalaxy(this, 3);
 		deletePlanet dele = new deletePlanet(this);
+		Models model1 = new Models(this, 1);
+		Models model2 = new Models(this, 2);
+		Models model3 = new Models(this, 3);
+		
 		
 		Pause = new JButton("");
 		Pause.setBackground(Color.BLACK);
@@ -280,6 +297,22 @@ public class Mainfile extends Frame {
 		Ret = new JButton("Return");
 		Ret.addActionListener(pact);
 		Ret.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
+		
+		Model = new JButton("Models");
+		Model.addActionListener(modelg);
+		Model.setBounds(bgwidth+30, 34*partheight, 6*partheight, 3*partheight);
+		
+		Model1 = new JButton("Model1");
+		Model1.addActionListener(model1);
+		Model1.setBounds(bgwidth+30, 2*partheight, 6*partheight, 3*partheight);
+		
+		Model2 = new JButton("Model2");
+		Model2.addActionListener(model2);
+		Model2.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
+		
+		Model3 = new JButton("Model3");
+		Model3.addActionListener(model3);
+		Model3.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
 		
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));

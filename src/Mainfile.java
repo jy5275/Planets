@@ -38,6 +38,7 @@ public class Mainfile extends Frame {
 	static int bgwidth,bgheight;
 	int partheight=50;
 	boolean repaintP=true;
+	static boolean started=false;
 	void setStill() {
 		STILL=!STILL;
 	}
@@ -204,7 +205,7 @@ public class Mainfile extends Frame {
 
 		addMouseListener(m);
 		add(p); // setVisible鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鎻紮鎷烽敓锟�
-
+		p.setVisible(true);
 		setVisible(true);
 	}
 	
@@ -426,10 +427,5 @@ public class Mainfile extends Frame {
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 
-	public static void main(String[] args) throws Exception {
-		System.out.println("Planets test version! ");
-		Mainfile galaxy = new Mainfile("Planets in galaxy");
-		galaxy.launchFrame();
-
-	}
+	
 }

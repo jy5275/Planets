@@ -65,6 +65,5 @@ class PauseAction implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		frame.pausefornow=!frame.pausefornow;
-		frame.p.setVisible(false);
 	}
 }

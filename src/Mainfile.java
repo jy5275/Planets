@@ -33,7 +33,7 @@ public class Mainfile extends Frame {
 	static public double zoom=1.0;
 	static public double DEFAULT_M = 3e13;
 	static int time = 0;
-	public int selectedPlanet=0;
+	public Planet selectedPlanet;
 	public boolean showT = false, moveS = true, saveMov=false,STILL=false,zoomed=false,selected=false;
 	public int menuLevel=0;
 	int curx, cury;
@@ -450,11 +450,10 @@ public class Mainfile extends Frame {
 		if(menuLevel==1) {
 			informBG.clearRect(0, 0, bgwidth, bgheight);
 			if(selected) {
-				Planet p=planets.get(selectedPlanet);
-				int tmpx=cvt(p.x,true),tmpy=cvt(p.y,false);
-				informBG.setColor(p.drawColor);
-				informBG.drawString("Mass:"+String.valueOf(p.m), tmpx+30, tmpy);
-				informBG.drawString("Speed:"+String.valueOf(Math.sqrt(p.vx*p.vx+p.vy*p.vy)),tmpx+30,tmpy+20);
+				int tmpx=cvt(selectedPlanet.x,true),tmpy=cvt(selectedPlanet.y,false);
+				informBG.setColor(selectedPlanet.drawColor);
+				informBG.drawString("Mass:"+String.valueOf(selectedPlanet.m), tmpx+30, tmpy);
+				informBG.drawString("Speed:"+String.valueOf(Math.sqrt(selectedPlanet.vx*selectedPlanet.vx+selectedPlanet.vy*selectedPlanet.vy)),tmpx+30,tmpy+20);
 			}
 		}
 		if(menuLevel!=0)

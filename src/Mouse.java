@@ -32,7 +32,7 @@ public class Mouse implements MouseMotionListener, MouseListener,MouseWheelListe
 			int dx=Mainfile.cvt(p.x, true)-tmpx,dy=Mainfile.cvt(p.y, false)-tmpy;
 			if(Math.sqrt(dx*dx+dy*dy)<p.diam) {
 				frame.selected=true;
-				frame.selectedPlanet=i;
+				frame.selectedPlanet=p;
 				return;
 			}
 		}

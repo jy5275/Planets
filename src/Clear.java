@@ -74,6 +74,7 @@ class changeMenuAction implements ActionListener{
 		case 1:frame.addSecMenu();break;
 		case 2:frame.addSaveMenu();break;
 		case 3:frame.addLoadMenu();break;
+		case 4:frame.addModelMenu();break;
 		}
 	}
 }

@@ -1,23 +1,21 @@
 import java.awt.event.*;
 import java.io.*;
+import javax.swing.JTextField;
 
 class SaveGalaxy implements ActionListener {
 	Mainfile frame;
+	JTextField nameJT;
 	File file;
 	
-	public SaveGalaxy(Mainfile f, int n) {
+	public SaveGalaxy(Mainfile f) {
 		frame = f;
-		switch(n) {
-		case 1:file = new File("save1.txt");break;
-		case 2:file = new File("save2.txt");break;
-		case 3:file = new File("save3.txt");break;
-		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int tmp = 0;
 		try {
+			file= new File("data/"+nameJT.getText());
 			FileWriter fw = new FileWriter(file, false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(frame.planets.size() + "\r\n");
@@ -42,20 +40,17 @@ class SaveGalaxy implements ActionListener {
 
 class LoadGalaxy implements ActionListener {
 	Mainfile frame;
+	String fileName;
 	File file;
 	
-	public LoadGalaxy(Mainfile f, int n) {
+	public LoadGalaxy(Mainfile f, String name) {
 		frame = f;
-		switch(n) {
-		case 1:file = new File("save1.txt");break;
-		case 2:file = new File("save2.txt");break;
-		case 3:file = new File("save3.txt");break;
-		}
+		fileName=name;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		file =new File("data/"+fileName);
 		frame.planets.clear();
 		if (!file.exists()) {
 			System.err.println("File not found");
@@ -91,8 +86,11 @@ class LoadGalaxy implements ActionListener {
 				else keepstill = false;
 				frame.planets.add(new Planet(m, x, y, vx, vy, false, keepstill));
 			}
-		} catch (IOException ioe) {}
-		frame.ClearTrace();
+			br.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 		System.out.println("Load from " + file);
+		frame.needRedrawTrace=true;
     }
 }

@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 
 /*
@@ -27,8 +28,8 @@ public class Mainfile extends Frame {
 	Planet vplanet; // 闁跨喐鏋婚幏鐑芥晸閼哄倽鎻幏鐑芥晸閺傘倖瀚归柨鐔峰建绾板瀚筆lanet,闁跨喐鏋婚幏閿嬫婵垹澶噀lease
 	Mouse m;
 	JPanel menu;
-	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause,Start, Save, Load, Delete,
-			Save1, Save2, Save3, Load1, Load2, Load3, Ret, Model, Model1, Model2, Model3;
+	JTextField enterFileName;
+	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause,Start, Save, Load, Delete, Ret, Model, Model1, Model2, Model3;
 	JCheckBox Still;
 	static public int movX=0,movY=0,clickX=0,clickY=0;
 	static public double zoom=1.0;
@@ -80,20 +81,38 @@ public class Mainfile extends Frame {
 	void addSaveMenu( ) {
 		menu.removeAll();
 		menu.repaint();
-		menu.add(Save1);
-		menu.add(Save2);
-		menu.add(Save3);
 		menu.add(Ret);
+		menu.add(enterFileName);
 		menu.revalidate();
 	}
 	
 	void addLoadMenu( ) {
 		menu.removeAll();
 		menu.repaint();
-		menu.add(Load1);
-		menu.add(Load2);
-		menu.add(Load3);
-		menu.add(Ret);
+		File dir=new File("data");
+        String[] filelist = dir.list();
+        JPanel loadList=new JPanel();
+		loadList.setLocation(bgwidth,5*partheight);
+		loadList.setBackground(Color.BLACK);
+		loadList.setLayout(new BoxLayout(loadList, BoxLayout.Y_AXIS));
+        for (int i = 0; i < filelist.length; i++) {
+        	System.out.println(filelist[i]);
+        	LoadGalaxy tmplg=new LoadGalaxy(this,filelist[i]);
+        	JButton tmpButton=new JButton(filelist[i]);
+        	tmpButton.setBackground(new Color(255,255,255));
+        	tmpButton.setBorderPainted(false);
+        	tmpButton.setBounds(bgwidth,(5+i)*partheight,6*partheight,partheight);
+        	tmpButton.addActionListener(tmplg);
+        	loadList.add(tmpButton);
+        }
+        JScrollPane rollList=new JScrollPane(loadList,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //rollList.setVisible(true);
+        rollList.setBounds(bgwidth, 5*partheight, 6*partheight, 30*partheight);
+        rollList.setBorder(null);
+        menu.add(rollList);
+        menu.add(Ret);
+		menu.setPreferredSize(new Dimension(100,1000));
 		menu.revalidate();
 	}
 	
@@ -107,13 +126,14 @@ public class Mainfile extends Frame {
 		menu.revalidate();
 	}
 
-	Mainfile(String title) {
+	Mainfile(String title,int menuL) {
 		super(title);
+		menuLevel=menuL;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension scrnsize = toolkit.getScreenSize();
         bgwidth=(int)(scrnsize.width*0.8);
         bgheight=(int)(scrnsize.height*0.9);
-        partheight=(int)(bgheight/50);
+        partheight=(int)(bgheight/40);
 		m = new Mouse(this);
 		showT = true;
 		ClearTrace ct = new ClearTrace(this);
@@ -128,12 +148,7 @@ public class Mainfile extends Frame {
 		changeMenuAction saveg = new changeMenuAction(this,2);
 		changeMenuAction loadg = new changeMenuAction(this,3);
 		changeMenuAction modelg = new changeMenuAction(this,4);
-		SaveGalaxy saveg1 = new SaveGalaxy(this, 1);
-		SaveGalaxy saveg2 = new SaveGalaxy(this, 2);
-		SaveGalaxy saveg3 = new SaveGalaxy(this, 3);
-		LoadGalaxy loadg1 = new LoadGalaxy(this, 1);
-		LoadGalaxy loadg2 = new LoadGalaxy(this, 2);
-		LoadGalaxy loadg3 = new LoadGalaxy(this, 3);
+		SaveGalaxy saveF =new SaveGalaxy(this);
 		deletePlanet dele = new deletePlanet(this);
 		Models model1 = new Models(this, 1);
 		Models model2 = new Models(this, 2);
@@ -143,7 +158,7 @@ public class Mainfile extends Frame {
 		Pause = new JButton("");
 		Pause.setBackground(Color.BLACK);
 		Pause.addActionListener(pact);
-		Pause.setBounds(bgwidth+30+3*partheight, 1*partheight, 3*partheight, 3*partheight);
+		Pause.setBounds(bgwidth+3*partheight, 1*partheight, 3*partheight, 3*partheight);
 		Pause.setBorderPainted(false);
 		ImageIcon pauseimage=new ImageIcon("images/pause.png");
 		pauseimage.setImage(pauseimage.getImage().getScaledInstance(3*partheight, 3*partheight, Image.SCALE_AREA_AVERAGING));
@@ -152,7 +167,7 @@ public class Mainfile extends Frame {
 		Start = new JButton("");
 		Start.setBackground(Color.BLACK);
 		Start.addActionListener(strt);
-		Start.setBounds(bgwidth+30+3*partheight, 1*partheight, 3*partheight, 3*partheight);
+		Start.setBounds(bgwidth+3*partheight, 1*partheight, 3*partheight, 3*partheight);
 		Start.setBorderPainted(false);
 		ImageIcon startimage=new ImageIcon("images/start.png");
 		startimage.setImage(startimage.getImage().getScaledInstance(3*partheight, 3*partheight, Image.SCALE_AREA_AVERAGING));
@@ -173,7 +188,7 @@ public class Mainfile extends Frame {
 			}
 			
 		});
-		Still.setBounds(bgwidth+30, 4*partheight, 6*partheight, 2*partheight);
+		Still.setBounds(bgwidth, 4*partheight, 6*partheight, 2*partheight);
 		
 		
 		Huge = new JButton("");
@@ -183,7 +198,7 @@ public class Mainfile extends Frame {
 		ImageIcon hugeimage=new ImageIcon("images/huge.png");
 		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Huge.setIcon(hugeimage);
-		Huge.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
+		Huge.setBounds(bgwidth, 6*partheight, 6*partheight, 3*partheight);
 		
 
 		Mid = new JButton("");
@@ -193,7 +208,7 @@ public class Mainfile extends Frame {
 		ImageIcon mediumimage=new ImageIcon("images/medium.png");
 		mediumimage.setImage(mediumimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Mid.setIcon(mediumimage);
-		Mid.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
+		Mid.setBounds(bgwidth, 10*partheight, 6*partheight, 3*partheight);
 		
 
 		Tiny = new JButton("");
@@ -203,12 +218,12 @@ public class Mainfile extends Frame {
 		ImageIcon tinyimage=new ImageIcon("images/tiny.png");
 		tinyimage.setImage(tinyimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Tiny.setIcon(tinyimage);
-		Tiny.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
+		Tiny.setBounds(bgwidth, 14*partheight, 6*partheight, 3*partheight);
 
 		Move = new JButton("");
 		Move.setBackground(Color.BLACK);
 		Move.addActionListener(movsc);
-		Move.setBounds(bgwidth+30, 18*partheight, 6*partheight, 3*partheight);
+		Move.setBounds(bgwidth, 18*partheight, 6*partheight, 3*partheight);
 		Move.setBorderPainted(false);
 		ImageIcon moveimage=new ImageIcon("images/move.png");
 		moveimage.setImage(moveimage.getImage().getScaledInstance(6*partheight-10, 3*partheight, Image.SCALE_DEFAULT));
@@ -217,7 +232,7 @@ public class Mainfile extends Frame {
 		clbt = new JButton("");
 		clbt.setBackground(Color.BLACK);
 		clbt.addActionListener(ca);
-		clbt.setBounds(bgwidth+30, 22*partheight, 6*partheight, 3*partheight);
+		clbt.setBounds(bgwidth, 22*partheight, 6*partheight, 3*partheight);
 		clbt.setBorderPainted(false);
 		ImageIcon clbtimage=new ImageIcon("images/clear.png");
 		clbtimage.setImage(clbtimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
@@ -227,7 +242,7 @@ public class Mainfile extends Frame {
 		cltrbt = new JButton("");
 		cltrbt.setBackground(Color.BLACK);
 		cltrbt.addActionListener(ct);
-		cltrbt.setBounds(bgwidth+30, 26*partheight, 6*partheight, 3*partheight);
+		cltrbt.setBounds(bgwidth, 26*partheight, 6*partheight, 3*partheight);
 		cltrbt.setBorderPainted(false);
 		ImageIcon cltrbtimage=new ImageIcon("images/hide.png");
 		cltrbtimage.setImage(cltrbtimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
@@ -237,7 +252,7 @@ public class Mainfile extends Frame {
 		Show = new JButton("");
 		Show.setBackground(Color.BLACK);
 		Show.addActionListener(show);
-		Show.setBounds(bgwidth+30,30*partheight, 6*partheight, 3*partheight);
+		Show.setBounds(bgwidth,30*partheight, 6*partheight, 3*partheight);
 		Show.setBorderPainted(false);
 		ImageIcon showimage=new ImageIcon("images/showtrace.png");
 		showimage.setImage(showimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
@@ -246,7 +261,7 @@ public class Mainfile extends Frame {
 		Delete =new JButton("");
 		Delete.setBackground(Color.BLACK);
 		Delete.addActionListener(dele);
-		Delete.setBounds(bgwidth+30,22*partheight,6*partheight,3*partheight);
+		Delete.setBounds(bgwidth,22*partheight,6*partheight,3*partheight);
 		Delete.setBorderPainted(false);
 		ImageIcon deleteimage=new ImageIcon("images/delete.png");
 		deleteimage.setImage(deleteimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
@@ -255,7 +270,7 @@ public class Mainfile extends Frame {
 		Save = new JButton("");
 		Save.setBackground(Color.BLACK);
 		Save.addActionListener(saveg);
-		Save.setBounds(bgwidth+30, 26*partheight, 6*partheight, 3*partheight);
+		Save.setBounds(bgwidth, 26*partheight, 6*partheight, 3*partheight);
 		Save.setBorderPainted(false);
 		ImageIcon saveimage=new ImageIcon("images/save.png");
 		saveimage.setImage(saveimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
@@ -264,55 +279,39 @@ public class Mainfile extends Frame {
 		Load = new JButton("");
 		Load.setBackground(Color.BLACK);
 		Load.addActionListener(loadg);
-		Load.setBounds(bgwidth+30, 30*partheight, 6*partheight, 3*partheight);
+		Load.setBounds(bgwidth, 30*partheight, 6*partheight, 3*partheight);
 		Load.setBorderPainted(false);
 		ImageIcon loadimage=new ImageIcon("images/load.png");
 		loadimage.setImage(loadimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Load.setIcon(loadimage);
 		
-		Save1 = new JButton("Save1");
-		Save1.addActionListener(saveg1);
-		Save1.setBounds(bgwidth+30, 2*partheight, 6*partheight, 3*partheight);
-		
-		Save2 = new JButton("Save2");
-		Save2.addActionListener(saveg2);
-		Save2.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
-		
-		Save3 = new JButton("Save3");
-		Save3.addActionListener(saveg3);
-		Save3.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
-		
-		Load1 = new JButton("Load1");
-		Load1.addActionListener(loadg1);
-		Load1.setBounds(bgwidth+30, 2*partheight, 6*partheight, 3*partheight);
-		
-		Load2 = new JButton("Load2");
-		Load2.addActionListener(loadg2);
-		Load2.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
-		
-		Load3 = new JButton("Load3");
-		Load3.addActionListener(loadg3);
-		Load3.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
+		enterFileName = new JTextField("");
+		enterFileName.setBackground(Color.BLACK);
+		enterFileName.setForeground(Color.WHITE);
+		enterFileName.setBounds(bgwidth,6*partheight,6*partheight,(int)(1.5*partheight));
+		enterFileName.setFont(new Font("Microsoft YaHei",Font.LAYOUT_NO_LIMIT_CONTEXT,20));
+		saveF.nameJT=enterFileName;
+		enterFileName.addActionListener(saveF);
 		
 		Ret = new JButton("Return");
 		Ret.addActionListener(pact);
-		Ret.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
+		Ret.setBounds(bgwidth, 2*partheight, 6*partheight, 3*partheight);
 		
 		Model = new JButton("Models");
 		Model.addActionListener(modelg);
-		Model.setBounds(bgwidth+30, 34*partheight, 6*partheight, 3*partheight);
+		Model.setBounds(bgwidth, 34*partheight, 6*partheight, 3*partheight);
 		
 		Model1 = new JButton("Model1");
 		Model1.addActionListener(model1);
-		Model1.setBounds(bgwidth+30, 2*partheight, 6*partheight, 3*partheight);
+		Model1.setBounds(bgwidth, 6*partheight, 6*partheight, 3*partheight);
 		
 		Model2 = new JButton("Model2");
 		Model2.addActionListener(model2);
-		Model2.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
+		Model2.setBounds(bgwidth, 10*partheight, 6*partheight, 3*partheight);
 		
 		Model3 = new JButton("Model3");
 		Model3.addActionListener(model3);
-		Model3.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
+		Model3.setBounds(bgwidth, 14*partheight, 6*partheight, 3*partheight);
 		
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));
@@ -320,11 +319,16 @@ public class Mainfile extends Frame {
 		planets.add(new Planet(DEFAULT_M, 6097, 52097, -0.6, -0.3,false,false));
 		
 		menu = new JPanel(null);
-		menu.setLocation(bgwidth+20, 200);
+		menu.setLocation(bgwidth, 0);
 		menu.setBackground(Color.BLACK);
-		addMainMenu();
+		switch(menuLevel) {
+			case 0:addMainMenu();break;
+			case 1:addSecMenu();break;
+			case 2:addSaveMenu();break;
+			case 3:addLoadMenu();break;
+		}
 
-		bgBF = new BufferedImage(bgwidth+200,bgheight,BufferedImage.TYPE_INT_RGB);
+		bgBF = new BufferedImage(bgwidth+7*partheight,bgheight,BufferedImage.TYPE_INT_RGB);
 		traceBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		planetBF = new BufferedImage(bgwidth, bgheight,BufferedImage.TYPE_INT_ARGB);
 		informBF = new BufferedImage(bgwidth, bgheight, BufferedImage.TYPE_INT_ARGB);
@@ -336,7 +340,7 @@ public class Mainfile extends Frame {
 		planetBG.setBackground(new Color(0,0,0,0));
 		informBG.setBackground(new Color(0,0,0,0));
         
-		setSize(bgwidth+200, bgheight);
+		setSize(bgwidth+7*partheight, bgheight);
 		setLocation((int)(scrnsize.width*0.05), (int)(scrnsize.height*0.05));
 
 		addMouseListener(m);

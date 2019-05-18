@@ -26,6 +26,7 @@ public class Welcome extends Frame{
 	JPanel p;
 	Dialog d;
 	static volatile boolean started=false;
+	static volatile int menuLevel=0;
 	int welcomeheight=400,welcomewidth=899;
 	int aboutheight=400,aboutwidth=400;
 	public void init() {
@@ -88,7 +89,13 @@ public class Welcome extends Frame{
 		Start.setIcon(startimage);
 		
 		Load = new JButton("");
-		//Load.addActionListener(Loadg);
+		Load.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Welcome.started=true;
+				Welcome.menuLevel=3;
+				setVisible(false);
+			}
+		});
 		Load.setBounds(450, 203,  200, 80);
 		Load.setBorderPainted(false);
 		Load.setBackground(Color.black);
@@ -143,7 +150,7 @@ public class Welcome extends Frame{
 				break;
 			}
 		}
-		Mainfile galaxy = new Mainfile("Planets in galaxy");
+		Mainfile galaxy = new Mainfile("Planets in galaxy",menuLevel);
 		galaxy.launchFrame();
 	}
 }

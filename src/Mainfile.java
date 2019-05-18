@@ -493,11 +493,6 @@ public class Mainfile extends Frame {
 		}
 	}
 
-	private ListIterator<Planet> itp(ArrayList<Planet> planets2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/* 闁跨喐鏋婚幏鐑芥晸閺傘倖瀚归柨鐔诲Ν閻ㄥ嫬鍤栭幏鐑芥晸閺傘倖瀚�, 濮ｅ繘鏁撻弬銈嗗闁跨喐鍩呮导娆愬闁跨喐鏋婚幏鐑芥晸閼哄倻顣幏鐑芥晸閺傘倖瀚规稉锟介柨鐔告灮閹风aint */  
 	public void paint(Graphics g) {
 		paintFG();

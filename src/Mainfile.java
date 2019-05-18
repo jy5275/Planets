@@ -27,7 +27,7 @@ public class Mainfile extends Frame {
 	Planet vplanet; // 闁跨喐鏋婚幏鐑芥晸閼哄倽鎻幏鐑芥晸閺傘倖瀚归柨鐔峰建绾板瀚筆lanet,闁跨喐鏋婚幏閿嬫婵垹澶噀lease
 	Mouse m;
 	JPanel menu;
-	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause,Start, Save, Load, Delete;
+	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause,Start, Save, Load, Delete, Save1, Save2, Save3, Load1, Load2, Load3, Ret;
 	JCheckBox Still;
 	static public int movX=0,movY=0,clickX=0,clickY=0;
 	static public double zoom=1.0;
@@ -74,6 +74,26 @@ public class Mainfile extends Frame {
 		menu.add(Delete);
 		menu.revalidate();
 	}
+	
+	void addSaveMenu( ) {
+		menu.removeAll();
+		menu.repaint();
+		menu.add(Save1);
+		menu.add(Save2);
+		menu.add(Save3);
+		menu.add(Ret);
+		menu.revalidate();
+	}
+	
+	void addLoadMenu( ) {
+		menu.removeAll();
+		menu.repaint();
+		menu.add(Load1);
+		menu.add(Load2);
+		menu.add(Load3);
+		menu.add(Ret);
+		menu.revalidate();
+	}
 
 	Mainfile(String title) {
 		super(title);
@@ -93,8 +113,14 @@ public class Mainfile extends Frame {
 		MoveScreen movsc = new MoveScreen(this);
 		changeMenuAction pact = new changeMenuAction(this,1);
 		changeMenuAction strt = new changeMenuAction(this,0);
-		SaveGalaxy saveg = new SaveGalaxy(this);
-		LoadGalaxy loadg = new LoadGalaxy(this);
+		changeMenuAction saveg = new changeMenuAction(this,2);
+		changeMenuAction loadg = new changeMenuAction(this,3);
+		SaveGalaxy saveg1 = new SaveGalaxy(this, 1);
+		SaveGalaxy saveg2 = new SaveGalaxy(this, 2);
+		SaveGalaxy saveg3 = new SaveGalaxy(this, 3);
+		LoadGalaxy loadg1 = new LoadGalaxy(this, 1);
+		LoadGalaxy loadg2 = new LoadGalaxy(this, 2);
+		LoadGalaxy loadg3 = new LoadGalaxy(this, 3);
 		deletePlanet dele = new deletePlanet(this);
 		
 		Pause = new JButton("");
@@ -222,7 +248,35 @@ public class Mainfile extends Frame {
 		ImageIcon loadimage=new ImageIcon("images/load.png");
 		loadimage.setImage(loadimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
 		Load.setIcon(loadimage);
-
+		
+		Save1 = new JButton("Save1");
+		Save1.addActionListener(saveg1);
+		Save1.setBounds(bgwidth+30, 2*partheight, 6*partheight, 3*partheight);
+		
+		Save2 = new JButton("Save2");
+		Save2.addActionListener(saveg2);
+		Save2.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
+		
+		Save3 = new JButton("Save3");
+		Save3.addActionListener(saveg3);
+		Save3.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
+		
+		Load1 = new JButton("Load1");
+		Load1.addActionListener(loadg1);
+		Load1.setBounds(bgwidth+30, 2*partheight, 6*partheight, 3*partheight);
+		
+		Load2 = new JButton("Load2");
+		Load2.addActionListener(loadg2);
+		Load2.setBounds(bgwidth+30, 6*partheight, 6*partheight, 3*partheight);
+		
+		Load3 = new JButton("Load3");
+		Load3.addActionListener(loadg3);
+		Load3.setBounds(bgwidth+30, 10*partheight, 6*partheight, 3*partheight);
+		
+		Ret = new JButton("Return");
+		Ret.addActionListener(pact);
+		Ret.setBounds(bgwidth+30, 14*partheight, 6*partheight, 3*partheight);
+		
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4,false,false));
 		planets.add(new Planet(DEFAULT_M, 42097, 0, -0.2, 0.2,false,false));

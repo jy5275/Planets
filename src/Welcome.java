@@ -68,6 +68,7 @@ public class Welcome extends Frame{
 		ImageIcon okimage=new ImageIcon("images/ok.png");
 		okimage.setImage(okimage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		okbut.setIcon(okimage);
+		okbut.setBackground(Color.black);
 		d.add(lab);
 		d.add(okbut);
 		
@@ -80,7 +81,7 @@ public class Welcome extends Frame{
 		});
 		Start.setBounds(250, 203,  200, 80);
 		Start.setBorderPainted(false);
-		Start.setForeground(Color.white);
+		Start.setBackground(Color.black);
 		ImageIcon startimage=new ImageIcon("images/start_w.png");
 		startimage.setImage(startimage.getImage().getScaledInstance(138, 100, Image.SCALE_SMOOTH));
 		Start.setIcon(startimage);
@@ -89,7 +90,7 @@ public class Welcome extends Frame{
 		//Load.addActionListener(Loadg);
 		Load.setBounds(450, 203,  200, 80);
 		Load.setBorderPainted(false);
-		Load.setForeground(Color.white);
+		Load.setBackground(Color.black);
 		ImageIcon loadimage=new ImageIcon("images/load_w.png");
 		loadimage.setImage(loadimage.getImage().getScaledInstance(133, 100, Image.SCALE_SMOOTH));
 		Load.setIcon(loadimage);
@@ -102,7 +103,7 @@ public class Welcome extends Frame{
 		});
 		About.setBounds(250, 300,  200, 80);
 		About.setBorderPainted(false);
-		About.setForeground(Color.white);
+		About.setBackground(Color.black);
 		ImageIcon aboutimage=new ImageIcon("images/about_w.png");
 		aboutimage.setImage(aboutimage.getImage().getScaledInstance(154, 100, Image.SCALE_SMOOTH));
 		About.setIcon(aboutimage);
@@ -115,7 +116,7 @@ public class Welcome extends Frame{
 		});
 		Exit.setBounds(450, 300,  200, 80);
 		Exit.setBorderPainted(false);
-		Exit.setForeground(Color.white);
+		Exit.setBackground(Color.black);
 		ImageIcon exitimage=new ImageIcon("images/exit_w.png");
 		exitimage.setImage(exitimage.getImage().getScaledInstance(113, 100, Image.SCALE_SMOOTH));
 		Exit.setIcon(exitimage);

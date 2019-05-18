@@ -1,0 +1,20 @@
+//拉格朗日点
+planets.add(new Planet(6e14, 0, 0, 0, 0.09093181534,false,false));
+planets.add(new Planet(6e13, 40000, 0, 0, -0.9093181534,false,false));
+planets.add(new Planet(1, 20000, -34641.01615, -0.8662418831, -0.409193169,false,false));
+planets.add(new Planet(1, 20000, 34641.01615, 0.8662418831, -0.409193169,false,false));
+//planets.add(new Planet(1, 53879.67998, 0, 0, -1.25639689,false,false));//unstable
+planets.add(new Planet(1, -37877.06205, 0, 0, 1.038095069,false,false));
+//planets.add(new Planet(1, 28700.50348, 0, 0, -0.6267601275,false,false));//unstable
+
+//三体运动圆形解
+planets.add(new Planet(6e14, 0, -40000, 0.7600256208, 0,false,false));
+planets.add(new Planet(6e14, 34641.01615, 20000, -0.3800128104, 0.6582014952,false,false));
+planets.add(new Planet(6e14, -34641.01615, 20000, -0.3800128104, -0.6582014952,false,false));
+
+//三体运动8字形解
+double px = 0.842;
+double py = px/1.1;
+planets.add(new Planet(6e14, 0, 0, -px, -py,false,false));
+planets.add(new Planet(6e14, 49000, -12000, px/2, py/2,false,false));
+planets.add(new Planet(6e14, -49000, 12000, px/2, py/2,false,false));

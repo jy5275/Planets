@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,6 +11,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class Mainfile extends Frame {
 	BufferedImage bgBF, planetBF, traceBF, informBF;
@@ -556,6 +558,35 @@ public class Mainfile extends Frame {
 			menu.repaint();
 			repaintP = false;
 		}
+	}
+	
+	public void generateScreenShot(String name) throws IOException {
+		BufferedImage screenshot;	
+		int fontsize=300;
+		screenshot = new BufferedImage(bgwidth, bgheight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D screenshotg=screenshot.createGraphics();
+       		screenshotg.setBackground(new Color(0,0,0,0));
+		screenshotg.drawImage(bgBF, 0, 0, null);
+		screenshotg.drawImage(traceBF, 0, 0, null);
+		screenshotg.drawImage(planetBF, 0, 0, null);
+		screenshotg.setColor(Color.white);
+		Font font=new Font("宋体",Font.PLAIN,300);
+       		screenshotg.setFont(font); 
+        	FontMetrics fm = screenshotg.getFontMetrics(font);
+        	int textWidth = fm.stringWidth(name);
+        	while(textWidth>bgwidth) {
+        		fontsize*=0.9;
+        		font=new Font("宋体",Font.PLAIN,fontsize);
+        		fm = screenshotg.getFontMetrics(font);
+        		textWidth=fm.stringWidth(name);
+        		screenshotg.setFont(font); 
+       		}
+        	int textHeight = 100;
+        	int widthX = (bgwidth - textWidth) / 2;
+        	int heightY = (bgheight - textHeight)/2;
+        	screenshotg.drawString(name,widthX,heightY);
+		File outputfile = new File("screenshot/"+name+".png");
+		ImageIO.write(screenshot,"png",outputfile);
 	}
 
 	/*

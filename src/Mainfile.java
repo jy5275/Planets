@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class Mainfile extends Frame {
 	BufferedImage bgBF, planetBF, traceBF, informBF;
@@ -507,7 +508,6 @@ public class Mainfile extends Frame {
 		}
 		DrawVplanet(planetBG); 
 		for (Planet p : planets)
-									
 			p.DrawPlanet(planetBG);
 		if (needRedrawTrace) {
 			redrawTrace();
@@ -517,12 +517,15 @@ public class Mainfile extends Frame {
 			informBG.clearRect(0, 0, bgwidth, bgheight);
 			if (selected) {
 				int tmpx = cvt(selectedPlanet.x, true), tmpy = cvt(selectedPlanet.y, false);
-				informBG.setColor(selectedPlanet.drawColor);
-				informBG.drawString("Mass:" + String.valueOf(selectedPlanet.m), tmpx + 30, tmpy);
-				informBG.drawString(
-						"Speed:" + String.valueOf(Math
-								.sqrt(selectedPlanet.vx * selectedPlanet.vx + selectedPlanet.vy * selectedPlanet.vy)),
-						tmpx + 30, tmpy + 20);
+				int tmpdiam=selectedPlanet.diam;
+				double tmpvx=selectedPlanet.vx,tmpvy=selectedPlanet.vy;
+				informBG.setColor(new Color(255,255,255,255));
+				informBG.fillOval(tmpx - tmpdiam / 2, tmpy - tmpdiam / 2, tmpdiam, tmpdiam);
+				informBG.drawLine(tmpx, tmpy, tmpx+(int)(tmpvx*100*zoom), tmpy+(int)(tmpvy*100*zoom));
+				informBG.setFont(new Font("Courier New",Font.PLAIN,tmpdiam+5));
+				BigDecimal bdv = new BigDecimal(String.valueOf(Math.sqrt(tmpvx * tmpvx + tmpvy* tmpvy)*100));
+				informBG.drawString("M: " + String.valueOf(selectedPlanet.m)+" kg", tmpx + 4*tmpdiam, tmpy);
+				informBG.drawString("V: " + bdv.setScale(4, BigDecimal.ROUND_HALF_UP)+" km/s",tmpx + 4*tmpdiam, tmpy+tmpdiam+10);
 			}
 		}
 		if (menuLevel != 0)

@@ -88,26 +88,34 @@ public class Mainfile extends Frame {
 		JPanel loadList = new JPanel();
 		loadList.setLocation(bgwidth, 8 * partheight);
 		loadList.setBackground(Color.BLACK);
-		loadList.setPreferredSize(new Dimension(6 * partheight, (int)(filelist.length * 1.3 * partheight)));
+		loadList.setPreferredSize(new Dimension(6 * partheight, (int)(filelist.length * 4.3 * partheight)));
 		for (int i = 0; i < filelist.length; i++) {
-			System.out.println(filelist[i]);
 			LoadGalaxy tmplg = new LoadGalaxy(this, filelist[i]);
-			JButton tmpButton = new JButton(filelist[i]);
+			JButton tmpButton = new JButton("");
 			loadList.add(tmpButton);
 			tmpButton.setLocation(bgwidth, (8 + i) * partheight);
 			tmpButton.setPreferredSize(new Dimension(6 * partheight, 4*partheight));
 			ImageIcon tmpimage = new ImageIcon("screenshot/"+filelist[i]+".png");
-			tmpimage.setImage(
+			File test =new File("screenshot/"+filelist[i]+".png");
+			tmpButton.setBackground(Color.BLACK);
+			tmpButton.setForeground(Color.WHITE);
+			if(!test.exists()) {
+				tmpButton.setText(filelist[i]);
+			}
+			else {
+				tmpimage.setImage(
 					tmpimage.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
+			}
 			tmpButton.setIcon(tmpimage);
-			tmpButton.setBackground(Color.WHITE);
-			tmpButton.setForeground(Color.white);
 			tmpButton.setBorderPainted(false);
 			tmpButton.addActionListener(tmplg);
 		}
 		JScrollPane rollList = new JScrollPane(loadList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		rollList.setBounds(bgwidth, 8 * partheight, 6*partheight+15, 30 * partheight);
+		if(filelist.length*4.3>26*partheight)
+			rollList.setBounds(bgwidth, 8 * partheight, 6*partheight+15, 26 * partheight);
+		else
+			rollList.setBounds(bgwidth, 8 * partheight, 6*partheight, 26 * partheight);
 		rollList.setBorder(null);
 		rollList.getVerticalScrollBar().setUI(new DemoScrollBarUI());
 		menu.add(Ret);
@@ -134,7 +142,7 @@ public class Mainfile extends Frame {
 		Dimension scrnsize = toolkit.getScreenSize();
 		bgwidth = (int) (scrnsize.width * 0.8);
 		bgheight = (int) (scrnsize.height * 0.9);
-		partheight = (int) (bgheight / 40);
+		partheight = (int) (bgheight / 36);
 		m = new Mouse(this);
 		showT = true;
 		ClearTrace ct = new ClearTrace(this);
@@ -196,7 +204,7 @@ public class Mainfile extends Frame {
 		Huge.setBorderPainted(false);
 		Huge.addActionListener(chuge);
 		ImageIcon hugeimage = new ImageIcon("images/huge.png");
-		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+		hugeimage.setImage(hugeimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Huge.setIcon(hugeimage);
 		Huge.setBounds(bgwidth, 6 * partheight, 6 * partheight, 3 * partheight);
 
@@ -206,7 +214,7 @@ public class Mainfile extends Frame {
 		Mid.addActionListener(cmid);
 		ImageIcon mediumimage = new ImageIcon("images/medium.png");
 		mediumimage.setImage(
-				mediumimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+				mediumimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Mid.setIcon(mediumimage);
 		Mid.setBounds(bgwidth, 10 * partheight, 6 * partheight, 3 * partheight);
 
@@ -215,7 +223,7 @@ public class Mainfile extends Frame {
 		Tiny.setBorderPainted(false);
 		Tiny.addActionListener(ctiny);
 		ImageIcon tinyimage = new ImageIcon("images/tiny.png");
-		tinyimage.setImage(tinyimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+		tinyimage.setImage(tinyimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Tiny.setIcon(tinyimage);
 		Tiny.setBounds(bgwidth, 14 * partheight, 6 * partheight, 3 * partheight);
 
@@ -226,7 +234,7 @@ public class Mainfile extends Frame {
 		Move.setBorderPainted(false);
 		ImageIcon moveimage = new ImageIcon("images/move.png");
 		moveimage.setImage(
-				moveimage.getImage().getScaledInstance(6 * partheight - 10, 3 * partheight, Image.SCALE_DEFAULT));
+				moveimage.getImage().getScaledInstance(6 * partheight - 10, 3 * partheight, Image.SCALE_SMOOTH));
 		Move.setIcon(moveimage);
 
 		clbt = new JButton("");
@@ -235,7 +243,7 @@ public class Mainfile extends Frame {
 		clbt.setBounds(bgwidth, 22 * partheight, 6 * partheight, 3 * partheight);
 		clbt.setBorderPainted(false);
 		ImageIcon clbtimage = new ImageIcon("images/clear.png");
-		clbtimage.setImage(clbtimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+		clbtimage.setImage(clbtimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		clbt.setIcon(clbtimage);
 
 		cltrbt = new JButton("");
@@ -245,7 +253,7 @@ public class Mainfile extends Frame {
 		cltrbt.setBorderPainted(false);
 		ImageIcon cltrbtimage = new ImageIcon("images/hide.png");
 		cltrbtimage.setImage(
-				cltrbtimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+				cltrbtimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		cltrbt.setIcon(cltrbtimage);
 
 		Show = new JButton("");
@@ -254,7 +262,7 @@ public class Mainfile extends Frame {
 		Show.setBounds(bgwidth, 30 * partheight, 6 * partheight, 3 * partheight);
 		Show.setBorderPainted(false);
 		ImageIcon showimage = new ImageIcon("images/showtrace.png");
-		showimage.setImage(showimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+		showimage.setImage(showimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Show.setIcon(showimage);
 
 		Delete = new JButton("");
@@ -264,7 +272,7 @@ public class Mainfile extends Frame {
 		Delete.setBorderPainted(false);
 		ImageIcon deleteimage = new ImageIcon("images/delete.png");
 		deleteimage.setImage(
-				deleteimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+				deleteimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Delete.setIcon(deleteimage);
 
 		SaveLoad = new JButton("");
@@ -273,7 +281,7 @@ public class Mainfile extends Frame {
 		SaveLoad.setBounds(bgwidth, 26 * partheight, 6 * partheight, 3 * partheight);
 		SaveLoad.setBorderPainted(false);
 		ImageIcon loadimage = new ImageIcon("images/load.png");
-		loadimage.setImage(loadimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+		loadimage.setImage(loadimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		SaveLoad.setIcon(loadimage);
 
 		enterFileName = new JTextField("");
@@ -289,7 +297,7 @@ public class Mainfile extends Frame {
 		Ret.setBounds(bgwidth, 2 * partheight, 6 * partheight, 3 * partheight);
 		Ret.setBorderPainted(false);
 		ImageIcon Retimage = new ImageIcon("images/return.png");
-		Retimage.setImage(Retimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+		Retimage.setImage(Retimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Ret.setIcon(Retimage);
 
 		Model = new JButton("");
@@ -301,7 +309,7 @@ public class Mainfile extends Frame {
 				.setImage(Modelimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Model.setIcon(Modelimage);
 
-		Model1 = new JButton("Model1");
+		Model1 = new JButton("");
 		Model1.addActionListener(model1);
 		Model1.setBounds(bgwidth, 6 * partheight, 6 * partheight, 4 * partheight);
 		Model1.setBorderPainted(false);
@@ -310,7 +318,7 @@ public class Mainfile extends Frame {
 				.setImage(Model1image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
 		Model1.setIcon(Model1image);
 		
-		Model2 = new JButton("Model2");
+		Model2 = new JButton("");
 		Model2.addActionListener(model2);
 		Model2.setBounds(bgwidth, 10 * partheight, 6 * partheight, 4 * partheight);
 		Model2.setBorderPainted(false);
@@ -319,13 +327,13 @@ public class Mainfile extends Frame {
 				.setImage(Model2image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
 		Model2.setIcon(Model2image);
 
-		Model3 = new JButton("Model3");
+		Model3 = new JButton("");
 		Model3.addActionListener(model3);
 		Model3.setBounds(bgwidth, 14 * partheight, 6 * partheight, 4 * partheight);
 		Model3.setBorderPainted(false);
 		ImageIcon Model3image = new ImageIcon("images/model3.png");
 		Model3image
-				.setImage(Model3image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_DEFAULT));
+				.setImage(Model3image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
 		Model3.setIcon(Model3image);
 
 		planets = new ArrayList<Planet>();
@@ -359,7 +367,7 @@ public class Mainfile extends Frame {
 		setLocation((int) (scrnsize.width * 0.05), (int) (scrnsize.height * 0.05));
 
 		addMouseListener(m);
-		add(menu); // setVisible闁告劖鐟╅弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁规椿鍘虹槐顕�骞忛悜鑺ユ櫢闁跨噦鎷�
+		add(menu); // setVisible闂佸憡鍔栭悷鈺呭极閹捐妫橀柕鍫濇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤梺瑙勬た閸樿櫣妲愰锟介獮蹇涙倻閼恒儲娅㈤梺璺ㄥ櫐閹凤拷
 		menu.setVisible(true);
 		setVisible(true);
 	}
@@ -376,13 +384,13 @@ public class Mainfile extends Frame {
 		}
 	}
 
-	public void ClearAll() { // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氾拷
+	public void ClearAll() { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘炬嫹
 		planets.clear();
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		vplanet = null;
 	}
 
-	/* 闂佽法鍠愰弸濠氬箯瀹勬壆鏉介梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏� cvt2 闂佽法鍠愰弸濠氬箯瀹勬壆顔庨梺璺ㄥ枑閺嬪骞忔搴涗粵闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氾拷 */
+	/* 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛弶浠嬫⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟� cvt2 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛搴ㄦ⒑鐠恒劌鏋戦柡瀣煼楠炲繑顦版惔娑楃驳闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘炬嫹 */
 	public static int cvt(double x, boolean ifX) {
 		double red = x / (100);
 		if (ifX) {
@@ -391,7 +399,7 @@ public class Mainfile extends Frame {
 		return (int) ((red + movY) * zoom) + clickY + bgheight / 2;
 	}
 
-	/* 闂佽法鍠愰弸濠氬箯瀹勬壆顔庨梺璺ㄥ枑閺嬪骞忔搴涗粵闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氾拷 cvt2 闂佽法鍠愰弸濠氬箯瀹勬壆鏉介梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏� */
+	/* 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛搴ㄦ⒑鐠恒劌鏋戦柡瀣煼楠炲繑顦版惔娑楃驳闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘炬嫹 cvt2 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛弶浠嬫⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟� */
 	public static double recvt(int n, boolean ifX) {
 		if (ifX) {
 			return (double) ((n - clickX - bgwidth / 2) / zoom - movX) * 100;
@@ -399,7 +407,7 @@ public class Mainfile extends Frame {
 		return (double) ((n - clickY - bgheight / 2) / zoom - movY) * 100;
 	}
 
-	/* 闂佽法鍠愰弸濠氬箯妞嬪簺浠涢梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢宄板缓缁炬澘顦扮�氱瓎lanet */
+	/* 闂備浇娉曢崰鎰板几婵犳艾绠瀣昂娴犳盯姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘秺閺屻劑鎮㈠畡鏉跨紦缂佺偓婢橀ˇ鎵拷姘辩搸lanet */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
@@ -458,7 +466,7 @@ public class Mainfile extends Frame {
 		return false;
 	}
 
-	/* 闂佽法鍠曟俊顓熷濞嗘劕顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢閺夊牆鍟╃槐顕�骞忛悜鑺ユ櫢闁哄倶鍊栫�氾拷 */
+	/* 闂備浇娉曢崰鏇熶繆椤撶喎顕辨繛鍡樺姇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤柡澶婄墕閸熲晝妲愰锟介獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘炬嫹 */
 	void paintFG() {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
 		double dt = 120;
@@ -492,7 +500,7 @@ public class Mainfile extends Frame {
 					p.setLast();
 				}
 				redrawTrace();
-			} else { // 鍒涘缓鏂板ぉ浣撲腑
+			} else { // 閸掓稑缂撻弬鏉裤亯娴ｆ挷鑵�
 				planetBG.setColor(vplanet.drawColor);
 				planetBG.drawLine(m.gotx, m.goty, curx, cury);
 			}
@@ -521,8 +529,8 @@ public class Mainfile extends Frame {
 			return;
 
 		/*
-		 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氱懓袙韫囨稒鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�,
-		 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑濠㈠啴鎮�涙ê顏堕梺璺ㄥ枑閺嬪骞忛敓锟�(Fx, Fy)
+		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘辨嚀琚欓煫鍥ㄧ♁閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�,
+		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅鍫曟⒑鐠恒劌鏋戞繝銏犲暣閹喚锟芥稒锚椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙晸閿燂拷(Fx, Fy)
 		 */
 		int planetsnum = planets.size();
 		for (int i = 0; i < planetsnum; i++) {
@@ -531,26 +539,26 @@ public class Mainfile extends Frame {
 				continue;
 			for (int j = i + 1; j < planetsnum; j++) {
 				Planet q = planets.get(j);
-				if (!(q.visible)) // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢铏瑰吹闁规儳鎳忕�氬綊鏌ㄩ悢鍛婄伄闁归銆噀rge闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�
+				if (!(q.visible)) // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤搹鐟板惞闂佽鍎抽幊蹇曪拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻妴鍣�rge闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佺懓鍤栭幏锟�
 					continue;
-				if (!MergeOK(p, q)) // 闂佽法鍠愰弸濠氬箯閻戣姤鏅哥紒鎻掑灳rge闂佽法鍠庢竟娆戜焊鏉堫偒鍤嬮柟椋庡厴閺佹捇寮妶鍡楊伓闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�,
-									// 闂佽法鍠愰弸濠氬箯閾氬倽绀嬮梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲箣椤忓棗鐨戦柟椋庡厴閺佹捇寮妶鍡楊伓
+				if (!MergeOK(p, q)) // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呭摜绱掗幓鎺戠伋rge闂備浇娉曢崰搴㈢珶濞嗘垳鐒婇弶鍫亽閸ゅ鏌熸搴″幋闁轰焦鎹囧顒勫Χ閸℃浼撻梻浣芥硶閸犳劙寮告繝姘闁绘垼濮ら弲鎼佹煛閸屾ê锟芥牜锟芥艾缍婇弻銊╂偄閸涘﹦浼勯梺褰掝棑閸忔﹢寮幘璇叉闁靛牆妫楅锟�,
+									// 闂備浇娉曢崰鎰板几婵犳艾绠柧姘�界粈瀣⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇茬妞ゅ繐妫楅惃鎴︽煙妞嬪骸鍘撮柡浣规崌瀵剟濡堕崱妤婁紦
 					p.AddForce(q);
 			}
-			p.Forced(dt); // p闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲级閹殿喖鐨戦柟椋庡厴閺佹捇寮妶鍡楊伓(Fx,
-							// Fy)闂佽法鍠嶉懠搴ㄥ箟鐎ｎ偄顏秔闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢宄靶涢悹浣筋潐鐎氾拷(vx, vy)
+			p.Forced(dt); // p闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇茬骇闁规鍠栭惃鎴︽煙妞嬪骸鍘撮柡浣规崌瀵剟濡堕崱妤婁紦(Fx,
+							// Fy)闂備浇娉曢崰宥夋嚑鎼淬劌绠熼悗锝庡亜椤忕闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈠畡闈舵盯鎮规担绛嬫綈閻庢熬鎷�(vx, vy)
 		}
 
 		/*
-		 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氱懓袙韫囨稒鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�,
-		 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柛鏃戝亜鐎瑰磭娑甸柨瀣伓闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氳鎷呭澶嬫櫢闁绘瑢鍓濋弫濂稿箟鐎ｎ偄顏�
+		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘辨嚀琚欓煫鍥ㄧ♁閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�,
+		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌涢弮鎴濅簻閻庣懓纾☉鐢告煥鐎ｎ亶浼撻梻浣芥硶閸犳劙寮告繝姘闁绘垼濮ら弲鎼佹煛閸屾ê锟芥牜锟芥俺顫夐幏鍛吋婢跺娅㈤梺缁樼憿閸撴繈寮總绋跨疅閻庯綆鍋勯锟�
 		 */
 		for (Planet p : planets) {
-			if (!p.visible) // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾绘晸閿燂拷
+			if (!p.visible) // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅鍫曟⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘缁樻櫢闁跨噦鎷�
 				continue;
-			p.Move(dt); // 濞达絽绉归弫鎾绘偑閳╁啯鏆柛娆愶公缁憋拷
-			if (showT) { // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬湱绮堝ú顏呮櫢閻忕偛锕ㄩ幎锟�,
-							// 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊骞忛妷鈺傛櫢閻熸瑦甯楃�氬牊瀵煎▎鎰伓闁绘粠鍋婇弫鎾诲棘閵堝棗顏堕柡鍐╁釜閹凤拷(log)闂佽法鍠愰弸濠氬箯閿燂拷
+			p.Move(dt); // 婵炶揪绲界粔褰掑极閹剧粯鍋戦柍鈺佸暞閺嗩參鏌涘▎鎰跺叕缂佹唻鎷�
+			if (showT) { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘贡缁牆煤椤忓懏娅㈤柣蹇曞仜閿曘劑骞庨敓锟�,
+							// 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺楠炲繘濡烽埡鍌涙闁荤喐鐟︾敮妤冿拷姘墛鐎电厧鈻庨幇顒変紦闂佺粯绮犻崑濠囧极閹捐妫橀柕鍫濇椤忓爼鏌￠崘鈺侀嚋闁瑰嚖鎷�(log)闂備浇娉曢崰鎰板几婵犳艾绠柨鐕傛嫹
 				if (p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x, true), cvt(p.y, false));
@@ -563,14 +571,14 @@ public class Mainfile extends Frame {
 	}
 
 	/*
-	 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢璇参濋柣銊ュ閸ゆ牠骞忛悜鑺ユ櫢闁哄倶鍊栫�氾拷,
-	 * 婵絽绻橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閸╁懏瀵煎▎鎰伓闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柤鍝勫�婚。顕�骞忛悜鑺ユ櫢闁哄倶鍊栫�氳绋夐敓浠嬫煥閻斿憡鐏柟椋庮煼aint
+	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈢拠鍙傛繈鏌ｉ妸銉ヮ仼闁搞倖鐗犻獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘炬嫹,
+	 * 濠殿噯绲界换姗�寮幘璇叉闁靛牆妫楅鍫曟⒑鐠恒劌鏋戦柛鈺佹噺鐎电厧鈻庨幇顒変紦闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌ら崫鍕拷濠氥�傞锟介獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘愁潐缁嬪鏁撴禒瀣叆闁绘柨鎲￠悘顕�鏌熸搴吋aint
 	 */
 	public void paint(Graphics g) {
 		paintFG();
-		g.drawImage(bgBF, 0, 0, null); // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�
-		g.drawImage(traceBF, 0, 0, null); // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁悘鐐诧龚閹讹拷
-		g.drawImage(planetBF, 0, 0, null); // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁瑰嚖鎷�
+		g.drawImage(bgBF, 0, 0, null); // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佺懓鍤栭幏锟�
+		g.drawImage(traceBF, 0, 0, null); // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鎮橀悙璇ч練闁硅鎷�
+		g.drawImage(planetBF, 0, 0, null); // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佺懓鍤栭幏锟�
 		if (menuLevel == 1) {
 			g.drawImage(informBF, 0, 0, null);
 		}
@@ -591,13 +599,13 @@ public class Mainfile extends Frame {
 		screenshotg.drawImage(planetBF, 0, 0, null);
 		screenshotg.drawImage(traceBF, 0, 0, null);
 		screenshotg.setColor(Color.white);
-		Font font=new Font("宋体",Font.PLAIN,300);
+		Font font=new Font("Microsoft YaHei",Font.PLAIN,300);
        		screenshotg.setFont(font); 
         	FontMetrics fm = screenshotg.getFontMetrics(font);
         	int textWidth = fm.stringWidth(name);
         	while(textWidth+300>bgwidth) {
         		fontsize*=0.9;
-        		font=new Font("宋体",Font.PLAIN,fontsize);
+        		font=new Font("Microsoft YaHei",Font.PLAIN,fontsize);
         		fm = screenshotg.getFontMetrics(font);
         		textWidth=fm.stringWidth(name);
         		screenshotg.setFont(font); 
@@ -611,12 +619,12 @@ public class Mainfile extends Frame {
 	}
 
 	/*
-	 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柤鍝勫�婚妴瀣箯閻戣姤鏅搁柟鎼簻閸ゆ牠骞忛悜鑺ユ櫢闁哄倶鍊栫�氾拷,
-	 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊寮張鐢殿伇闁烩晜鎸抽弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�
-	 * 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢铏瑰吹妞ゆ挶鍔嶇�氬綊鏌ㄩ悤鍌涘
+	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌ら崫鍕拷濠氬Υ鐎ｎ喖绠柣鎴ｅГ閺呮悂鏌熼幖顓濈盎闁搞倖鐗犻獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘炬嫹,
+	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺瀵噣寮甸悽娈夸紘闂佺儵鏅滈幐鎶藉极閹捐妫橀柕鍫濇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�
+	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤搹鐟板惞濡炪倖鎸堕崝宥囷拷姘秺閺屻劑鎮ら崒娑橆伓
 	 */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() { // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁悷娆愬笧椤ｎ噣骞忛悜鑺ユ櫢闁哄倶鍊栫�氳绋婇崶鈺冧紕闂佽法鍠曢崜濂稿Ψ婵犲嫭顏熼柟椋庡厴閺佹捇寮妶鍡楊伓闂佽法鍠愰弸濠氬箯閻戣姤鏅搁悶娑欘殣閹凤拷
+		addWindowListener(new WindowAdapter() { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鎮峰▎鎰妞わ綆鍣ｉ獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘愁潐缁嬪﹪宕堕埡鍐х磿闂備浇娉曢崰鏇㈠礈婵傜唯濠电姴瀚鐔兼煙妞嬪骸鍘撮柡浣规崌瀵剟濡堕崱妤婁紦闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鎮跺☉娆樻闁瑰嚖鎷�
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -625,15 +633,15 @@ public class Mainfile extends Frame {
 				repaintP = true;
 			}
 		});
-		while (true) { // 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢绋跨劵濞村吋鐟︾�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏�, 闂佽法鍠愰弸濠氬箯瀹勭増鍎曢梺璺ㄥ枑閺嬪骞忛敓锟�
+		while (true) { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈢粙璺ㄥ姷婵炴潙鍚嬮悷锔撅拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�, 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫮澧楅崕鏇㈡⒑鐠恒劌鏋戦柡瀣煼楠炲繘鏁撻敓锟�
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
 	/*
-	 * 闂佽法鍠愰弸濠氬箯瀹勬澘鏅� update 闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾绘儍閸℃稒浜ら柟椋庡厴閺佹捇鎮垾鑼覆闁归鍏橀弫鎾诲棘閵堝棗顏�,
-	 * 闁告鍠栭弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛摎鍌滅槏闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氾拷, copy from CSDN
+	 * 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭婢橀弲锟� update 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘缁樺剭闁糕剝绋掓禍銈夋煙妞嬪骸鍘撮柡浣规崌閹亪鍨鹃懠顑胯闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�,
+	 * 闂佸憡顭囬崰鏍极閹捐妫橀柕鍫濇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙憥閸屾粎妲忛梻浣芥硶閸犳劙寮告繝姘闁绘垼濮ら弲鎼佹煛閸屾ê锟芥牜锟芥熬鎷�, copy from CSDN
 	 */
 	private Image offScreenImage = null;
 

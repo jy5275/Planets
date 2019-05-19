@@ -13,6 +13,12 @@ class SaveGalaxy implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		try {
+			frame.generateScreenShot(nameJT.getText());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int tmp = 0;
 		try {
 			file= new File("data/"+nameJT.getText());

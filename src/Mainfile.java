@@ -98,7 +98,7 @@ public class Mainfile extends Frame {
 			tmpButton.setPreferredSize(new Dimension(6 * partheight, 4*partheight));
 			ImageIcon tmpimage = new ImageIcon("screenshot/"+filelist[i]+".png");
 			tmpimage.setImage(
-					tmpimage.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_AREA_AVERAGING));
+					tmpimage.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
 			tmpButton.setIcon(tmpimage);
 			tmpButton.setBackground(Color.WHITE);
 			tmpButton.setForeground(Color.white);
@@ -298,20 +298,35 @@ public class Mainfile extends Frame {
 		Model.setBorderPainted(false);
 		ImageIcon Modelimage = new ImageIcon("images/model.png");
 		Modelimage
-				.setImage(Modelimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_DEFAULT));
+				.setImage(Modelimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Model.setIcon(Modelimage);
 
 		Model1 = new JButton("Model1");
 		Model1.addActionListener(model1);
-		Model1.setBounds(bgwidth, 6 * partheight, 6 * partheight, 3 * partheight);
-
+		Model1.setBounds(bgwidth, 6 * partheight, 6 * partheight, 4 * partheight);
+		Model1.setBorderPainted(false);
+		ImageIcon Model1image = new ImageIcon("images/model1.png");
+		Model1image
+				.setImage(Model1image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
+		Model1.setIcon(Model1image);
+		
 		Model2 = new JButton("Model2");
 		Model2.addActionListener(model2);
-		Model2.setBounds(bgwidth, 10 * partheight, 6 * partheight, 3 * partheight);
+		Model2.setBounds(bgwidth, 10 * partheight, 6 * partheight, 4 * partheight);
+		Model2.setBorderPainted(false);
+		ImageIcon Model2image = new ImageIcon("images/model2.png");
+		Model2image
+				.setImage(Model2image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_SMOOTH));
+		Model2.setIcon(Model2image);
 
 		Model3 = new JButton("Model3");
 		Model3.addActionListener(model3);
-		Model3.setBounds(bgwidth, 14 * partheight, 6 * partheight, 3 * partheight);
+		Model3.setBounds(bgwidth, 14 * partheight, 6 * partheight, 4 * partheight);
+		Model3.setBorderPainted(false);
+		ImageIcon Model3image = new ImageIcon("images/model3.png");
+		Model3image
+				.setImage(Model3image.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_DEFAULT));
+		Model3.setIcon(Model3image);
 
 		planets = new ArrayList<Planet>();
 		planets.add(new Planet(DEFAULT_M, 0, 0, 0.6, 0.4, false, false));

@@ -16,7 +16,7 @@ public class Mainfile extends Frame {
 	BufferedImage bgBF,planetBF,traceBF,informBF;
 	Graphics2D bgBG,planetBG,traceBG,informBG;
 	ArrayList<Planet> planets;
-	Planet vplanet; // 闁跨喐鏋婚幏鐑芥晸閼哄倽鎻幏鐑芥晸閺傘倖瀚归柨鐔峰建绾板瀚筆lanet,闁跨喐鏋婚幏閿嬫婵垹澶噀lease
+	Planet vplanet; 
 	Mouse m;
 	JPanel menu;
 	JTextField enterFileName;
@@ -288,6 +288,10 @@ public class Mainfile extends Frame {
 		Ret = new JButton("Return");
 		Ret.addActionListener(pact);
 		Ret.setBounds(bgwidth, 2*partheight, 6*partheight, 3*partheight);
+		Ret.setBorderPainted(false);
+		ImageIcon Retimage=new ImageIcon("images/return.png");
+		Retimage.setImage(Retimage.getImage().getScaledInstance(6*partheight, 3*partheight, Image.SCALE_DEFAULT));
+		Ret.setIcon(Retimage);
 		
 		Model = new JButton("Models");
 		Model.addActionListener(modelg);

@@ -92,7 +92,7 @@ public class Welcome extends Frame{
 		Load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Welcome.started=true;
-				Welcome.menuLevel=3;
+				Welcome.menuLevel=2;
 				setVisible(false);
 			}
 		});

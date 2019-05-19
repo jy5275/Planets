@@ -33,7 +33,7 @@ class ShowTrace implements ActionListener {
         frame = f;
     }
 
-    /* 閻愮瓖howTrace ==> 閺勶拷/閸氼洐howTrace閻樿埖锟戒焦鏁奸崣锟�,鐠嬪啰鏁ainfile::ClearTrace閺傝纭�. */
+    /* 闁绘劗鐡杊owTrace ==> 闁哄嫸鎷�/闁告凹娲恏owTrace闁绘鍩栭敓鎴掔劍閺佸ジ宕ｉ敓锟�,閻犲鍟伴弫顥砤infile::ClearTrace闁哄倽顫夌涵锟�. */
     public void actionPerformed(ActionEvent e) {
         if (frame.showT) {
             frame.showT = false;
@@ -72,9 +72,8 @@ class changeMenuAction implements ActionListener{
 		switch(level) {
 		case 0:frame.addMainMenu();break;
 		case 1:frame.addSecMenu();break;
-		case 2:frame.addSaveMenu();break;
-		case 3:frame.addLoadMenu();break;
-		case 4:frame.addModelMenu();break;
+		case 2:frame.addLoadMenu();break;
+		case 3:frame.addModelMenu();break;
 		}
 	}
 }

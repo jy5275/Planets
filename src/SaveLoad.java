@@ -34,6 +34,7 @@ class SaveGalaxy implements ActionListener {
 			bw.close();
 			fw.close();
 			nameJT.setText("");
+			frame.addLoadMenu();
 		} catch (IOException ioe) {}
 		System.out.println("Save in " + file);
     }

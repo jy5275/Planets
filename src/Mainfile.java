@@ -95,8 +95,13 @@ public class Mainfile extends Frame {
 			JButton tmpButton = new JButton(filelist[i]);
 			loadList.add(tmpButton);
 			tmpButton.setLocation(bgwidth, (8 + i) * partheight);
-			tmpButton.setPreferredSize(new Dimension(6 * partheight, partheight));
+			tmpButton.setPreferredSize(new Dimension(6 * partheight, 4*partheight));
+			ImageIcon tmpimage = new ImageIcon("screenshot/"+filelist[i]+".png");
+			tmpimage.setImage(
+					tmpimage.getImage().getScaledInstance(6 * partheight, 4 * partheight, Image.SCALE_AREA_AVERAGING));
+			tmpButton.setIcon(tmpimage);
 			tmpButton.setBackground(Color.WHITE);
+			tmpButton.setForeground(Color.white);
 			tmpButton.setBorderPainted(false);
 			tmpButton.addActionListener(tmplg);
 		}
@@ -567,14 +572,15 @@ public class Mainfile extends Frame {
 		Graphics2D screenshotg=screenshot.createGraphics();
        		screenshotg.setBackground(new Color(0,0,0,0));
 		screenshotg.drawImage(bgBF, 0, 0, null);
-		screenshotg.drawImage(traceBF, 0, 0, null);
+		
 		screenshotg.drawImage(planetBF, 0, 0, null);
+		screenshotg.drawImage(traceBF, 0, 0, null);
 		screenshotg.setColor(Color.white);
 		Font font=new Font("宋体",Font.PLAIN,300);
        		screenshotg.setFont(font); 
         	FontMetrics fm = screenshotg.getFontMetrics(font);
         	int textWidth = fm.stringWidth(name);
-        	while(textWidth>bgwidth) {
+        	while(textWidth+300>bgwidth) {
         		fontsize*=0.9;
         		font=new Font("宋体",Font.PLAIN,fontsize);
         		fm = screenshotg.getFontMetrics(font);

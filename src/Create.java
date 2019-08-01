@@ -10,7 +10,6 @@ class CreateHuge implements ActionListener {
     }
 
     @Override
-    /* 鐣岄潰涓婃寜涓媅Huge]鏃惰皟鐢ㄦ鏂规硶,淇敼Mainfile涓弬鏁�,浠ヤ究鍒涘缓涓嬩竴涓ぉ浣� */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = hugem;
         frame.moveS = false;
@@ -26,7 +25,6 @@ class CreateMid implements ActionListener {
     }
 
     @Override
-    /* 鐣岄潰涓婃寜涓媅Meddium]鏃惰皟鐢ㄦ鏂规硶,淇敼Mainfile涓弬鏁�,浠ヤ究鍒涘缓涓嬩竴涓ぉ浣� */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = midm;
         frame.moveS = false;
@@ -42,7 +40,6 @@ class CreateTiny implements ActionListener {
     }
 
     @Override
-    /* 鐣岄潰涓婃寜涓媅Tiny]鏃惰皟鐢ㄦ鏂规硶,淇敼Mainfile涓弬鏁�,浠ヤ究鍒涘缓涓嬩竴涓ぉ浣� */
     public void actionPerformed(ActionEvent e) {
         frame.DEFAULT_M = tinym;
         frame.moveS = false;

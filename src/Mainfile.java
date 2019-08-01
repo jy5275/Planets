@@ -368,7 +368,7 @@ public class Mainfile extends Frame {
 		setLocation((int) (scrnsize.width * 0.05), (int) (scrnsize.height * 0.05));
 
 		addMouseListener(m);
-		add(menu); // setVisible闂佸憡鍔栭悷鈺呭极閹捐妫橀柕鍫濇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤梺瑙勬た閸樿櫣妲愰锟介獮蹇涙倻閼恒儲娅㈤梺璺ㄥ櫐閹凤拷
+		add(menu); // 
 		menu.setVisible(true);
 		setVisible(true);
 	}
@@ -385,13 +385,13 @@ public class Mainfile extends Frame {
 		}
 	}
 
-	public void ClearAll() { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘炬嫹
+	public void ClearAll() { // 
 		planets.clear();
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		vplanet = null;
 	}
 
-	/* 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛弶浠嬫⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟� cvt2 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛搴ㄦ⒑鐠恒劌鏋戦柡瀣煼楠炲繑顦版惔娑楃驳闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘炬嫹 */
+	/*  cvt2  */
 	public static int cvt(double x, boolean ifX) {
 		double red = x / (100);
 		if (ifX) {
@@ -400,7 +400,7 @@ public class Mainfile extends Frame {
 		return (int) ((red + movY) * zoom) + clickY + bgheight / 2;
 	}
 
-	/* 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛搴ㄦ⒑鐠恒劌鏋戦柡瀣煼楠炲繑顦版惔娑楃驳闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘炬嫹 cvt2 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭澹嗛弶浠嬫⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟� */
+	/*  cvt2  */
 	public static double recvt(int n, boolean ifX) {
 		if (ifX) {
 			return (double) ((n - clickX - bgwidth / 2) / zoom - movX) * 100;
@@ -408,7 +408,7 @@ public class Mainfile extends Frame {
 		return (double) ((n - clickY - bgheight / 2) / zoom - movY) * 100;
 	}
 
-	/* 闂備浇娉曢崰鎰板几婵犳艾绠瀣昂娴犳盯姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘秺閺屻劑鎮㈠畡鏉跨紦缂佺偓婢橀ˇ鎵拷姘辩搸lanet */
+	/*  */
 	public void DrawVplanet(Graphics g) {
 		if (vplanet != null) {
 			g.setColor(vplanet.drawColor);
@@ -467,7 +467,7 @@ public class Mainfile extends Frame {
 		return false;
 	}
 
-	/* 闂備浇娉曢崰鏇熶繆椤撶喎顕辨繛鍡樺姇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤柡澶婄墕閸熲晝妲愰锟介獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘炬嫹 */
+	/*  */
 	void paintFG() {
 		planetBG.clearRect(0, 0, bgwidth, bgheight);
 		double dt = 120;
@@ -501,7 +501,7 @@ public class Mainfile extends Frame {
 					p.setLast();
 				}
 				redrawTrace();
-			} else { // 閸掓稑缂撻弬鏉裤亯娴ｆ挷鑵�
+			} else { // 
 				planetBG.setColor(vplanet.drawColor);
 				planetBG.drawLine(m.gotx, m.goty, curx, cury);
 			}
@@ -532,8 +532,8 @@ public class Mainfile extends Frame {
 			return;
 
 		/*
-		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘辨嚀琚欓煫鍥ㄧ♁閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�,
-		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅鍫曟⒑鐠恒劌鏋戞繝銏犲暣閹喚锟芥稒锚椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙晸閿燂拷(Fx, Fy)
+		 * ,
+		 * (Fx, Fy)
 		 */
 		int planetsnum = planets.size();
 		for (int i = 0; i < planetsnum; i++) {
@@ -542,26 +542,26 @@ public class Mainfile extends Frame {
 				continue;
 			for (int j = i + 1; j < planetsnum; j++) {
 				Planet q = planets.get(j);
-				if (!(q.visible)) // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤搹鐟板惞闂佽鍎抽幊蹇曪拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻妴鍣�rge闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佺懓鍤栭幏锟�
+				if (!(q.visible)) // 
 					continue;
-				if (!MergeOK(p, q)) // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呭摜绱掗幓鎺戠伋rge闂備浇娉曢崰搴㈢珶濞嗘垳鐒婇弶鍫亽閸ゅ鏌熸搴″幋闁轰焦鎹囧顒勫Χ閸℃浼撻梻浣芥硶閸犳劙寮告繝姘闁绘垼濮ら弲鎼佹煛閸屾ê锟芥牜锟芥艾缍婇弻銊╂偄閸涘﹦浼勯梺褰掝棑閸忔﹢寮幘璇叉闁靛牆妫楅锟�,
-									// 闂備浇娉曢崰鎰板几婵犳艾绠柧姘�界粈瀣⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇茬妞ゅ繐妫楅惃鎴︽煙妞嬪骸鍘撮柡浣规崌瀵剟濡堕崱妤婁紦
+				if (!MergeOK(p, q)) // ,
+									// 
 					p.AddForce(q);
 			}
-			p.Forced(dt); // p闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇茬骇闁规鍠栭惃鎴︽煙妞嬪骸鍘撮柡浣规崌瀵剟濡堕崱妤婁紦(Fx,
-							// Fy)闂備浇娉曢崰宥夋嚑鎼淬劌绠熼悗锝庡亜椤忕闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈠畡闈舵盯鎮规担绛嬫綈閻庢熬鎷�(vx, vy)
+			p.Forced(dt); // (Fx,
+							// Fy)(vx, vy)
 		}
 
 		/*
-		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘辨嚀琚欓煫鍥ㄧ♁閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�,
-		 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌涢弮鎴濅簻閻庣懓纾☉鐢告煥鐎ｎ亶浼撻梻浣芥硶閸犳劙寮告繝姘闁绘垼濮ら弲鎼佹煛閸屾ê锟芥牜锟芥俺顫夐幏鍛吋婢跺娅㈤梺缁樼憿閸撴繈寮總绋跨疅閻庯綆鍋勯锟�
+		 * ,
+		 * 
 		 */
 		for (Planet p : planets) {
-			if (!p.visible) // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅鍫曟⒑鐠恒劌鏋戦柡瀣煼楠炲繘鎮滈懞銉︽闂佸搫鍊堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘缁樻櫢闁跨噦鎷�
+			if (!p.visible) // 
 				continue;
-			p.Move(dt); // 婵炶揪绲界粔褰掑极閹剧粯鍋戦柍鈺佸暞閺嗩參鏌涘▎鎰跺叕缂佹唻鎷�
-			if (showT) { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘贡缁牆煤椤忓懏娅㈤柣蹇曞仜閿曘劑骞庨敓锟�,
-							// 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺楠炲繘濡烽埡鍌涙闁荤喐鐟︾敮妤冿拷姘墛鐎电厧鈻庨幇顒変紦闂佺粯绮犻崑濠囧极閹捐妫橀柕鍫濇椤忓爼鏌￠崘鈺侀嚋闁瑰嚖鎷�(log)闂備浇娉曢崰鎰板几婵犳艾绠柨鐕傛嫹
+			p.Move(dt); // 
+			if (showT) { // ,
+							// (log)
 				if (p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x, true), cvt(p.y, false));
@@ -574,14 +574,14 @@ public class Mainfile extends Frame {
 	}
 
 	/*
-	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈢拠鍙傛繈鏌ｉ妸銉ヮ仼闁搞倖鐗犻獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘炬嫹,
-	 * 濠殿噯绲界换姗�寮幘璇叉闁靛牆妫楅鍫曟⒑鐠恒劌鏋戦柛鈺佹噺鐎电厧鈻庨幇顒変紦闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌ら崫鍕拷濠氥�傞锟介獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘愁潐缁嬪鏁撴禒瀣叆闁绘柨鎲￠悘顕�鏌熸搴吋aint
+	 * ,
+	 * 
 	 */
 	public void paint(Graphics g) {
 		paintFG();
-		g.drawImage(bgBF, 0, 0, null); // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佺懓鍤栭幏锟�
-		g.drawImage(traceBF, 0, 0, null); // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鎮橀悙璇ч練闁硅鎷�
-		g.drawImage(planetBF, 0, 0, null); // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佺懓鍤栭幏锟�
+		g.drawImage(bgBF, 0, 0, null); // 
+		g.drawImage(traceBF, 0, 0, null); // 
+		g.drawImage(planetBF, 0, 0, null); // 
 		if (menuLevel == 1) {
 			g.drawImage(informBF, 0, 0, null);
 		}
@@ -622,12 +622,12 @@ public class Mainfile extends Frame {
 	}
 
 	/*
-	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌ら崫鍕拷濠氬Υ鐎ｎ喖绠柣鎴ｅГ閺呮悂鏌熼幖顓濈盎闁搞倖鐗犻獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘炬嫹,
-	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺瀵噣寮甸悽娈夸紘闂佺儵鏅滈幐鎶藉极閹捐妫橀柕鍫濇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�
-	 * 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤搹鐟板惞濡炪倖鎸堕崝宥囷拷姘秺閺屻劑鎮ら崒娑橆伓
+	 * ,
+	 * 
+	 * 
 	 */
 	void launchFrame() throws Exception {
-		addWindowListener(new WindowAdapter() { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鎮峰▎鎰妞わ綆鍣ｉ獮蹇涙倻閼恒儲娅㈤梺鍝勫�堕崐鏍拷姘愁潐缁嬪﹪宕堕埡鍐х磿闂備浇娉曢崰鏇㈠礈婵傜唯濠电姴瀚鐔兼煙妞嬪骸鍘撮柡浣规崌瀵剟濡堕崱妤婁紦闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鎮跺☉娆樻闁瑰嚖鎷�
+		addWindowListener(new WindowAdapter() { // 
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -636,15 +636,15 @@ public class Mainfile extends Frame {
 				repaintP = true;
 			}
 		});
-		while (true) { // 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈢粙璺ㄥ姷婵炴潙鍚嬮悷锔撅拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�, 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫮澧楅崕鏇㈡⒑鐠恒劌鏋戦柡瀣煼楠炲繘鏁撻敓锟�
+		while (true) { // , 
 			repaint();
 			Thread.sleep(1);
 		}
 	}
 
 	/*
-	 * 闂備浇娉曢崰鎰板几婵犳艾绠�瑰嫭婢橀弲锟� update 闂備浇娉曢崰鎰板几婵犳艾绠柣鎴ｅГ閺呮悂鏌￠崒妯猴拷鏍拷姘秺閺屻劑鎮㈤崨濠勪紕闂佸綊顥撻崗姗�寮幘缁樺剭闁糕剝绋掓禍銈夋煙妞嬪骸鍘撮柡浣规崌閹亪鍨鹃懠顑胯闂佸綊顥撻崗姗�寮幘璇叉闁靛牆妫楅锟�,
-	 * 闂佸憡顭囬崰鏍极閹捐妫橀柕鍫濇椤忓爼姊虹捄銊ユ瀾闁哄顭烽獮蹇涙憥閸屾粎妲忛梻浣芥硶閸犳劙寮告繝姘闁绘垼濮ら弲鎼佹煛閸屾ê锟芥牜锟芥熬鎷�, copy from CSDN
+	 *  update ,
+	 * , copy from CSDN
 	 */
 	private Image offScreenImage = null;
 

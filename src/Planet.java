@@ -26,7 +26,7 @@ class Force {
 
 public class Planet {
     static double G = 6.67e-11, dx = 2000;
-    /* 鐟欙絽鍠呴棃鐘虹箮妞嬬偛鍤梻顕�顣介敍姘洤閺嬫粈琚辨径鈺�缍嬬捄婵堫瀲<mergezone,閸掓瑥婀狹ove閺冭泛宸辩悰宀冾唨鐎瑰啩婊戦弨鐐弮缁夎濮╅柅鐔峰 */
+    /* <mergezone, */
     static double maymergezone = 4000;
     double m, x, y, vx, vy;
     boolean hasTrace = false;
@@ -36,7 +36,7 @@ public class Planet {
     LinkedList<Point> log;
     Color drawColor;
     int diam;
-    boolean visible, maymerge = false; // this閺勵垰鎯佹稉搴㈢厙娑擃亜銇夋担鎾圭獩缁傛槒绻庢禍宥甧rgezone
+    boolean visible, maymerge = false; // 
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, boolean ifVirtual, boolean keepstill_) {
         keepstill = keepstill_;
@@ -65,19 +65,19 @@ public class Planet {
         drawColor = new Color((int) red, (int) green, 20, tmpAlpha);
     }
 
-    /* ?????? */
+    /*  */
     void Forced(double dt) {
         vx += F.Fx * dt / m;
         vy += F.Fy * dt / m;
         F.clear();
     }
 
-    /* ?????? */
+    /*  */
     void Move(double dt) {
         double factor = 1;
         if (keepstill == true)
             return;
-        /* 婵″倹鐏夋稉顥秎anet闂堢姴銇婃潻锟�,鐏忓崬宸辩悰宀冾唨娴犳牔婊戞担宥囆╃亸鎴滅閻愶拷(娑旀ü绔存稉顏勭毈娴滐拷1閻ㄥ垿actor) */
+        /* ,() */
         if (maymerge) {
             if (Math.abs(vx) > 10 || Math.abs(vy) > 10)
                 factor = 0.3;
@@ -116,7 +116,7 @@ public class Planet {
         }
     }
 
-    /* ???Planet??, ?????(log), ??!Mainfile.showT, ?log?? */
+    /* */
     void DrawPlanet(Graphics g) {
         if (visible) {
             g.setColor(drawColor);
@@ -129,12 +129,10 @@ public class Planet {
         return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
     }
 
-    /* this????p??merge, Merge???true, ????false */
     /*
      * implement mergeok func if merge into p return 1, p merges into itself, return
      * 2, else return 0;
      */
-    /* p?????this?????? */
     void AddForce(Planet p) {
         double dist = GetDistance(p);
         double dFx = G * m * p.m * (p.x - x) / Math.pow(dist, 3);

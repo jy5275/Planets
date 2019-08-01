@@ -33,7 +33,6 @@ class ShowTrace implements ActionListener {
         frame = f;
     }
 
-    /* 闁绘劗鐡杊owTrace ==> 闁哄嫸鎷�/闁告凹娲恏owTrace闁绘鍩栭敓鎴掔劍閺佸ジ宕ｉ敓锟�,閻犲鍟伴弫顥砤infile::ClearTrace闁哄倽顫夌涵锟�. */
     public void actionPerformed(ActionEvent e) {
         if (frame.showT) {
             frame.showT = false;

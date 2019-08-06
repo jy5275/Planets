@@ -252,7 +252,7 @@ public class Mainfile extends Frame {
 		cltrbt.addActionListener(ct);
 		cltrbt.setBounds(bgwidth, 26 * partheight, 6 * partheight, 3 * partheight);
 		cltrbt.setBorderPainted(false);
-		ImageIcon cltrbtimage = new ImageIcon("images/hide.png");
+		ImageIcon cltrbtimage = new ImageIcon("images/cleartrace.png");
 		cltrbtimage.setImage(
 				cltrbtimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		cltrbt.setIcon(cltrbtimage);
@@ -262,7 +262,7 @@ public class Mainfile extends Frame {
 		Show.addActionListener(show);
 		Show.setBounds(bgwidth, 30 * partheight, 6 * partheight, 3 * partheight);
 		Show.setBorderPainted(false);
-		ImageIcon showimage = new ImageIcon("images/showtrace.png");
+		ImageIcon showimage = new ImageIcon("images/showtrace1.png");
 		showimage.setImage(showimage.getImage().getScaledInstance(6 * partheight, 3 * partheight, Image.SCALE_SMOOTH));
 		Show.setIcon(showimage);
 

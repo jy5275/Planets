@@ -1,17 +1,11 @@
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
+import java.awt.event.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
+import javax.swing.event.*;
 import java.util.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 
 public class Mainfile extends Frame {
@@ -194,9 +188,7 @@ public class Mainfile extends Frame {
 				object = ((checkBox.getParent().getParent()));
 				Mainfile m = (Mainfile) object;
 				m.setStill();
-
 			}
-
 		});
 		Still.setBounds(bgwidth, 4 * partheight, 6 * partheight, 2 * partheight);
 
@@ -532,7 +524,6 @@ public class Mainfile extends Frame {
 			return;
 
 		/*
-		 * ,
 		 * (Fx, Fy)
 		 */
 		int planetsnum = planets.size();
@@ -544,8 +535,7 @@ public class Mainfile extends Frame {
 				Planet q = planets.get(j);
 				if (!(q.visible)) // 
 					continue;
-				if (!MergeOK(p, q)) // ,
-									// 
+				if (!MergeOK(p, q)) //
 					p.AddForce(q);
 			}
 			p.Forced(dt); // (Fx,
@@ -553,8 +543,6 @@ public class Mainfile extends Frame {
 		}
 
 		/*
-		 * ,
-		 * 
 		 */
 		for (Planet p : planets) {
 			if (!p.visible) // 
@@ -636,7 +624,7 @@ public class Mainfile extends Frame {
 				repaintP = true;
 			}
 		});
-		while (true) { // , 
+		while (true) { //,
 			repaint();
 			Thread.sleep(1);
 		}
@@ -655,5 +643,4 @@ public class Mainfile extends Frame {
 		paint(gOff);
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
-
 }

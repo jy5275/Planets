@@ -1,24 +1,7 @@
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Label;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
 
 public class Welcome extends Frame{
 	JButton Start,Load,About,Exit;
@@ -141,16 +124,21 @@ public class Welcome extends Frame{
 	Welcome(){
 		this.init();
 		this.setVisible(true);
-	}	
+	}
 	public static void main(String[] args) throws Exception {
-		System.out.println("Planets test version! ");
+		String verString = "Planet 1.0";
+		System.out.println(verString);
+		Connect conn = new Connect(verString);
+		new Thread(conn).start();
+
 		Welcome welcome = new Welcome();
+		
 		while(true) {
 			if(started) {
 				break;
 			}
 		}
-		Mainfile galaxy = new Mainfile("Planets in galaxy",menuLevel);
+		Mainfile galaxy = new Mainfile("Planets in galaxy", menuLevel);
 		galaxy.launchFrame();
 	}
 }

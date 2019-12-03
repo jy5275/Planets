@@ -11,7 +11,7 @@ public class Mouse implements MouseMotionListener, MouseListener,MouseWheelListe
     int gotx, goty;
     double begx, begy;
     boolean Clicking = false;
-    double zoommult=1.04;
+    double zoommult = 1.04;
 
     public Mouse(Mainfile f) {
         frame = f;
@@ -20,24 +20,30 @@ public class Mouse implements MouseMotionListener, MouseListener,MouseWheelListe
         frame.addMouseWheelListener(this);
     }
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
-    	if(frame.menuLevel!=1|!frame.moveS)
+		// Valid only under pause status and moving mode (moveS is true)
+    	if (frame.menuLevel !=1 || !frame.moveS)
     		return;
-    	int tmpx=e.getX(),tmpy=e.getY();
+		int tmpx = e.getX(), tmpy = e.getY();
+
+		// Iterate all planets to find which one is selected...
     	for (int i = 0; i < frame.planets.size(); i++) {
 			Planet p = frame.planets.get(i);
 			if (!p.visible)	
 				continue;
-			int dx=Mainfile.cvt(p.x, true)-tmpx,dy=Mainfile.cvt(p.y, false)-tmpy;
-			if(Math.sqrt(dx*dx+dy*dy)<p.diam) {
-				frame.selected=true;
-				frame.selectedPlanet=p;
+			int dx = Mainfile.cvt(p.x, true) - tmpx;
+			int dy = Mainfile.cvt(p.y, false) - tmpy;
+			if(Math.sqrt(dx*dx+dy*dy) < p.diam) {
+				frame.selected = true;
+				frame.selectedPlanet = p;
 				return;
 			}
 		}
-    	frame.selected=false;
-    }
+    	frame.selected = false;
+	}
+	
 
     @Override
     /*  */
@@ -47,11 +53,11 @@ public class Mouse implements MouseMotionListener, MouseListener,MouseWheelListe
         frame.curx = gotx; // , 
         frame.cury = goty; // , 
         Clicking = true;
-        /* , , , ,  */
-        if(!frame.moveS){
+		// Create new planet only not moving mode
+		if (!frame.moveS){
             begx = Mainfile.recvt(gotx,true); // 
             begy = Mainfile.recvt(goty,false); // 
-            frame.vplanet = new Planet(Mainfile.DEFAULT_M, begx, begy, 0, 0,true,frame.STILL);
+            frame.vplanet = new Planet(Mainfile.DEFAULT_M, begx, begy, 0, 0, true, frame.STILL);
         }
     }
 
@@ -60,14 +66,14 @@ public class Mouse implements MouseMotionListener, MouseListener,MouseWheelListe
     public void mouseReleased(MouseEvent e) {
         int finsX = e.getX();
         int finsY = e.getY();
-        double finx = Mainfile.recvt(finsX,true);
-        double finy = Mainfile.recvt(finsY,false);
-        if(frame.moveS){
-            frame.saveMov=true;
+        double finx = Mainfile.recvt(finsX, true);
+        double finy = Mainfile.recvt(finsY, false);
+        if (frame.moveS){
+            frame.saveMov = true;
         }else{
             double vx_ = (finx - begx) / 20000;
             double vy_ = (finy - begy) / 20000;
-            if(frame.STILL) {
+            if (frame.STILL) {
             	vx_=0;
             	vy_=0;
             }
@@ -89,18 +95,19 @@ public class Mouse implements MouseMotionListener, MouseListener,MouseWheelListe
     @Override
     /* ,  */
     public void mouseDragged(MouseEvent e) {
+		// Fresh current cursor position if mouse do not release
+		// Draw drag line for each frame
         if (Clicking) {
-            frame.curx = e.getX(); // , 
+            frame.curx = e.getX();
             frame.cury = e.getY();
         }
     }
     
     
     public void mouseWheelMoved(MouseWheelEvent e) {
-    	int tmpRo=e.getWheelRotation();
-  		Mainfile.zoom*=Math.pow(zoommult, tmpRo);
-   		frame.zoomed=true;
-
+    	int tmpRo = e.getWheelRotation();
+  		Mainfile.zoom *= Math.pow(zoommult, tmpRo);
+   		frame.zoomed = true;
     }
 
     @Override

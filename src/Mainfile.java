@@ -13,24 +13,31 @@ public class Mainfile extends Frame {
 	Graphics2D bgBG, planetBG, traceBG, informBG;
 	Planet tmpplanet;
 	ArrayList<Planet> planets;
-	Planet vplanet;
+	Planet vplanet, selectedPlanet;
+
 	Mouse m;
 	JPanel menu;
 	JTextField enterFileName;
 	JButton cltrbt, clbt, Huge, Mid, Tiny, Show, Move, Pause, Start, SaveLoad, Delete, Ret, Model, Model1, Model2,
 			Model3;
 	JCheckBox Still;
+
 	static public int movX = 0, movY = 0, clickX = 0, clickY = 0;
 	static public double zoom = 1.0;
 	static public double DEFAULT_M = 3e13;
-	static int time = 0;
-	public Planet selectedPlanet;
-	public boolean showT = false, moveS = true, saveMov = false, STILL = false, zoomed = false, selected = false,planetadded=false;
-	public int menuLevel = 0;
-	int curx, cury;
-	static int bgwidth, bgheight;
-	int partheight = 50;
-	boolean repaintP = true, needRedrawTrace = false;
+	int menuLevel = 0;
+	int curx, cury;					// Current mouse cursor's position
+	static int bgwidth, bgheight, partheight = 50;
+
+	boolean showT = false;			// Should traces be shown?
+	boolean moveS = true;			// Mouse is moving the window?
+	boolean saveMov = false;
+	boolean STILL = false;
+	boolean zoomed = false;			// Window is zoomed?
+	boolean selected = false;		// selected a planet in pause state?
+	boolean planetadded=false;
+	boolean repaintP = true;		// Need repaint all layers?
+	boolean needRedrawTrace = false;
 	static boolean started = false;
 
 	void setStill() {
@@ -365,6 +372,8 @@ public class Mainfile extends Frame {
 		setVisible(true);
 	}
 
+	// Clear traces of all planets
+	// Remove invisible planets
 	public void ClearTrace() {
 		traceBG.clearRect(0, 0, bgwidth, bgheight);
 		for (int i = 0; i < planets.size(); i++) {
@@ -386,18 +395,18 @@ public class Mainfile extends Frame {
 	/*  cvt2  */
 	public static int cvt(double x, boolean ifX) {
 		double red = x / (100);
-		if (ifX) {
-			return (int) ((red + movX) * zoom) + clickX + bgwidth / 2;
-		}
-		return (int) ((red + movY) * zoom) + clickY + bgheight / 2;
+		if (ifX) 
+			return (int) ((red+movX) * zoom) + clickX + bgwidth / 2;
+		else
+			return (int) ((red+movY) * zoom) + clickY + bgheight / 2;
 	}
 
 	/*  cvt2  */
 	public static double recvt(int n, boolean ifX) {
-		if (ifX) {
-			return (double) ((n - clickX - bgwidth / 2) / zoom - movX) * 100;
-		}
-		return (double) ((n - clickY - bgheight / 2) / zoom - movY) * 100;
+		if (ifX)
+			return (double) ((n-clickX-bgwidth / 2) / zoom-movX) * 100;
+		else 
+			return (double) ((n-clickY-bgheight / 2) / zoom-movY) * 100;
 	}
 
 	/*  */
@@ -435,7 +444,7 @@ public class Mainfile extends Frame {
 				}
 				b.m += a.m;
 				b.setColorAndDiam(false);
-				a.visible = false;
+				a.visible = false;		// Set invisible first, removed later
 				return true;
 			} else {
 				a.vx = tmpvx;
@@ -449,13 +458,12 @@ public class Mainfile extends Frame {
 				}
 				a.m += b.m;
 				a.setColorAndDiam(false);
-				b.visible = false;
+				b.visible = false;		// Set invisible first, removed later
 				return true;
 			}
 		}
-		if (dist < Planet.maymergezone) {
+		if (dist < Planet.maymergezone)
 			a.maymerge = true;
-		}
 		return false;
 	}
 
@@ -473,31 +481,30 @@ public class Mainfile extends Frame {
 			clickX = 0;
 			clickY = 0;
 			saveMov = false;
-			for (Planet p : planets) {
+			for (Planet p : planets)
 				p.setLast();
-			}
 			redrawTrace();
 		}
 		if (zoomed) {
-			for (Planet p : planets) {
+			for (Planet p : planets)
 				p.setLast();
-			}
 			redrawTrace();
 			zoomed = false;
 		}
-		if (m.Clicking) {
+
+		if (m.Clicking) {	// moving mode => redraw traces each frame!
 			if (moveS) {
 				clickX = curx - m.gotx;
 				clickY = cury - m.goty;
-				for (Planet p : planets) {
+				for (Planet p : planets)
 					p.setLast();
-				}
 				redrawTrace();
 			} else { // 
 				planetBG.setColor(vplanet.drawColor);
 				planetBG.drawLine(m.gotx, m.goty, curx, cury);
 			}
 		}
+
 		DrawVplanet(planetBG); 
 		for (Planet p : planets)
 			p.DrawPlanet(planetBG);
@@ -505,6 +512,7 @@ public class Mainfile extends Frame {
 			redrawTrace();
 			needRedrawTrace = false;
 		}
+
 		if (menuLevel == 1) {
 			informBG.clearRect(0, 0, bgwidth, bgheight);
 			if (selected) {
@@ -526,20 +534,18 @@ public class Mainfile extends Frame {
 		/*
 		 * (Fx, Fy)
 		 */
-		int planetsnum = planets.size();
-		for (int i = 0; i < planetsnum; i++) {
+		for (int i = 0; i < planets.size(); i++) {
 			Planet p = planets.get(i);
 			if (!(p).visible)
 				continue;
-			for (int j = i + 1; j < planetsnum; j++) {
+			for (int j = i + 1; j < planets.size(); j++) {
 				Planet q = planets.get(j);
 				if (!(q.visible)) // 
 					continue;
 				if (!MergeOK(p, q)) //
 					p.AddForce(q);
 			}
-			p.Forced(dt); // (Fx,
-							// Fy)(vx, vy)
+			p.Forced(dt); // (Fx, Fy)(vx, vy)
 		}
 
 		/*
@@ -548,8 +554,7 @@ public class Mainfile extends Frame {
 			if (!p.visible) // 
 				continue;
 			p.Move(dt); // 
-			if (showT) { // ,
-							// (log)
+			if (showT) { // (log)
 				if (p.hasTrace) {
 					traceBG.setColor(p.drawColor);
 					traceBG.drawLine(p.lastX, p.lastY, cvt(p.x, true), cvt(p.y, false));
@@ -566,11 +571,11 @@ public class Mainfile extends Frame {
 	 * 
 	 */
 	public void paint(Graphics g) {
-		paintFG();
+		paintFG();		// Prepare four buffers in memory
 		g.drawImage(bgBF, 0, 0, null); // 
 		g.drawImage(traceBF, 0, 0, null); // 
 		g.drawImage(planetBF, 0, 0, null); // 
-		if (menuLevel == 1) {
+		if (menuLevel == 1) {	// Pause
 			g.drawImage(informBF, 0, 0, null);
 		}
 		if (repaintP) {

@@ -8,40 +8,43 @@ public class Welcome extends Frame{
 	JLabel logo;
 	JPanel p;
 	Dialog d;
-	static volatile boolean started=false;
-	static volatile int menuLevel=0;
-	int welcomeheight=400,welcomewidth=899;
-	int aboutheight=400,aboutwidth=400;
+	static volatile boolean started = false;
+	static volatile int menuLevel = 0;
+	int welcomeheight = 400,welcomewidth = 899;
+	int aboutheight = 400,aboutwidth = 400;
+
 	public void init() {
 		// configure frame
-		started=false;
+		started = false;
 		p = new JPanel(null);
 		Toolkit kit = Toolkit.getDefaultToolkit();              
         Dimension screenSize = kit.getScreenSize();
         this.setSize(welcomewidth,welcomeheight);
         this.setBackground(Color.black);
-		this.setLocation((screenSize.width-welcomewidth)/2,(screenSize.height-welcomeheight)/2);
+		this.setLocation((screenSize.width-welcomewidth)/2, (screenSize.height-welcomeheight)/2);
 		this.setUndecorated(true);
+
 		// configure logo
-		logo=new JLabel();
+		logo = new JLabel();
 		ImageIcon logoimage=new ImageIcon("images/logo.png");
 		logoimage.setImage(logoimage.getImage());
 		logo.setIcon(logoimage);
 		logo.setBounds(0, 0, 899, 202);
 		logo.setLocation(0, 0);
+		
 		// configure dialog
-		d= new Dialog(this,"about this",true);
+		d = new Dialog(this,"about this",true);
 		d.setBounds((screenSize.width-aboutwidth)/2, (screenSize.height-aboutheight)/2,400, 400);
 		d.setLayout(new FlowLayout());
 		d.setUndecorated(true);
 		d.setBackground(Color.black);
-		JLabel lab=new JLabel();
-		ImageIcon introimage=new ImageIcon("images/intro.png");
+		JLabel lab = new JLabel();
+		ImageIcon introimage = new ImageIcon("images/intro.png");
 		introimage.setImage(introimage.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH));
 		lab.setIcon(introimage);
 		lab.setForeground(Color.white);
 		lab.setBounds((screenSize.width-aboutwidth)/2, (screenSize.height-aboutheight)/2,400, 200);		
-		JButton okbut=new JButton();
+		JButton okbut = new JButton();
 		okbut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				d.setVisible(false);
@@ -60,7 +63,7 @@ public class Welcome extends Frame{
 		Start = new JButton("");
 		Start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				Welcome.started=true;
+				Welcome.started = true;
 				setVisible(false);
 			}
 		});
@@ -74,15 +77,15 @@ public class Welcome extends Frame{
 		Load = new JButton("");
 		Load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Welcome.started=true;
-				Welcome.menuLevel=2;
+				Welcome.started = true;
+				Welcome.menuLevel = 2;
 				setVisible(false);
 			}
 		});
 		Load.setBounds(450, 203,  200, 80);
 		Load.setBorderPainted(false);
 		Load.setBackground(Color.black);
-		ImageIcon loadimage=new ImageIcon("images/load_w.png");
+		ImageIcon loadimage = new ImageIcon("images/load_w.png");
 		loadimage.setImage(loadimage.getImage().getScaledInstance(133, 100, Image.SCALE_SMOOTH));
 		Load.setIcon(loadimage);
 		

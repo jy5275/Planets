@@ -30,13 +30,13 @@ public class Planet {
     static double maymergezone = 4000;
     double m, x, y, vx, vy;
     boolean hasTrace = false;
-    boolean keepstill = false;
+    boolean keepstill = false;		// Should not move now...
     int lastX, lastY;
     Force F;
     LinkedList<Point> log;
     Color drawColor;
     int diam;
-    boolean visible, maymerge = false; // 
+    boolean visible, maymerge = false; // Merged => Invisible, Too close => maymerge
 
     Planet(double m_, double x_, double y_, double vx_, double vy_, boolean ifVirtual, boolean keepstill_) {
         keepstill = keepstill_;
@@ -118,7 +118,7 @@ public class Planet {
 
     /* */
     void DrawPlanet(Graphics g) {
-        if (visible) {
+        if (visible) {		// Skip those invisible (merged) planets
             g.setColor(drawColor);
             g.fillOval(Mainfile.cvt(x, true) - diam / 2, Mainfile.cvt(y, false) - diam / 2, diam, diam);
         }
@@ -129,18 +129,15 @@ public class Planet {
         return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
     }
 
-    /*
-     * implement mergeok func if merge into p return 1, p merges into itself, return
-     * 2, else return 0;
-     */
+
     void AddForce(Planet p) {
-        double dist = GetDistance(p);
-        double dFx = G * m * p.m * (p.x - x) / Math.pow(dist, 3);
-        double dFy = G * m * p.m * (p.y - y) / Math.pow(dist, 3);
-        F.Fx += dFx;
-        F.Fy += dFy;
-        p.F.Fx-=dFx;
-        p.F.Fy-=dFy;
+		double dist = GetDistance(p);
+		double dFx = G * m * p.m * (p.x - x) / Math.pow(dist, 3);
+		double dFy = G * m * p.m * (p.y - y) / Math.pow(dist, 3);
+		F.Fx += dFx;
+		F.Fy += dFy;
+		p.F.Fx -= dFx;
+		p.F.Fy -= dFy;
     }
 
 }

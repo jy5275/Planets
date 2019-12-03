@@ -34,14 +34,13 @@ class ShowTrace implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (frame.showT) {
+        if (frame.showT) {	// Disable traces!
             frame.showT = false;
             frame.ClearTrace();
-        } else{
+        } else{				// Enable traces!
             frame.showT = true;
-            for(Planet p:frame.planets){
+            for (Planet p:frame.planets)
                 p.AddTrace();
-            }
         }
     }
 }
@@ -63,16 +62,16 @@ class changeMenuAction implements ActionListener{
 	int level;
 	public changeMenuAction(Mainfile f,int a) {
 		frame = f;
-		level=a;
+		level = a;
 	}
 	public void actionPerformed(ActionEvent e) {
-		frame.menuLevel=level;
-		frame.selected=false;
+		frame.menuLevel = level;
+		frame.selected = false;
 		switch(level) {
-		case 0:frame.addMainMenu();break;
-		case 1:frame.addSecMenu();break;
-		case 2:frame.addLoadMenu();break;
-		case 3:frame.addModelMenu();break;
+		case 0:	frame.addMainMenu();	break;
+		case 1:	frame.addSecMenu();		break;
+		case 2:	frame.addLoadMenu();	break;
+		case 3:	frame.addModelMenu();	break;
 		}
 	}
 }
@@ -80,13 +79,13 @@ class changeMenuAction implements ActionListener{
 class deletePlanet implements ActionListener{
 	Mainfile frame;
 	public deletePlanet(Mainfile f) {
-		frame=f;
+		frame = f;
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(frame.selected) {
 			frame.planets.remove(frame.selectedPlanet);
-			frame.selected=false;
-			frame.needRedrawTrace=true;
+			frame.selected = false;
+			frame.needRedrawTrace = true;
 		}
 	}
 }
